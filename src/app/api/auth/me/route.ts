@@ -1,0 +1,21 @@
+import User from "@/src/lib/module/user";
+import authMiddleware, { IAuthorizedRequst } from "@/src/middleware/auth";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(req: NextRequest) {
+    try {
+        const res = authMiddleware(req);
+        if (res.status !== 200) {
+            return res;
+        }
+
+        const user = await User.findById((req as IAuthorizedRequst).user.id).select('-password');
+        if (!user) {
+            return NextResponse.json({ code: 400, message: 'User Not Found' }, { status: 400 });
+        }
+
+        return NextResponse.json({ user: { ...user.toObject(), _id: user._id.toString() } }, { status: 200 })
+    } catch (error) {
+        return NextResponse.json({ code: 0, message: '', data: error }, { status: 400 });
+    }
+}
