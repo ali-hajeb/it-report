@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export interface INewAnthena {
+export interface INewAntenna {
     name: string;
     type: string;
     model: string;
@@ -25,11 +25,11 @@ export interface INewAnthena {
     maintenance: string | Schema.Types.ObjectId;
 };
 
-export default interface IAthena extends INewAnthena {
+export default interface IAtenna extends INewAntenna {
     _id: string;
 };
 
-export interface INewAnthenaLink {
+export interface INewAntennaLink {
     source: string | Schema.Types.ObjectId;
     destination: string | Schema.Types.ObjectId;
     distance: number;
@@ -42,6 +42,6 @@ export interface INewAnthenaLink {
     notes: string;
 };
 
-export interface IAnthenaLink extends INewAnthenaLink {
+export interface IAntennaLink extends INewAntennaLink {
     _id: string;
 }

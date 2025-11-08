@@ -1,7 +1,7 @@
 import mongoose, { model, Schema } from "mongoose";
-import { INewAnthena, INewAnthenaLink } from "./anthena.types";
+import { INewAntenna, INewAntennaLink } from "./antenna.types";
 
-const anthenaSchema = new Schema<INewAnthena>({
+const antennaSchema = new Schema<INewAntenna>({
     name: { type: String, },
     type: { type: String, },
     model: { type: String, },
@@ -29,17 +29,17 @@ const anthenaSchema = new Schema<INewAnthena>({
     }
 });
 
-const Anthena = (mongoose.models && mongoose.models.Anthena) || model('Anthenas', anthenaSchema);
+const Antenna = (mongoose.models && mongoose.models.Antenna) || model('Antennas', antennaSchema);
 
-export default Anthena;
+export default Antenna;
 
-const anthenaLinkSchema = new Schema<INewAnthenaLink>({
+const antennaLinkSchema = new Schema<INewAntennaLink>({
     source: {
-        ref: 'Anthenas',
+        ref: 'Antennas',
         type: Schema.Types.ObjectId,
     },
     destination: {
-        ref: 'Anthenas',
+        ref: 'Antennas',
         type: Schema.Types.ObjectId,
     },
     bandwidth: {
@@ -72,8 +72,8 @@ const anthenaLinkSchema = new Schema<INewAnthenaLink>({
     }
 });
 
-const AnthenaLink = (mongoose.models && mongoose.models.AnthenaLink) || model('AnthenaLinks', anthenaLinkSchema);
+const AntennaLink = (mongoose.models && mongoose.models.AntennaLink) || model('AntennaLinks', antennaLinkSchema);
 
 export {
-    AnthenaLink
+    AntennaLink
 };

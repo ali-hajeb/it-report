@@ -1,4 +1,4 @@
-export type DeviceType = 'anthena' | 'router' | 'server' | 'switch';
+export type DeviceType = 'antenna' | 'router' | 'server' | 'switch';
 
 export interface INewMaintenanceReport {
     device: string;
