@@ -11,7 +11,7 @@ export interface INewAntenna {
     height: number;
     angle: string;
     azimuth: number;
-    connectedLink: string;
+    connectedLink: string | Schema.Types.ObjectId | null;
     linkType: string;
     relatedEquipment: string;
     ip: string;
@@ -22,7 +22,8 @@ export interface INewAntenna {
     support: string;
     status: string;
     notes: string;
-    maintenance: string | Schema.Types.ObjectId;
+    location: string | Schema.Types.ObjectId;
+    maintenance: string[] | Schema.Types.ObjectId[];
 };
 
 export default interface IAtenna extends INewAntenna {
