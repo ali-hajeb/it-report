@@ -1,7 +1,7 @@
-import type IAntenna from './antenna.types.js';
-import type { INewAntenna, IAntennaLink, INewAntennaLink } from './antenna.types.js';
-import * as antennaActions from './actions.js';
-import Antenna, { AntennaLink } from './model.js';
+import type IAntenna from './antenna.types';
+import type { INewAntenna, IAntennaLink, INewAntennaLink } from './antenna.types';
+import * as antennaActions from './actions';
+import Antenna, { AntennaLink } from './model';
 
 export default Antenna;
 export {
