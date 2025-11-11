@@ -17,7 +17,7 @@ export default function MenuList({
     return <Stack gap={'md'}>
         { items.map(item => {
             if (!item.role || (item.role && userContext && item.role.includes(userContext.role))) {
-                return <MenuItem key={item.id} active={pathName === item.href} {...item}/>
+                return <MenuItem key={item.id} active={pathName.startsWith(item.href)} {...item}/>
             }
         })}
     </Stack>
