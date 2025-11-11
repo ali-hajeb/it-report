@@ -1,5 +1,6 @@
 import type { IAntennaLink, INewAntennaLink } from "@/src/lib/module/antenna";
 import { AntennaLink } from "@/src/lib/module/antenna";
+import { escapeRegex } from "@/src/utils/regex";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -17,10 +18,22 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
     try {
         const searchParams = req.nextUrl.searchParams;
-        const query = Object.fromEntries(searchParams.entries());
+        const { limit = '25', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
 
-        const antennaLinks = await AntennaLink.find(query);
-        return NextResponse.json({ code: 200, message: '', antennaLinks }, { status: 200 });
+        console.log('quey', query, searchParams.entries());
+        const conditions = Object.keys(query).map(queryKey => {
+            const regex = new RegExp(escapeRegex(query[queryKey]), 'i');
+            return { [queryKey]: regex };
+        });
+        console.log('condition', conditions);
+
+
+        const count = await AntennaLink.countDocuments({ $and: conditions });
+        const antennaLinks = await AntennaLink.find({ $and: conditions })
+            .skip(parseInt(skip) * parseInt(limit))
+            .limit(parseInt(limit));
+
+        return NextResponse.json({ code: 200, message: '', antennaLinks, count }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
     }
