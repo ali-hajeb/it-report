@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     try {
         await connectDB();
         const body = await req.json();
-        const { firstName, lastName, username, password } = body;
+        const { firstName, lastName, username, password, location } = body;
 
         const exists = await User.findOne({ username });
         if (exists) {
@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
             lastName,
             username,
             password: await hashPassword(password),
+            location
         });
 
         const token = signToken(user._id.toString(), user.role);
