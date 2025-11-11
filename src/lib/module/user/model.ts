@@ -28,7 +28,7 @@ const userSchema = new Schema<IUserSchema>({
         required: true,
     },
     location: {
-        ref: 'Location',
+        ref: 'Locations',
         type: Schema.Types.ObjectId,
     },
     role: {
@@ -36,25 +36,7 @@ const userSchema = new Schema<IUserSchema>({
         enum: ['ADMIN', 'MANAGER'],
         default: 'ADMIN',
     },
-}
-    // , {
-    //     methods: {
-    //         hashPassword(password) {
-    //             return hashSync(password);
-    //         },
-    //         authenticateUser(password) {
-    //             return compareSync(password, this.password);
-    //         },
-    //         createToken(expiresIn) {
-    //             return jwt.sign({
-    //                 _id: this._id,
-    //                 username: this.username,
-    //                 role: this.role
-    //             }, jwtSec, { expiresIn })
-    //         }
-    //     }
-    // }
-);
+});
 
 const User: Model<IUserSchema> = (mongoose.models && mongoose.models.User) || mongoose.model('User', userSchema);
 
