@@ -14,6 +14,6 @@ const locationSchema = new Schema<INewLocation>({
     },
 });
 
-const Location = (mongoose.models && mongoose.models.Location) || model("Locations", locationSchema);
+const Location = (mongoose.models && mongoose.models.Locations) || model("Locations", locationSchema);
 
 export default Location;
