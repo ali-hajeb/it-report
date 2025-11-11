@@ -12,7 +12,10 @@ const antennaSchema = new Schema<INewAntenna>({
     height: { type: Number, },
     angle: { type: String, },
     azimuth: { type: Number, },
-    connectedLink: { type: String, },
+    connectedLink: {
+        ref: 'AntennaLinks',
+        type: Schema.Types.ObjectId,
+    },
     linkType: { type: String, },
     relatedEquipment: { type: String, },
     ip: { type: String, },
@@ -23,13 +26,17 @@ const antennaSchema = new Schema<INewAntenna>({
     support: { type: String, },
     status: { type: String, }, 
     notes: { type: String, },
-    maintenance: {
+    location: {
+        ref: 'Locations',
+        type: Schema.Types.ObjectId,
+    },
+    maintenance: [{
         ref: 'MaintenanceReports',
         type: Schema.Types.ObjectId,
-    }
+    }]
 });
 
-const Antenna = (mongoose.models && mongoose.models.Antenna) || model('Antennas', antennaSchema);
+const Antenna = (mongoose.models && mongoose.models.Antennas) || model('Antennas', antennaSchema);
 
 export default Antenna;
 
@@ -72,7 +79,7 @@ const antennaLinkSchema = new Schema<INewAntennaLink>({
     }
 });
 
-const AntennaLink = (mongoose.models && mongoose.models.AntennaLink) || model('AntennaLinks', antennaLinkSchema);
+const AntennaLink = (mongoose.models && mongoose.models.AntennaLinks) || model('AntennaLinks', antennaLinkSchema);
 
 export {
     AntennaLink
