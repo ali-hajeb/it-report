@@ -9,7 +9,7 @@ import { Form, useForm } from '@mantine/form';
 import { LocationForm } from './types';
 import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
 import { Button, Stack } from '@mantine/core';
-import { renderFormFromSchema } from '@/src/Components/TableView/utils';
+import { renderFormFromSchema } from '@/src/Components/TableView';
 import { useRouter } from 'next/navigation';
 import { MAX_ROWS } from '@/src/Constants';
 import { getCustomFieldValue } from './utils';
@@ -169,7 +169,7 @@ export default function Location() {
             close={close}
             editMode={editMode}
             opened={opened}
-            title='مراکز'
+            title='مرکز'
             closeHandler={modalOnCloseHandler}
         >
             <Form form={locationForm} onSubmit={formOnSubmit}>
