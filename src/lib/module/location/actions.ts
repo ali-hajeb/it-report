@@ -14,7 +14,7 @@ export async function deleteLocation(id: string) {
     return axiosInstance.delete(`/location/${id}`);
 }
 
-export async function getLocations(params: Record<string, string>) {
+export async function getLocations(params?: Record<string, string>) {
     return axiosInstance.get('/location', { params })
 }
 
