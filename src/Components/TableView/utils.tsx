@@ -1,10 +1,11 @@
 import { NumberInput, Select, TextInput } from "@mantine/core";
 import { ITableViewField } from "./types";
 import { UseFormReturnType } from "@mantine/form";
+import React from "react";
 
-export function renderFormFromSchema<T extends object>(
+export function renderFormFromSchema<T extends object, U extends object>(
   schema: ITableViewField<T>[],
-  form: UseFormReturnType<T>  
+  form: UseFormReturnType<U>  
 ) {
   return schema.map((item) => {
     const fieldKey = item.key as string;
@@ -12,7 +13,7 @@ export function renderFormFromSchema<T extends object>(
     const key = fieldKey;
 
     if (item.type === 'none') {
-      return <></>;
+      return <React.Fragment key={key}></React.Fragment>;
     }
 
     if (item.type === 'number') {
@@ -32,7 +33,7 @@ export function renderFormFromSchema<T extends object>(
           key={key}
           label={item.title}
           placeholder={item.alt}
-          options={item.options ?? []}
+          data={item.options ?? []}
           {...form.getInputProps(fieldKey)}
         />
       );
