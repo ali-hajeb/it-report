@@ -1,7 +1,11 @@
+import { Schema } from "mongoose";
+
 export type DeviceType = 'antenna' | 'router' | 'server' | 'switch';
 
 export interface INewMaintenanceReport {
-    device: string;
+    device: string | Schema.Types.ObjectId;
+    deviceName: string;
+    location: string | Schema.Types.ObjectId;
     deviceType: DeviceType;
     operation: string;
     operator: string;
@@ -9,6 +13,6 @@ export interface INewMaintenanceReport {
     replacements: string;
 };
 
-export interface IMaintenanceReport extends INewMaintenanceReport {
+export default interface IMaintenanceReport extends INewMaintenanceReport {
     _id: string;
 }
