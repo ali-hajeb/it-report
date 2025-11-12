@@ -49,7 +49,7 @@ export async function PATCH(req: NextRequest) {
         const body = await req.json();
         const { _id, ...updatedData } = body as IAntenna;
 
-        const antenna = await Antenna.findByIdAndUpdate(_id, updatedData, { new: true });
+        const antenna = await Antenna.findByIdAndUpdate(_id, updatedData, { new: true }).populate(['location']);
         return NextResponse.json({ code: 200, message: '', antenna }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
