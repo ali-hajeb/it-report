@@ -1,4 +1,15 @@
-export const antennaSchemaFields = [
+import { ITableViewField } from "@/src/Components/TableView/types";
+import { IAntennaPopulated } from "@/src/lib/module/common/types";
+
+export const filters = {
+    name: 'براساس نام آنتن',
+    model: 'براساس مدل',
+    ip: 'براساس ip',
+    support: 'براساس مسئول پشتیبانی',
+    status: 'براساس وضعیت'
+}
+
+export const antennaSchemaFields: ITableViewField<IAntennaPopulated>[] = [
     {
         key: "name",
         type: 'text',
@@ -8,7 +19,11 @@ export const antennaSchemaFields = [
     {
         key: "status",
         type: 'select',
-        values: ['Active', 'Off', 'Reserved'],
+        options: [
+            { value: 'Active', label: 'روشن' },
+            { value: 'Off', label: 'خاموش' },
+            { value: 'Reserved', label: 'رزرو' },
+        ],
         title: "وضعیت فعلی",
         alt: "وضعیت فعلی: فعال، خاموش یا رزرو"
     },
@@ -43,14 +58,6 @@ export const antennaSchemaFields = [
         alt: "بهره آنتن در واحد dBi"
     },
     {
-        key: "location",
-        type: 'select',
-        values: [],
-        role: 'manager',
-        title: "مرکز",
-        alt: "نام مرکز"
-    },
-    {
         key: "installedLocation",
         type: 'text',
         title: "مکان نصب",
@@ -77,14 +84,17 @@ export const antennaSchemaFields = [
     {
         key: "connectedLink",
         type: 'select',
-        values: [],
+        options: [],
         title: "لینک متصل",
         alt: "آنتن مقصد یا دستگاه متصل"
     },
     {
         key: "linkType",
         type: 'select',
-        values: ['Point-to-Point (P2P)', 'Point-to-Multipoint (P2MP)'],
+        options: [
+            { value: 'P2P', label: 'Point-to-Point (P2P)'},
+            { value: 'P2MP', label: 'Point-to-Multipoint (P2MP)' },
+        ],
         title: "نوع لینک",
         alt: "نوع ارتباط: نقطه به نقطه یا چند نقطه"
     },
@@ -109,7 +119,10 @@ export const antennaSchemaFields = [
     {
         key: "connectionType",
         type: 'select',
-        values: ['LAN', 'Wireless'],
+        options: [
+            { value: 'LAN', label: 'LAN' },
+            { value: 'Wireless', label: 'Wireless' },
+        ],
         title: "نوع اتصال",
         alt: "نوع اتصال شبکه (LAN یا Wireless)"
     },
