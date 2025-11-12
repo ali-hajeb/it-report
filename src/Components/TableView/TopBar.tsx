@@ -2,7 +2,7 @@ import { Button, Flex } from "@mantine/core";
 import { IconPlus, IconPrinter } from "@tabler/icons-react";
 import SearchBox from "../SearchBox";
 
-export interface TopBarProps {
+export interface TableViewTopBarProps {
     reportHandler: () => void;
     newItem: () => void;
     title: string;
@@ -16,7 +16,7 @@ export default function TopBar({
     title,
     filters,
     searchHandler
-}: TopBarProps) {
+}: TableViewTopBarProps) {
     const btnNewOnClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         newItem();
