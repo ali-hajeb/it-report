@@ -1,3 +1,6 @@
+import { UserRole } from "@/src/lib/module/user";
+
+
 export interface SelectOption {
   value: string;
   label: string;
@@ -20,6 +23,8 @@ export interface ITableViewField<T extends object> {
   /** Description or helper text */
   alt: string;
 
-  /** Only required when type is 'select' */
-  options?: this['type'] extends 'select' ? SelectOption[] : never;
+    /** Field visibility to different user-levels **/
+    role?: UserRole;
+
+  options?: SelectOption[];
 }
