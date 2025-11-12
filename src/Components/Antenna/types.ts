@@ -22,10 +22,3 @@ export interface AntennaForm {
     notes: string,
 }
 
-export const filters = {
-    name: 'براساس نام آنتن',
-    model: 'براساس مدل',
-    ip: 'براساس ip',
-    support: 'براساس مسئول پشتیبانی',
-    status: 'براساس وضعیت'
-}
