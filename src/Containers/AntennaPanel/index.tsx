@@ -7,16 +7,18 @@ import AntennaList from "@/src/Components/Antenna/AntennaList";
 
 export interface AntennaPannelProps {
     location?: string;
+    title?: string;
 }
 
 export default function AntennaPanel({
-    location
+    location,
+    title
 }: AntennaPannelProps) {
     const [activeTab, setActiveTab] = useState<string | null>('antenna-list');
 
     return (
         <>
-            <Title>آنتن‌ها</Title>
+            {title && <Title>{title}</Title>}
             <Tabs value={activeTab} onChange={setActiveTab}>
                 <Tabs.List>
                     <Tabs.Tab value="antenna-list" leftSection={<IconAntenna size={16} />}>فهرست آنتن‌ها</Tabs.Tab>
