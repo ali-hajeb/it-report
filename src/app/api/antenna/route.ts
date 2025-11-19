@@ -10,6 +10,7 @@ export async function POST(req: NextRequest) {
         const data = body as INewAntenna;
 
         const antenna = await Antenna.create(data);
+        await antenna.populate(['location']);
         return NextResponse.json({ code: 200, message: '', antenna }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
