@@ -3,7 +3,7 @@ import connectDB from '@/src/lib/mongoDB'
 import { hashPassword, setResponseAuthCookie, signToken } from '@/src/lib/auth';
 import User from '@/src/lib/module/user';
 
-export async function POST(req: NextRequest) {
+export async function PUT(req: NextRequest) {
     try {
         await connectDB();
         const body = await req.json();
@@ -22,8 +22,10 @@ export async function POST(req: NextRequest) {
             location
         });
 
+        await user.populate(['location']);
+
         const token = signToken(user._id.toString(), user.role);
-        const response = NextResponse.json({ code: 200, message: 'Authentication Successful', user }, { status: 200, headers: { "Cache-Control": "no-store"}});
+        const response = NextResponse.json({ code: 200, message: 'Authentication Successful', user }, { status: 200 });
         setResponseAuthCookie(response, token);
         return response;
     } catch (error) {
