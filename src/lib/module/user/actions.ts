@@ -15,15 +15,15 @@ export async function logout() {
 }
 
 export async function createUser(data: IUserSchema) {
-    return axiosInstance.put('/auth/register', { data });
+    return axiosInstance.put('/auth/register', { ...data });
 }
 
 export async function updateUser({ _id, ...updatedData }: IUser) {
     return axiosInstance.patch('/auth', {_id, ...updatedData});
 }
 
-export async function deleteUser(_id: string) {
-    return axiosInstance.delete('/auth', { data: { _id }});
+export async function deleteUser(id: string) {
+    return axiosInstance.delete(`/auth/${id}`);
 }
 
 export async function getUsers(params: Record<string, string>) {

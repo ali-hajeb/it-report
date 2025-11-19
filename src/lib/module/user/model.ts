@@ -1,6 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { IUserSchema } from "./user.types";
 import { passwordReg } from "@/src/utils";
+import bcrypt from "bcryptjs";
 
 const userSchema = new Schema<IUserSchema>({
     firstName: {
