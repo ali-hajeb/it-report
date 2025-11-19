@@ -22,3 +22,17 @@ export interface AntennaForm {
     notes: string,
 }
 
+export interface AntennaLinkForm {
+    name: string;
+    source: string;
+    destination: string;
+    distance: string;
+    signalIntensity: string;
+    linkQuality: string;
+    linkType: string;
+    bandwidth: string;
+    encryption: string;
+    status: string;
+    notes: string;
+    location: string;
+}

@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
         const data = body as INewAntennaLink;
 
         const antennaLink = await AntennaLink.create(data);
+        await antennaLink.populate(['location', 'source', 'destination']);
         return NextResponse.json({ code: 200, message: '', antennaLink }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
@@ -22,6 +23,9 @@ export async function GET(req: NextRequest) {
 
         console.log('quey', query, searchParams.entries());
         const conditions = Object.keys(query).map(queryKey => {
+            if (queryKey === 'location') {
+                return { [queryKey]: query[queryKey] }
+            }
             const regex = new RegExp(escapeRegex(query[queryKey]), 'i');
             return { [queryKey]: regex };
         });
@@ -29,9 +33,12 @@ export async function GET(req: NextRequest) {
 
 
         const count = await AntennaLink.countDocuments({ $and: conditions });
+        console.log('check 1');
         const antennaLinks = await AntennaLink.find({ $and: conditions })
             .skip(parseInt(skip) * parseInt(limit))
-            .limit(parseInt(limit));
+            .limit(parseInt(limit))
+            .populate(['location', 'source', 'destination']);
+        console.log('check 2', { code: 200, message: '', antennaLinks, count }, { status: 200 });
 
         return NextResponse.json({ code: 200, message: '', antennaLinks, count }, { status: 200 });
     } catch (error) {

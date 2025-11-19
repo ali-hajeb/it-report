@@ -1,5 +1,5 @@
 import { ITableViewField } from "@/src/Components/TableView/types";
-import { IAntennaPopulated } from "@/src/lib/module/common/types";
+import { IAntennaLinkPopulated, IAntennaPopulated } from "@/src/lib/module/common/types";
 
 export const filters = {
     name: 'براساس نام آنتن',
@@ -7,6 +7,10 @@ export const filters = {
     ip: 'براساس ip',
     support: 'براساس مسئول پشتیبانی',
     status: 'براساس وضعیت'
+}
+
+export const antennaLinkFilters = {
+    name: 'براساس نام لینک',
 }
 
 export const antennaSchemaFields: ITableViewField<IAntennaPopulated>[] = [
@@ -81,13 +85,13 @@ export const antennaSchemaFields: ITableViewField<IAntennaPopulated>[] = [
         title: "جهت آنتن (Azimuth)",
         alt: "زاویه جهت‌دهی نسبت به شمال جغرافیایی"
     },
-    {
-        key: "connectedLink",
-        type: 'select',
-        options: [],
-        title: "لینک متصل",
-        alt: "آنتن مقصد یا دستگاه متصل"
-    },
+    // {
+    //     key: "connectedLink",
+    //     type: 'select',
+    //     options: [],
+    //     title: "لینک متصل",
+    //     alt: "آنتن مقصد یا دستگاه متصل"
+    // },
     {
         key: "linkType",
         type: 'select',
@@ -150,4 +154,73 @@ export const antennaSchemaFields: ITableViewField<IAntennaPopulated>[] = [
         title: "توضیحات",
         alt: "یادداشت‌ها یا موارد خاص درباره نصب یا عملکرد"
     }
+];
+
+export const antennaLinkSchemaFields: ITableViewField<IAntennaLinkPopulated>[] = [
+    {
+        key: 'name',
+        type: 'text',
+        title: 'نام لینک',
+        alt: 'نام اختصاصی لینک'
+    },
+    {
+        key: 'source',
+        type: 'none',
+        title: 'آنتن مبدأ',
+        alt: ''
+    },
+    {
+        key: 'destination',
+        type: 'none',
+        title: 'آنتن مقصد',
+        alt: ''
+    },
+    {
+        key: 'distance',
+        type: 'text',
+        title: 'فاصله (km)',
+        alt: 'فاصله میان دو آنتن'
+    },
+    {
+        key: 'signalIntensity',
+        type: 'text',
+        title: 'قدرت سیگنال (dBm)',
+        alt: 'میزان قدرت سیگنال'
+    },
+    {
+        key: 'linkQuality',
+        type: 'text',
+        title: 'کیفیت لینک (%)',
+        alt: 'میزان کیفیت لینک'
+    },
+    {
+        key: 'linkType',
+        type: 'text',
+        title: 'نوع لینک (GHz)',
+        alt: '2.4, 5, 60'
+    },
+    {
+        key: 'bandwidth',
+        type: 'text',
+        title: 'پهنای باند (Mbps)',
+        alt: 'میزان پهنای باند'
+    },
+    {
+        key: 'encryption',
+        type: 'text',
+        title: 'نوع رمزگذاری',
+        alt: 'WEP, WPA, ...'
+    },
+    {
+        key: 'status',
+        type: 'text',
+        title: 'وضعیت فعلی',
+        alt: 'Up, Down'
+    },
+    {
+        key: 'notes',
+        type: 'text',
+        title: 'توضیحات',
+        alt: ''
+    },
 ];
