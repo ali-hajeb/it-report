@@ -1,33 +1,34 @@
-import { antennaActions } from "@/src/lib/module/antenna";
+import { antennaActions, IAntennaLink } from "@/src/lib/module/antenna";
 import { Button, Group, Input, InputWrapper, Select, Stack } from "@mantine/core";
 import { Form, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { IconCalendar, IconCheck, IconExclamationCircle } from "@tabler/icons-react";
-import { useContext, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import { IButtonState } from "@/src/common/type/button.types";
 import { MAX_ROWS } from "@/src/Constants";
 import { AntennaForm } from "./types";
-import { antennaSchemaFields } from "./constants";
-import { filters } from "./constants";
+import { antennaSchemaFields, filters } from "./constants";
 import { getCustomFieldValue } from "./utils";
 import { IAntennaPopulated } from "@/src/lib/module/common/types";
 import UserContext from "@/src/Contexts/UserContext";
-import TableView from "@/src/Components/TableView";
-import { SelectOption } from "../TableView/types";
-import { renderFormFromSchema } from "../TableView/utils";
+import TableView, { renderFormFromSchema, SelectOption } from "@/src/Components/TableView";
 import { ILocation, locationActions } from "@/src/lib/module/location";
 
 const LIMIT = MAX_ROWS;
 
 export interface AntennaListProps {
     location?: string;
+    antennas: IAntennaPopulated[];
+    setAntennas: Dispatch<SetStateAction<IAntennaPopulated[]>>;
 }
 
 export default function AntennaList({
-    location
+    location,
+    antennas,
+    setAntennas
 }: AntennaListProps) {
     const userContext = useContext(UserContext);
     const [date, setDate] = useState<string>(new Date().toISOString());
@@ -35,10 +36,11 @@ export default function AntennaList({
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
+    const [viewMode, setViewMode] = useState<IAntennaPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
-    const [antennas, setAntennas] = useState<IAntennaPopulated[]>([]);
     const [isListLoading, setListLoading] = useState(true);
     const [locationOptions, setLocationOptions] = useState<SelectOption[]>([]);
+    const [linkOptions, setLinkOptions] = useState<SelectOption[]>([]);
 
     const [opened, {open, close}] = useDisclosure(false);
 
@@ -95,11 +97,25 @@ export default function AntennaList({
                     console.error(error);
                 })
         }
-    }, [])
+    }, []);
+
+
+    useEffect(() => {
+            antennaActions.getAntennaLinks({ location: userContext?.location._id })
+                .then((res) => {
+                    const antennaLinks = res.data.antennaLinks as IAntennaLink[];
+                    const linkOptions = antennaLinks.map(l => ({value: l._id, label: l.name}));
+                    setLinkOptions(linkOptions);
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+    }, []);
 
     const modalOnCloseHandler = () => {
         antennaForm.reset();
         setEditMode(null);
+        setViewMode(null);
         close();
     }
 
@@ -129,6 +145,14 @@ export default function AntennaList({
             });
     }
 
+    const viewMaintenanceReportHandler = (id: string) => {
+        const antenna = antennas.find(r => r._id === id);
+        if (antenna) {
+            setViewMode(antenna);
+            open();
+        }
+    }
+
     const editAntennaHandler = (id: string) => {
             console.log(id);
             const item = antennas.find(a => a._id === id);
@@ -145,6 +169,7 @@ export default function AntennaList({
                     location: data.location._id,
                     connectedLink: data.connectedLink?.toString()
                 });
+                setDate(installationDate);
                 setEditMode(id);
                 open();
             }
@@ -233,6 +258,9 @@ export default function AntennaList({
 
     return <TableView>
         <TableView.Modal 
+            customFieldValue={getCustomFieldValue}
+            fields={antennaSchemaFields}
+            viewMode={viewMode}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
@@ -286,6 +314,7 @@ export default function AntennaList({
             title="آنتن" />
         <TableView.TableContainer
             customFieldValue={getCustomFieldValue}
+            viewItemHandler={viewMaintenanceReportHandler}
             data={antennas}
             fields={antennaSchemaFields}
             isLoading={isListLoading}
