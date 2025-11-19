@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import { INewMaintenanceReport } from "./maintenanceReport.types";
 
 const MaintenanceReportSchema = new Schema<INewMaintenanceReport>({
@@ -10,8 +10,8 @@ const MaintenanceReportSchema = new Schema<INewMaintenanceReport>({
         type: String,
     },
     location: {
+        ref: 'Locations',
         type: Schema.Types.ObjectId,
-        ref: 'ref',
     },
     deviceType: {
         type: String,
@@ -28,6 +28,10 @@ const MaintenanceReportSchema = new Schema<INewMaintenanceReport>({
     replacements: {
         type: String,
     },
+    date: {
+        type: String,
+        default: new Date().toISOString()
+    }
 });
 
 const MaintenanceReport = (mongoose.models && mongoose.models.MaintenanceReports) || model('MaintenanceReports', MaintenanceReportSchema);
