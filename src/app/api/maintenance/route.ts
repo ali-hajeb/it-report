@@ -43,6 +43,7 @@ export async function PATCH(req: NextRequest) {
     try {
         const body = await req.json();
         const { _id, ...updatedData } = body as IMaintenanceReport;
+        console.log(updatedData.location);
 
         const maintenanceReport = await MaintenanceReport.findByIdAndUpdate(_id, updatedData, { new: true });
         return NextResponse.json({ code: 200, message: '', maintenanceReport }, { status: 200 });

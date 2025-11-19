@@ -30,7 +30,7 @@ export async function GET(req: NextRequest, ctx: RouteContext<'/api/maintenance/
                 break;
             };
         }
-        return NextResponse.json({ code: 200, message: '', maintenance: {...maintenance, device } }, { status: 200 });
+        return NextResponse.json({ code: 200, message: '', maintenanceReport: {...maintenance, device } }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
     }
@@ -40,8 +40,8 @@ export async function DELETE(req: NextRequest, ctx: RouteContext<'/api/maintenan
     try {
         const { id } = await ctx.params;
 
-        const maintenance = await MaintenanceReport.findByIdAndDelete(id);
-        return NextResponse.json({ code: 200, message: '', maintenance }, { status: 200 });
+        const maintenanceReport = await MaintenanceReport.findByIdAndDelete(id);
+        return NextResponse.json({ code: 200, message: '', maintenanceReport }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
     }
