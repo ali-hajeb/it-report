@@ -1,8 +1,182 @@
 'use client'
 import { useContext } from "react";
-import { Card, Flex, Grid, Stack, Text, Title, useMantineTheme } from "@mantine/core";
+import { Card, DefaultMantineColor, Flex, Grid, Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
 import UserContext from "@/src/Contexts/UserContext";
 import { IconAntenna, IconBuildingHospital, IconRouter, IconServer, IconServer2 } from "@tabler/icons-react";
+import ReportCard from "@/src/Components/ReportCard";
+import { UserRole } from "@/src/lib/module/user";
+// import { COLORS } from "@/src/Constants/colors";
+
+interface IReportCard {
+    color: DefaultMantineColor;
+    role: UserRole;
+    name: string;
+    desc?: string;
+    icon?: React.ReactElement;
+    info: {
+        title: string | React.ReactElement;
+        content: string | React.ReactElement;
+        type: 'string' | 'jsx';
+    }[]
+}
+const cards: IReportCard[] = [
+    {
+        name: 'بیمارستان شهیدزاده',
+        color: 'grape',
+        role: 'MANAGER',
+        info: [
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconAntenna size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>آنتن‌ها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconServer size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>سرورها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconRouter size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>روترها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconServer2 size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>سوییچ‌ها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+        ]
+    },
+    {
+        name: 'بیمارستان ولیعصر',
+        color: 'orange',
+        role: 'MANAGER',
+        info: [
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconAntenna size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>آنتن‌ها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconServer size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>سرورها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconRouter size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>روترها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconServer2 size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>سوییچ‌ها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+        ]
+    },
+    {
+        name: 'بیمارستان فریده اشرفی',
+        color: 'lime',
+        role: 'MANAGER',
+        info: [
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconAntenna size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>آنتن‌ها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconServer size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>سرورها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconRouter size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>روترها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconServer2 size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>سوییچ‌ها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+        ]
+    },
+    {
+        name: 'مرکز بهداشت تشان',
+        color: 'red',
+        role: 'MANAGER',
+        info: [
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconAntenna size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>آنتن‌ها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconServer size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>سرورها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconRouter size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>روترها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+            {
+                title: <Group gap={"xs"} align="center">
+                    <IconServer2 size={16} color="white"/>
+                    <Text c={'white'} size="md" fw={'bold'}>سوییچ‌ها</Text>
+                </Group>,
+                content:<Text c={'white'} size="xs">۳ عدد</Text>, 
+                type: 'jsx',
+            },
+        ]
+    },
+];
 
 export default function DashboardPage() {
     const theme = useMantineTheme();
@@ -12,93 +186,12 @@ export default function DashboardPage() {
         <Text size="xs" c={'gray'}>{userContext?.location?.name}</Text>
         <Grid mt={'lg'}>
             {
+                cards.map((c, i) => 
                 userContext?.role === 'MANAGER' && 
-                    <Grid.Col span={{base: 6, md: 4, lg: 3, xl: 2}}>
-                        <Card 
-                            shadow="md"
-                            padding={'xs'} 
-                            radius={'md'}
-                            style={{background: `linear-gradient(60deg, ${theme.colors.cyan[6]} 0%, ${theme.colors.cyan[7]} 100%)` }}>
-                            <Flex gap={'lg'} align={'center'}>
-                                <Flex align={'center'} justify={'center'} bg={'cyan.1'} w={64} h={64} bdrs={'50%'}>
-                                    <IconBuildingHospital size={48} color={theme.colors.cyan[6]}/>
-                                </Flex>
-                                <Stack gap={0}>
-                                    <Text c={'white'} size="xl" fw={'bold'}>مراکز درمانی</Text>
-                                    <Text c={'white'} size="md">۵ مرکز</Text>
-                                </Stack>
-                            </Flex>
-                        </Card>
-                    </Grid.Col>
+                    <Grid.Col key={i} span={{base: 12, md: 12, lg: 6, xl: 6}}>
+                            <ReportCard name={c.name} color={theme.colors[c.color]} info={c.info} />
+                    </Grid.Col>)
             }
-            <Grid.Col span={{base: 6, md: 4, lg: 3, xl: 2}}>
-                <Card 
-                    shadow="md"
-                    padding={'xs'} 
-                    radius={'md'}
-                    style={{background: `linear-gradient(60deg, ${theme.colors.lime[6]} 0%, ${theme.colors.lime[7]} 100%)` }}>
-                    <Flex gap={'lg'} align={'center'}>
-                        <Flex align={'center'} justify={'center'} bg={'lime.1'} w={64} h={64} bdrs={'50%'}>
-                            <IconAntenna size={48} color={theme.colors.lime[6]}/>
-                        </Flex>
-                        <Stack gap={0}>
-                            <Text c={'white'} size="xl" fw={'bold'}>آنتن‌ها</Text>
-                            <Text c={'white'} size="md">۵ عدد</Text>
-                        </Stack>
-                    </Flex>
-                </Card>
-            </Grid.Col>
-            <Grid.Col span={{base: 6, md: 4, lg: 3, xl: 2}}>
-                <Card 
-                    shadow="md"
-                    padding={'xs'} 
-                    radius={'md'}
-                    style={{background: `linear-gradient(60deg, ${theme.colors.orange[6]} 0%, ${theme.colors.orange[7]} 100%)` }}>
-                    <Flex gap={'lg'} align={'center'}>
-                        <Flex align={'center'} justify={'center'} bg={'orange.1'} w={64} h={64} bdrs={'50%'}>
-                            <IconServer size={48} color={theme.colors.orange[6]}/>
-                        </Flex>
-                        <Stack gap={0}>
-                            <Text c={'white'} size="xl" fw={'bold'}>سرورها</Text>
-                            <Text c={'white'} size="md">۳ عدد</Text>
-                        </Stack>
-                    </Flex>
-                </Card>
-            </Grid.Col>
-            <Grid.Col span={{base: 6, md: 4, lg: 3, xl: 2}}>
-                <Card 
-                    shadow="md"
-                    padding={'xs'} 
-                    radius={'md'}
-                    style={{background: `linear-gradient(60deg, ${theme.colors.grape[6]} 0%, ${theme.colors.grape[7]} 100%)` }}>
-                    <Flex gap={'lg'} align={'center'}>
-                        <Flex align={'center'} justify={'center'} bg={'grape.1'} w={64} h={64} bdrs={'50%'}>
-                            <IconServer2  size={48} color={theme.colors.grape[6]}/>
-                        </Flex>
-                        <Stack gap={0}>
-                            <Text c={'white'} size="xl" fw={'bold'}>سوییچ‌ها</Text>
-                            <Text c={'white'} size="md">۵ عدد</Text>
-                        </Stack>
-                    </Flex>
-                </Card>
-            </Grid.Col>
-            <Grid.Col span={{base: 6, md: 4, lg: 3, xl: 2}}>
-                <Card 
-                    shadow="lg"
-                    padding={'xs'} 
-                    radius={'md'}
-                    style={{background: `linear-gradient(60deg, ${theme.colors.pink[6]} 0%, ${theme.colors.pink[7]} 100%)` }}>
-                    <Flex gap={'lg'} align={'center'}>
-                        <Flex align={'center'} justify={'center'} bg={'pink.1'} w={64} h={64} bdrs={'50%'}>
-                            <IconRouter  size={48} color={theme.colors.pink[6]}/>
-                        </Flex>
-                        <Stack gap={0}>
-                            <Text c={'white'} size="xl" fw={'bold'}>روترها</Text>
-                            <Text c={'white'} size="md">۵ عدد</Text>
-                        </Stack>
-                    </Flex>
-                </Card>
-            </Grid.Col>
         </Grid>
     </>
 }
