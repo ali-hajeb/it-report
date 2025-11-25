@@ -14,8 +14,7 @@ export interface ITableViewField<T extends object> {
   /** Key from the MongoDB model schema */
   key: keyof T;
 
-  /** Input type: 'text' | 'number' | 'select' */
-  type: 'text' | 'number' | 'select' | 'none';
+  type: 'text' | 'number' | 'select' | 'check' | 'none' | 'tags' | 'password';
 
   /** Label for the field */
   title: string;
@@ -25,6 +24,7 @@ export interface ITableViewField<T extends object> {
 
     /** Field visibility to different user-levels **/
     role?: UserRole;
+    viewCol?: boolean;
 
   options?: SelectOption[];
 }
