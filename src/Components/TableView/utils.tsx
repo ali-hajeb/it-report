@@ -1,4 +1,4 @@
-import { NumberInput, Select, TextInput } from "@mantine/core";
+import { Checkbox, NumberInput, PasswordInput, Select, TagsInput, TextInput } from "@mantine/core";
 import { ITableViewField } from "./types";
 import { UseFormReturnType } from "@mantine/form";
 import React from "react";
@@ -16,9 +16,41 @@ export function renderFormFromSchema<T extends object, U extends object>(
       return <React.Fragment key={key}></React.Fragment>;
     }
 
+    if (item.type === 'tags') {
+      return (
+        <TagsInput
+          key={key}
+          label={item.title}
+          placeholder={item.alt}
+          {...form.getInputProps(fieldKey)}
+        />
+      );
+    }
+
+    if (item.type === 'check') {
+      return (
+        <Checkbox
+          key={key}
+          label={item.title}
+          {...form.getInputProps(fieldKey)}
+        />
+      );
+    }
+
     if (item.type === 'number') {
       return (
         <NumberInput
+          key={key}
+          label={item.title}
+          placeholder={item.alt}
+          {...form.getInputProps(fieldKey)}
+        />
+      );
+    }
+
+    if (item.type === 'password') {
+      return (
+        <PasswordInput
           key={key}
           label={item.title}
           placeholder={item.alt}
