@@ -80,7 +80,7 @@ export default function TableContainer<T extends IBaseModelObject>({
                                 <Table.Th fz={'xs'} ta={'center'}>عملیات</Table.Th>
                         }
                         {
-                            fields.map(item => 
+                            fields.map(item => item.viewCol !== false &&
                                 <Table.Th 
                                     fz={'xs'}
                                     key={item.key.toString()}
@@ -141,7 +141,7 @@ export default function TableContainer<T extends IBaseModelObject>({
                                     </Table.Td>
                             }
                             {
-                                fields.map(field =>  <Table.Td 
+                                fields.map(field => field.viewCol !== false && <Table.Td 
                                     fz={'xs'}
                                     key={field.key.toString()}
                                     ta={'center'}
