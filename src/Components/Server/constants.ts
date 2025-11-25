@@ -31,20 +31,21 @@ export const serverSchemaFields: ITableViewField<IServerPopulated>[] = [
         type: 'text',
         title: 'برند',
         alt: 'برند سرور (HP, Dell, Lenovo, …)',
+        viewCol: false,
     },
     {
         key: 'model',
         type: 'text',
         title: 'مدل',
         alt: 'مدل دقیق سرور',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'serialNumber',
         type: 'text',
         title: 'سریال نامبر',
         alt: 'برای موجودی، گارانتی یا پشتیبانی',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'internalIP',
@@ -79,7 +80,7 @@ export const serverSchemaFields: ITableViewField<IServerPopulated>[] = [
         type: 'text',
         title: 'نقش سرور',
         alt: 'AD, File, Web, Database و …',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'activeServices',
@@ -114,7 +115,7 @@ export const serverSchemaFields: ITableViewField<IServerPopulated>[] = [
         type: 'text',
         title: 'RAID',
         alt: 'نوع آرایه RAID (0,1,5,10 و…)',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'gpu',
@@ -149,7 +150,7 @@ export const serverSchemaFields: ITableViewField<IServerPopulated>[] = [
         type: 'text',
         title: 'نام رک',
         alt: 'نام رک یا کمد سرور',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'hostname',
