@@ -111,6 +111,7 @@ export default function Server({
     const modalOnCloseHandler = () => {
         serverForm.reset();
         setEditMode(null);
+        setViewMode(null);
         close();
     }
 
@@ -335,7 +336,6 @@ export default function Server({
             totalPages={totalPages}
             deleteItemHandler={deleteserverHandler}
             editItemHandler={editserverHandler}
-            scrollContainer={1800}
             maxRows={MAX_ROWS} />
     </TableView>
 }
