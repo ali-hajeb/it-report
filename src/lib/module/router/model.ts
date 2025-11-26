@@ -31,7 +31,8 @@ const routerSchema = new Schema<INewRouter>({
         type: String,
     },
     location: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Locations',
     },
     role: {
         type: String,
@@ -39,9 +40,9 @@ const routerSchema = new Schema<INewRouter>({
     vlans: [{
         type: String,
     }],
-    routingProtocols: [{
+    routingProtocols: {
         type: String,
-    }],
+    },
     natPat: {
         type: String,
         enum: ['Enabled', 'Disabled', 'PAT Only'],
@@ -52,9 +53,9 @@ const routerSchema = new Schema<INewRouter>({
     vpnEnabled: {
         type: Boolean,
     },
-    vpnTypes: [{
+    vpnType: {
         type: String,
-    }],
+    },
     installationDate: {
         type: String,
     },
@@ -70,9 +71,13 @@ const routerSchema = new Schema<INewRouter>({
 });
 
 const routerInterfaceSchema = new Schema<INewRouterInterface>({
-    routerId: {
+    router: {
         type: Schema.Types.ObjectId,
         ref: 'Routers',
+    },
+    location: {
+        type: Schema.Types.ObjectId,
+        ref: 'Locations',
     },
     routerName: {
         type: String,
@@ -98,12 +103,16 @@ const routerInterfaceSchema = new Schema<INewRouterInterface>({
 });
 
 const routerBackupSchema = new Schema<INewRouterBackup>({
-    routerId: {
+    router: {
         type: Schema.Types.ObjectId,
         ref: 'Routers',
     },
     routerName: {
         type: String,
+    },
+    location: {
+        type: Schema.Types.ObjectId,
+        ref: 'Locations',
     },
     lastBackupDate: {
         type: String,

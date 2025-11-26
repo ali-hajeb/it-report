@@ -1,5 +1,5 @@
 import axiosInstance from "@/src/config/axios";
-import IRouter, { INewRouter } from "./router.types";
+import IRouter, { INewRouter, INewRouterBackup, INewRouterInterface, IRouterBackup, IRouterInterface } from "./router.types";
 
 export async function createRouter(data: INewRouter) {
     return axiosInstance.post('/router', data);
@@ -22,11 +22,11 @@ export async function getRouterById(id: string) {
 }
 
 
-export async function createRouterInterface(data: INewRouter) {
+export async function createRouterInterface(data: INewRouterInterface) {
     return axiosInstance.post('/router/interface', data);
 }
 
-export async function updateRouterInterface({ _id, ...updatedData }: IRouter) {
+export async function updateRouterInterface({ _id, ...updatedData }: IRouterInterface) {
     return axiosInstance.patch('/router/interface', {_id, ...updatedData});
 }
 
@@ -40,4 +40,24 @@ export async function getRouterInterfaces(params?: Record<string, string | undef
 
 export async function getRouterInterfaceById(id: string) {
     return axiosInstance.get(`/router/interface/${id}`);
+}
+
+export async function createRouterBackup(data: INewRouterBackup) {
+    return axiosInstance.post('/router/backup', data);
+}
+
+export async function updateRouterBackup({ _id, ...updatedData }: IRouterBackup) {
+    return axiosInstance.patch('/router/backup', {_id, ...updatedData});
+}
+
+export async function deleteRouterBackup(id: string) {
+    return axiosInstance.delete(`/router/backup/${id}`);
+}
+
+export async function getRouterBackups(params?: Record<string, string | undefined>) {
+    return axiosInstance.get('/router/backup', { params })
+}
+
+export async function getRouterBackupById(id: string) {
+    return axiosInstance.get(`/router/backup/${id}`);
 }
