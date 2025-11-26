@@ -94,7 +94,7 @@ export default function TableContainer<T extends IBaseModelObject>({
                 </Table.Thead>
                 <Table.Tbody>
                     {
-                        data.map((item, i) => <Table.Tr key={item._id}>
+                        data?.map((item, i) => <Table.Tr key={item._id}>
                             <Table.Td fz={'xs'} ta={'center'}>
                                 {toFarsiNumber((maxRows || 25) * page + i + 1)}
                             </Table.Td>
