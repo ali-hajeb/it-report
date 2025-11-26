@@ -13,14 +13,34 @@ export interface RouterForm {
     location: string;
     role: string;
     vlans: string[];
-    routingProtocols: string[];
+    routingProtocols: string;
     natPat: string;
     dhcpEnabled: boolean;
     vpnEnabled: boolean;
-    vpnTypes: string[];
-    installationDate: string;
-    lastConfigUpdate: string;
+    vpnType: string;
     supportResponsible: string;
     notes: string;
 
+}
+
+export interface RouterInterfaceForm {
+    router: string;
+    routerName: string;
+    interface: string;
+    connectionType: string;
+    ip: string;
+    subnet: string;
+    status: string;
+    desc: string;
+    location: string;
+}
+
+export interface RouterBackupForm {
+    router: string;
+    routerName: string;
+    storage: string;
+    operator: string;
+    type: string;
+    desc: string;
+    location: string;
 }

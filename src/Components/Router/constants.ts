@@ -1,4 +1,4 @@
-import { IRouterPopulated } from "@/src/lib/module/common/types";
+import { IRouterBackupPopulated, IRouterInterfacePopulated, IRouterPopulated } from "@/src/lib/module/common/types";
 import { ITableViewField } from "../TableView";
 
 export const filters = {
@@ -75,7 +75,7 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
     },
     {
         key: 'location',
-        type: 'text',
+        type: 'none',
         title: 'مکان فیزیکی',
         alt: 'محل نصب دستگاه (اتاق سرور، شعبه، رک ۲ و...)',
         viewCol: true,
@@ -89,11 +89,10 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
     },
     {
         key: 'vlans',
-        type: 'select',
+        type: 'tags',
         title: 'VLANها',
         alt: 'VLANهای پیکربندی‌شده روی روتر',
         viewCol: false,
-        options: [], // می‌تونی بعداً داینامیک پر کنی یا چندتایی انتخاب کنی
     },
     {
         key: 'routingProtocols',
@@ -115,30 +114,22 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
         ],
     },
     {
-        key: 'vpnTypes',
-        type: 'select',
+        key: 'vpnType',
+        type: 'text',
         title: 'نوع VPN',
         alt: 'نوع VPNها (IPSec، L2TP، PPTP، OpenVPN و...)',
         viewCol: false,
-        options: [
-            { label: 'IPSec', value: 'IPSec' },
-            { label: 'L2TP/IPSec', value: 'L2TP/IPSec' },
-            { label: 'PPTP', value: 'PPTP' },
-            { label: 'OpenVPN', value: 'OpenVPN' },
-            { label: 'WireGuard', value: 'WireGuard' },
-            { label: 'SSL VPN', value: 'SSL VPN' },
-        ],
     },
     {
         key: 'installationDate',
-        type: 'text',
+        type: 'none',
         title: 'تاریخ نصب',
         alt: 'تاریخ نصب یا راه‌اندازی اولیه روتر',
         viewCol: false,
     },
     {
         key: 'lastConfigUpdate',
-        type: 'text',
+        type: 'none',
         title: 'آخرین بروزرسانی پیکربندی',
         alt: 'زمان آخرین تغییر در تنظیمات',
         viewCol: false,
@@ -160,15 +151,103 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
     {
         key: 'dhcpEnabled',
         type: 'check',
-        title: 'DHCP فعال',
+        title: 'DHCP',
         alt: 'آیا DHCP Server یا Relay فعال است؟',
         viewCol: true,
     },
     {
         key: 'vpnEnabled',
         type: 'check',
-        title: 'VPN فعال',
+        title: 'VPN',
         alt: 'آیا سرویس VPN فعال است؟',
         viewCol: true,
+    },
+];
+
+export const routerInterfaceSchemaFields: ITableViewField<IRouterInterfacePopulated>[]  = [
+    {
+        key: 'routerName',
+        alt: 'نام دستگاه',
+        type: 'none',
+        title: 'روتر'
+    },
+    {
+        key: 'interface',
+        alt: '',
+        type: 'text',
+        title: 'اینترفیس'
+    },
+    {
+        key: 'connectionType',
+        alt: 'LAN, WAN, VLAN',
+        type: 'select',
+        title: 'نوع اتصال',
+        options: [
+            { value: 'LAN', label: 'LAN' },
+            { value: 'VLAN', label: 'VLAN' },
+            { value: 'WAN', label: 'WAN' },
+            { value: 'LOOPBACK', label: 'Loopback' },
+        ]
+    },
+    {
+        key: 'ip',
+        alt: 'XXX.XXX.XXX.XXX',
+        type: 'text',
+        title: 'آدرس IP'
+    },
+    {
+        key: 'subnet',
+        alt: '',
+        type: 'text',
+        title: 'ساب‌نت'
+    },
+    {
+        key: 'desc',
+        alt: '',
+        type: 'text',
+        title: 'توضیحات'
+    },
+];
+
+export const routerBackupSchemaFields: ITableViewField<IRouterBackupPopulated>[]  = [
+    {
+        key: 'routerName',
+        alt: 'نام دستگاه',
+        type: 'none',
+        title: 'روتر'
+    },
+    {
+        key: 'lastBackupDate',
+        alt: '1404/01/01',
+        type: 'none',
+        title: 'تاریخ آخرین پشتیبان‌گیری'
+    },
+    {
+        key: 'storage',
+        alt: 'محل و آدرس ذخیره‌ی پشتیبان',
+        type: 'text',
+        title: 'محل ذخیره پشتیبان'
+    },
+    {
+        key: 'operator',
+        alt: 'نام مسئول پشتیبان‌گیری',
+        type: 'text',
+        title: 'مسئول پشتیبان‌گیری'
+    },
+    {
+        key: 'type',
+        alt: 'خودکار / دستی',
+        type: 'select',
+        title: 'روش پشتیبان‌گیری',
+        options: [
+            { value: 'Auto', label: 'خودکار' },
+            { value: 'Manual', label: 'دستی' },
+        ],
+    },
+    {
+        key: 'desc',
+        alt: '',
+        type: 'text',
+        title: 'توضیحات'
     },
 ];

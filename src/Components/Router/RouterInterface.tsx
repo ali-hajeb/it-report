@@ -1,4 +1,4 @@
-import { INewRouter, routerActions } from "@/src/lib/module/router";
+import { INewRouterInterface, IRouter, routerActions } from "@/src/lib/module/router";
 import { Button, Group, Input, InputWrapper, Select, Stack } from "@mantine/core";
 import { Form, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
@@ -9,71 +9,59 @@ import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import { IButtonState } from "@/src/common/type/button.types";
 import { MAX_ROWS } from "@/src/Constants";
-import { RouterForm } from "./types";
-import { routerSchemaFields, filters } from "./constants";
-import { getCustomFieldValue } from "./utils";
-import { IRouterPopulated } from "@/src/lib/module/common/types";
+import { RouterInterfaceForm } from "./types";
+import { routerSchemaFields, filters, routerInterfaceSchemaFields } from "./constants";
+import { getCustomFieldValue, getRouterInterfaceCustomFieldValue } from "./utils";
+import { IRouterInterfacePopulated, IRouterPopulated } from "@/src/lib/module/common/types";
 import UserContext from "@/src/Contexts/UserContext";
 import TableView, { renderFormFromSchema, SelectOption } from "@/src/Components/TableView";
 import { ILocation, locationActions } from "@/src/lib/module/location";
 
 const LIMIT = MAX_ROWS;
 
-export interface RouterListProps {
+export interface RouterInterfaceProps {
     location?: string;
-    routers: IRouterPopulated[];
-    setRouters: Dispatch<SetStateAction<IRouterPopulated[]>>;
+    routerInterfaces: IRouterInterfacePopulated[];
+    setRouterInterfaces: Dispatch<SetStateAction<IRouterInterfacePopulated[]>>;
 }
 
-export default function RouterList({
+export default function RouterInterface({
     location,
-    routers,
-    setRouters
-}: RouterListProps) {
+    routerInterfaces,
+    setRouterInterfaces
+}: RouterInterfaceProps) {
     const userContext = useContext(UserContext);
-    const [lastUpdate, setLastUpdate] = useState<string>(new Date().toISOString());
-    const [date, setDate] = useState<string>(new Date().toISOString());
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
-    const [viewMode, setViewMode] = useState<IRouterPopulated | null>(null);
+    const [viewMode, setViewMode] = useState<IRouterInterfacePopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
     const [isListLoading, setListLoading] = useState(true);
     const [locationOptions, setLocationOptions] = useState<SelectOption[]>([]);
+    const [routerOptions, setRouterOptions] = useState<SelectOption[]>([]);
 
     const [opened, {open, close}] = useDisclosure(false);
 
-    const routerForm = useForm<RouterForm>({
+    const routerInterfaceForm = useForm<RouterInterfaceForm>({
         mode: 'controlled',
         initialValues: {
+            router: '',
             routerName: '',
-            model: '',
-            deviceType: '',
-            brand: '',
-            os: '',
-            osVersion: '',
-            managementIP: '',
-            lanWanIP: '',
-            subnetGateway: '',
+            interface: '',
+            connectionType: '',
+            ip: '',
+            subnet: '',
+            status: '',
+            desc: '',
             location: '',
-            role: '',
-            vlans: [], 
-            routingProtocols: '',
-            natPat: '',
-            dhcpEnabled: false,
-            vpnEnabled: false,
-            vpnType: '',
-            supportResponsible: '',
-            notes: '',
         },
     })
 
     useEffect(() => {
-        routerActions.getRouters({ location, skip: page.toString() })
+        routerActions.getRouterInterfaces({ location, skip: page.toString() })
             .then((res) => {
-                setRouters(res.data.routers);
-                console.log('rec', res.data.routers);
+                setRouterInterfaces(res.data.routerInterfaces);
                 setTotalPages(Math.ceil(res.data.count / LIMIT));
             })
             .catch(error => {
@@ -96,25 +84,40 @@ export default function RouterList({
                     console.error(error);
                 })
         }
+
+        let params = {};
+        if (userContext?.role === 'ADMIN') {
+            params = {...params, location: userContext.location._id};
+        }
+        routerActions.getRouters(params)
+            .then((res) => {
+                const routers = res.data.routers as IRouterPopulated[];
+                const routerOptions = routers.map(l => ({value: l._id, label: l.routerName}));
+                console.log('opt', routerOptions);
+                setRouterOptions(routerOptions);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }, []);
 
     const modalOnCloseHandler = () => {
-        routerForm.reset();
+        routerInterfaceForm.reset();
         setEditMode(null);
         setViewMode(null);
         close();
     }
 
-    const newRouterHandler = () => {
+    const newRouterInterfaceHandler = () => {
         setEditMode(null);
         open();
     }
 
-    const deleteRouterHandler = (id: string) => {
+    const deleteRouterInterfaceHandler = (id: string) => {
         setLoading(true);
-        routerActions.deleteRouter(id)
+        routerActions.deleteRouterInterface(id)
             .then(_ => {
-                setRouters(s => {
+                setRouterInterfaces(s => {
                     const updated = [...s];
                     const index = updated.findIndex(a => a._id === id);
                     if (index > -1) {
@@ -132,54 +135,43 @@ export default function RouterList({
     }
 
     const viewMaintenanceReportHandler = (id: string) => {
-        const router = routers.find(r => r._id === id);
+        const router = routerInterfaces.find(r => r._id === id);
         if (router) {
             setViewMode(router);
             open();
         }
     }
 
-    const editRouterHandler = (id: string) => {
-            console.log(id);
-            const item = routers.find(a => a._id === id);
-            if (item) {
-                console.log(item);
-                const { lastConfigUpdate, installationDate, ...data} = item;
-                routerForm.setValues({
-                    ...data,
-                    location: data.location._id,
-                });
-                lastConfigUpdate && setLastUpdate(lastConfigUpdate);
-                installationDate && setDate(installationDate);
-                setEditMode(id);
-                open();
-            }
+    const editRouterInterfaceHandler = (id: string) => {
+        console.log(id);
+        const item = routerInterfaces.find(a => a._id === id);
+        if (item) {
+            console.log(item);
+            const { router,...data} = item;
+            routerInterfaceForm.setValues({
+                ...data,
+                router: router._id,
+                location: data.location._id,
+            });
+            setEditMode(id);
+            open();
+        }
     }
 
-    const calendarLastUpdateOnChangeHandler = (date: DateObject) => {
-        console.log(date.toDate().toISOString());
-        setLastUpdate(date.toDate().toISOString());
-    };
-
-    const calendarOnChangeHandler = (date: DateObject) => {
-        console.log(date.toDate().toISOString());
-        setDate(date.toDate().toISOString());
-    };
-
-    const formOnSubmit = (values: RouterForm) => {
+    const formOnSubmit = (values: RouterInterfaceForm) => {
         console.log('router submit');
+        const selectedDevice = routerOptions.find(d => d.value === values.router);
         const standardValue = {
             ...values,
-            installationDate: date,
-            lastConfigUpdate: lastUpdate,
-        } as INewRouter;
+            routerName: selectedDevice?.label || '',
+        } as INewRouterInterface;
 
         console.log('form', standardValue);
 
         setLoading(true);
         if (editMode) {
-            routerActions.updateRouter({_id: editMode, ...standardValue}).then(res => {
-                setRouters(s => {
+            routerActions.updateRouterInterface({_id: editMode, ...standardValue}).then(res => {
+                setRouterInterfaces(s => {
                     const updated = [...s];
                     const index = updated.findIndex(a => a._id === editMode);
                     if (index > -1) {
@@ -200,8 +192,9 @@ export default function RouterList({
                     }, 1000);
                 });
         } else {
-            routerActions.createRouter(standardValue).then(res => {
-                setRouters(s => {
+            routerActions.createRouterInterface(standardValue).then(res => {
+                setRouterInterfaces(s => {
+                    console.log(s);
                     return [...s, {...res.data?.router}];
                 })
                 setBtnState({color: 'green', icon: <IconCheck size={16} />});
@@ -221,9 +214,9 @@ export default function RouterList({
 
     const searchHandler = (query: Record<string, string>) => {
         setListLoading(true);
-        routerActions.getRouters({...query})
+        routerActions.getRouterInterfaces({...query})
             .then((res) => {
-                setRouters(res.data.routers);
+                setRouterInterfaces(res.data.routers);
                 setPage(0);
                 // setTotalPages(res.data.count);
             })
@@ -237,58 +230,35 @@ export default function RouterList({
 
     return <TableView>
         <TableView.Modal 
-            customFieldValue={getCustomFieldValue}
-            fields={routerSchemaFields}
+            customFieldValue={getRouterInterfaceCustomFieldValue}
+            fields={routerInterfaceSchemaFields}
             viewMode={viewMode}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
-            title="روتر"
+            title="اینترفیس"
             editMode={editMode}>
-            <Form form={routerForm} onSubmit={formOnSubmit}>
+            <Form form={routerInterfaceForm} onSubmit={formOnSubmit}>
                 <Stack gap={'md'}>
-                    <InputWrapper label='تاریخ نصب'>
-                        <DatePicker
-                            containerStyle={{width: '100%'}}
-                            render={(value, openCalendar) => 
-                                <Group>
-                                    <Button p={4} maw={32} mah={32} onClick={openCalendar}><IconCalendar size={24} /></Button>
-                                    <Input style={{flexGrow: 2}} value={value} readOnly/>
-                                </Group>
-                            } 
-                            calendar={persian}
-                            locale={persian_fa} 
-                            value={date}
-                            onChange={calendarOnChangeHandler}
-                            calendarPosition="center" />
-                    </InputWrapper>
-                    <InputWrapper label='تاریخ آخرین به‌روزرسانی'>
-                        <DatePicker
-                            containerStyle={{width: '100%'}}
-                            render={(value, openCalendar) => 
-                                <Group>
-                                    <Button p={4} maw={32} mah={32} onClick={openCalendar}><IconCalendar size={24} /></Button>
-                                    <Input style={{flexGrow: 2}} value={value} readOnly/>
-                                </Group>
-                            } 
-                            calendar={persian}
-                            locale={persian_fa} 
-                            value={lastUpdate}
-                            onChange={calendarLastUpdateOnChangeHandler}
-                            calendarPosition="center" />
-                    </InputWrapper>
                     {
                         userContext?.role === 'MANAGER' &&
                             <Select
                                 label='نام مرکز'
                                 placeholder="انتخاب کنید"
                                 data={locationOptions}
-                                key={routerForm.key('location')}
-                                {...routerForm.getInputProps('location')}
+                                key={routerInterfaceForm.key('location')}
+                                {...routerInterfaceForm.getInputProps('location')}
                             />
                     }
+                    <Select
+                        label='روتر'
+                        placeholder="دستگاه مورد نظر را انتخاب کنید..."
+                        data={routerOptions}
+                        key={routerInterfaceForm.key('router')}
+                        {...routerInterfaceForm.getInputProps('router')}
+                        searchable/>
                     {
-                        renderFormFromSchema(routerSchemaFields, routerForm)
+                        renderFormFromSchema(routerInterfaceSchemaFields, routerInterfaceForm)
                     }
                     <Button type="submit" 
                         loading={isLoading} 
@@ -302,22 +272,21 @@ export default function RouterList({
         </TableView.Modal>
         <TableView.TopBar
             filters={filters}
-            newItem={newRouterHandler}
+            newItem={newRouterInterfaceHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
-            title="روتر" />
+            title="اینترفیس" />
         <TableView.TableContainer
-            customFieldValue={getCustomFieldValue}
+            customFieldValue={getRouterInterfaceCustomFieldValue}
             viewItemHandler={viewMaintenanceReportHandler}
-            data={routers}
-            fields={routerSchemaFields}
+            data={routerInterfaces}
+            fields={routerInterfaceSchemaFields}
             isLoading={isListLoading}
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleteRouterHandler}
-            editItemHandler={editRouterHandler}
-            scrollContainer={2100}
+            deleteItemHandler={deleteRouterInterfaceHandler}
+            editItemHandler={editRouterInterfaceHandler}
             maxRows={MAX_ROWS} />
     </TableView>
 }

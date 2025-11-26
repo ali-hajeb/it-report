@@ -1,79 +1,67 @@
-import { INewRouter, routerActions } from "@/src/lib/module/router";
-import { Button, Group, Input, InputWrapper, Select, Stack } from "@mantine/core";
+import { IButtonState } from "@/src/common/type/button.types";
+import TableView, { renderFormFromSchema, SelectOption } from "@/src/Components/TableView";
+import UserContext from "@/src/Contexts/UserContext";
+import { IRouterBackupPopulated, IRouterPopulated } from "@/src/lib/module/common/types";
 import { Form, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
-import { IconCalendar, IconCheck, IconExclamationCircle } from "@tabler/icons-react";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import DatePicker, { DateObject } from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian"
-import persian_fa from "react-date-object/locales/persian_fa"
-import { IButtonState } from "@/src/common/type/button.types";
 import { MAX_ROWS } from "@/src/Constants";
-import { RouterForm } from "./types";
-import { routerSchemaFields, filters } from "./constants";
-import { getCustomFieldValue } from "./utils";
-import { IRouterPopulated } from "@/src/lib/module/common/types";
-import UserContext from "@/src/Contexts/UserContext";
-import TableView, { renderFormFromSchema, SelectOption } from "@/src/Components/TableView";
 import { ILocation, locationActions } from "@/src/lib/module/location";
+import { INewRouterBackup, IRouterBackup, routerActions } from '@/src/lib/module/router';
+import { IconCalendar, IconCheck, IconExclamationCircle } from "@tabler/icons-react";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import { Button, Group, Input, InputWrapper, Select, Stack } from "@mantine/core";
+import { getCustomFieldValue, getRouterBackupCustomFieldValue } from "./utils";
+import { routerBackupSchemaFields } from "./constants";
+import { filters } from "./constants";
+import { RouterBackupForm } from "./types";
 
 const LIMIT = MAX_ROWS;
 
-export interface RouterListProps {
+export interface RouterBackupProps {
     location?: string;
-    routers: IRouterPopulated[];
-    setRouters: Dispatch<SetStateAction<IRouterPopulated[]>>;
+    routerBackups: IRouterBackupPopulated[];
+    setRouterBackups:  Dispatch<SetStateAction<IRouterBackupPopulated[]>>;
 }
 
-export default function RouterList({
+export default function RouterBackup({
     location,
-    routers,
-    setRouters
-}: RouterListProps) {
+    routerBackups,
+    setRouterBackups
+}: RouterBackupProps) {
     const userContext = useContext(UserContext);
-    const [lastUpdate, setLastUpdate] = useState<string>(new Date().toISOString());
-    const [date, setDate] = useState<string>(new Date().toISOString());
+    const [lastBackup, setLastBackup] = useState<string>(new Date().toISOString());
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
-    const [viewMode, setViewMode] = useState<IRouterPopulated | null>(null);
+    const [viewMode, setViewMode] = useState<IRouterBackupPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
     const [isListLoading, setListLoading] = useState(true);
     const [locationOptions, setLocationOptions] = useState<SelectOption[]>([]);
+    const [routerOptions, setRouterOptions] = useState<SelectOption[]>([]);
 
     const [opened, {open, close}] = useDisclosure(false);
 
-    const routerForm = useForm<RouterForm>({
+    const routerBackupForm = useForm<RouterBackupForm>({
         mode: 'controlled',
         initialValues: {
+            router: '',
             routerName: '',
-            model: '',
-            deviceType: '',
-            brand: '',
-            os: '',
-            osVersion: '',
-            managementIP: '',
-            lanWanIP: '',
-            subnetGateway: '',
+            storage: '',
+            operator: '',
+            type: '',
+            desc: '',
             location: '',
-            role: '',
-            vlans: [], 
-            routingProtocols: '',
-            natPat: '',
-            dhcpEnabled: false,
-            vpnEnabled: false,
-            vpnType: '',
-            supportResponsible: '',
-            notes: '',
         },
     })
 
     useEffect(() => {
-        routerActions.getRouters({ location, skip: page.toString() })
+        routerActions.getRouterBackups({ location, skip: page.toString() })
             .then((res) => {
-                setRouters(res.data.routers);
-                console.log('rec', res.data.routers);
+                setRouterBackups(res.data.routerBackups);
                 setTotalPages(Math.ceil(res.data.count / LIMIT));
             })
             .catch(error => {
@@ -96,25 +84,40 @@ export default function RouterList({
                     console.error(error);
                 })
         }
+
+        let params = {};
+        if (userContext?.role === 'ADMIN') {
+            params = {...params, location: userContext.location._id};
+        }
+        routerActions.getRouters(params)
+            .then((res) => {
+                const routers = res.data.routers as IRouterPopulated[];
+                const routerOptions = routers.map(l => ({value: l._id, label: l.routerName}));
+                console.log('opt', routerOptions);
+                setRouterOptions(routerOptions);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }, []);
 
     const modalOnCloseHandler = () => {
-        routerForm.reset();
+        routerBackupForm.reset();
         setEditMode(null);
         setViewMode(null);
         close();
     }
 
-    const newRouterHandler = () => {
+    const newrouterBackupHandler = () => {
         setEditMode(null);
         open();
     }
 
-    const deleteRouterHandler = (id: string) => {
+    const deleterouterBackupHandler = (id: string) => {
         setLoading(true);
-        routerActions.deleteRouter(id)
+        routerActions.deleteRouterBackup(id)
             .then(_ => {
-                setRouters(s => {
+                setRouterBackups(s => {
                     const updated = [...s];
                     const index = updated.findIndex(a => a._id === id);
                     if (index > -1) {
@@ -132,58 +135,55 @@ export default function RouterList({
     }
 
     const viewMaintenanceReportHandler = (id: string) => {
-        const router = routers.find(r => r._id === id);
-        if (router) {
-            setViewMode(router);
+        const routerBackup = routerBackups.find(r => r._id === id);
+        if (routerBackup) {
+            setViewMode(routerBackup);
             open();
         }
     }
 
-    const editRouterHandler = (id: string) => {
-            console.log(id);
-            const item = routers.find(a => a._id === id);
-            if (item) {
-                console.log(item);
-                const { lastConfigUpdate, installationDate, ...data} = item;
-                routerForm.setValues({
-                    ...data,
-                    location: data.location._id,
-                });
-                lastConfigUpdate && setLastUpdate(lastConfigUpdate);
-                installationDate && setDate(installationDate);
-                setEditMode(id);
-                open();
-            }
+    const editrouterBackupHandler = (id: string) => {
+        console.log(id);
+        const item = routerBackups.find(a => a._id === id);
+        if (item) {
+            console.log(item);
+            const { lastBackupDate, router, ...data} = item;
+            routerBackupForm.setValues({
+                ...data,
+                router: router._id,
+                location: data.location._id,
+            });
+            lastBackupDate && setLastBackup(lastBackupDate);
+            setEditMode(id);
+            open();
+        }
     }
 
-    const calendarLastUpdateOnChangeHandler = (date: DateObject) => {
+
+    const calendarRouterBackupOnChangeHandler = (date: DateObject) => {
         console.log(date.toDate().toISOString());
-        setLastUpdate(date.toDate().toISOString());
+        setLastBackup(date.toDate().toISOString());
     };
 
-    const calendarOnChangeHandler = (date: DateObject) => {
-        console.log(date.toDate().toISOString());
-        setDate(date.toDate().toISOString());
-    };
-
-    const formOnSubmit = (values: RouterForm) => {
-        console.log('router submit');
+    const formOnSubmit = (values: RouterBackupForm) => {
+        console.log('routerBackup submit');
+        const selectedDevice = routerOptions.find(d => d.value === values.router);
         const standardValue = {
             ...values,
-            installationDate: date,
-            lastConfigUpdate: lastUpdate,
-        } as INewRouter;
+            lastBackupDate: lastBackup,
+            routerName: selectedDevice?.label || '',
+        } as INewRouterBackup;
 
         console.log('form', standardValue);
 
         setLoading(true);
         if (editMode) {
-            routerActions.updateRouter({_id: editMode, ...standardValue}).then(res => {
-                setRouters(s => {
+            routerActions.updateRouterBackup({_id: editMode, ...standardValue}).then(res => {
+                setRouterBackups(s => {
                     const updated = [...s];
                     const index = updated.findIndex(a => a._id === editMode);
                     if (index > -1) {
-                        updated[index] = {...res.data?.router};
+                        updated[index] = {...res.data?.routerBackup};
                     }
                     return updated;
                 })
@@ -200,9 +200,9 @@ export default function RouterList({
                     }, 1000);
                 });
         } else {
-            routerActions.createRouter(standardValue).then(res => {
-                setRouters(s => {
-                    return [...s, {...res.data?.router}];
+            routerActions.createRouterBackup(standardValue).then(res => {
+                setRouterBackups(s => {
+                    return [...s, {...res.data?.routerBackup}];
                 })
                 setBtnState({color: 'green', icon: <IconCheck size={16} />});
             })
@@ -221,9 +221,9 @@ export default function RouterList({
 
     const searchHandler = (query: Record<string, string>) => {
         setListLoading(true);
-        routerActions.getRouters({...query})
+        routerActions.getRouterBackups({...query})
             .then((res) => {
-                setRouters(res.data.routers);
+                setRouterBackups(res.data.routerBackups);
                 setPage(0);
                 // setTotalPages(res.data.count);
             })
@@ -237,17 +237,17 @@ export default function RouterList({
 
     return <TableView>
         <TableView.Modal 
-            customFieldValue={getCustomFieldValue}
-            fields={routerSchemaFields}
+            customFieldValue={getRouterBackupCustomFieldValue}
+            fields={routerBackupSchemaFields}
             viewMode={viewMode}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
-            title="روتر"
+            title="گزارش پشتیبان"
             editMode={editMode}>
-            <Form form={routerForm} onSubmit={formOnSubmit}>
+            <Form form={routerBackupForm} onSubmit={formOnSubmit}>
                 <Stack gap={'md'}>
-                    <InputWrapper label='تاریخ نصب'>
+                    <InputWrapper label='تاریخ آخرین پشتیبان‌گیری'>
                         <DatePicker
                             containerStyle={{width: '100%'}}
                             render={(value, openCalendar) => 
@@ -258,23 +258,8 @@ export default function RouterList({
                             } 
                             calendar={persian}
                             locale={persian_fa} 
-                            value={date}
-                            onChange={calendarOnChangeHandler}
-                            calendarPosition="center" />
-                    </InputWrapper>
-                    <InputWrapper label='تاریخ آخرین به‌روزرسانی'>
-                        <DatePicker
-                            containerStyle={{width: '100%'}}
-                            render={(value, openCalendar) => 
-                                <Group>
-                                    <Button p={4} maw={32} mah={32} onClick={openCalendar}><IconCalendar size={24} /></Button>
-                                    <Input style={{flexGrow: 2}} value={value} readOnly/>
-                                </Group>
-                            } 
-                            calendar={persian}
-                            locale={persian_fa} 
-                            value={lastUpdate}
-                            onChange={calendarLastUpdateOnChangeHandler}
+                            value={lastBackup}
+                            onChange={calendarRouterBackupOnChangeHandler}
                             calendarPosition="center" />
                     </InputWrapper>
                     {
@@ -283,12 +268,19 @@ export default function RouterList({
                                 label='نام مرکز'
                                 placeholder="انتخاب کنید"
                                 data={locationOptions}
-                                key={routerForm.key('location')}
-                                {...routerForm.getInputProps('location')}
+                                key={routerBackupForm.key('location')}
+                                {...routerBackupForm.getInputProps('location')}
                             />
                     }
+                    <Select
+                        label='روتر'
+                        placeholder="دستگاه مورد نظر را انتخاب کنید..."
+                        data={routerOptions}
+                        key={routerBackupForm.key('router')}
+                        {...routerBackupForm.getInputProps('router')}
+                        searchable/>
                     {
-                        renderFormFromSchema(routerSchemaFields, routerForm)
+                        renderFormFromSchema(routerBackupSchemaFields, routerBackupForm)
                     }
                     <Button type="submit" 
                         loading={isLoading} 
@@ -302,22 +294,21 @@ export default function RouterList({
         </TableView.Modal>
         <TableView.TopBar
             filters={filters}
-            newItem={newRouterHandler}
+            newItem={newrouterBackupHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
-            title="روتر" />
+            title="گزارش پشتیبان" />
         <TableView.TableContainer
-            customFieldValue={getCustomFieldValue}
+            customFieldValue={getRouterBackupCustomFieldValue}
             viewItemHandler={viewMaintenanceReportHandler}
-            data={routers}
-            fields={routerSchemaFields}
+            data={routerBackups}
+            fields={routerBackupSchemaFields}
             isLoading={isListLoading}
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleteRouterHandler}
-            editItemHandler={editRouterHandler}
-            scrollContainer={2100}
+            deleteItemHandler={deleterouterBackupHandler}
+            editItemHandler={editrouterBackupHandler}
             maxRows={MAX_ROWS} />
     </TableView>
 }
