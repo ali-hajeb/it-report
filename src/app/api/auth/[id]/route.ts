@@ -1,8 +1,13 @@
 import User from "@/src/lib/module/user";
+import authMiddleware from "@/src/middleware/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, ctx: RouteContext<'/api/auth/[id]'>) {
     try {
+        const res = authMiddleware(req, 'MANAGER');
+        if (res.status !== 200) {
+            return res;
+        }
         const { id } = await ctx.params;
 
         const user = await User.findById(id);
@@ -14,6 +19,10 @@ export async function GET(req: NextRequest, ctx: RouteContext<'/api/auth/[id]'>)
 
 export async function DELETE(req: NextRequest, ctx: RouteContext<'/api/auth/[id]'>) {
     try {
+        const res = authMiddleware(req, 'MANAGER');
+        if (res.status !== 200) {
+            return res;
+        }
         const { id } = await ctx.params;
 
         const user = await User.findByIdAndDelete(id);
