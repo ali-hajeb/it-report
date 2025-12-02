@@ -2,7 +2,6 @@ import type { INewAntenna, IAntenna } from "@/src/lib/module/antenna";
 import Antenna from "@/src/lib/module/antenna";
 import { NextRequest, NextResponse } from "next/server";
 import { escapeRegex } from '@/src/utils/regex';
-import { Schema } from "mongoose";
 
 export async function POST(req: NextRequest) {
     try {
