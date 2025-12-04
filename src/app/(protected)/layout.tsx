@@ -3,7 +3,7 @@ import React from "react";
 import { redirect } from 'next/navigation';
 import UserContext from "@/src/Contexts/UserContext";
 import useUser from "@/src/hooks/useUser";
-import { AppShell, Burger, Container, Group } from "@mantine/core";
+import { AppShell, Burger, Container, Flex, Group, Loader } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import MenuList from "@/src/Components/MenuList";
 import { menu } from '@/src/Constants/menuList';
@@ -17,13 +17,14 @@ export default function ProtectedLayout({
     const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
     const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
     const { isLoading, user } = useUser();
+    console.log("protectedLayout", isLoading, user);
     if (!isLoading && !user) {
         console.log(user);
         redirect('/');
     }
     return <UserContext value={user}>
         {
-            !isLoading && user && 
+            (!isLoading && user) ? 
                 <AppShell 
                     bg={'white'}
                     withBorder={false}
@@ -56,6 +57,10 @@ export default function ProtectedLayout({
                         </Container>
                     </AppShell.Main>
                 </AppShell>
+                :
+                <Flex align={'center'} justify={'center'} h={'100vh'}>
+                    <Loader color="gray.0" size={'xl'} type="dots" />
+                </Flex>
         }
     </UserContext>;
     // const user = await getServerSession();
