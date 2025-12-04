@@ -28,3 +28,27 @@ body {
 .mantine-Container-root, .mantine-Center-root {
     min-height: 100vh;
 }
+
+.transparent-bg-icon {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.leaflet-tooltip {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  border: none !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+.leaflet-tooltip:before {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Also make sure the pane is on top */
+.leaflet-tooltip-pane {
+  z-index: 1000 !important;
+}
