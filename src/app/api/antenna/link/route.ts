@@ -51,7 +51,7 @@ export async function PATCH(req: NextRequest) {
         const body = await req.json();
         const { _id, ...updatedData } = body as IAntennaLink;
 
-        const antennaLink = await AntennaLink.findByIdAndUpdate(_id, updatedData, { new: true });
+        const antennaLink = await AntennaLink.findByIdAndUpdate(_id, updatedData, { new: true }).populate(['location', 'source', 'destination']);
         return NextResponse.json({ code: 200, message: '', antennaLink }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
