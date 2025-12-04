@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
         const data = body as INewRouter;
 
         const router = await Router.create(data);
-        await router.populate(['location']);
+        await router.populate(['location', 'connectedAntenna']);
         return NextResponse.json({ code: 200, message: '', router }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
         const routers = await Router.find({ $and: conditions })
             .skip(parseInt(skip) * parseInt(limit))
             .limit(parseInt(limit))
-            .populate(['location']);
+            .populate(['location', 'connectedAntenna']);
 
         return NextResponse.json({ code: 200, message: '', routers, count }, { status: 200 });
     } catch (error) {
@@ -49,7 +49,7 @@ export async function PATCH(req: NextRequest) {
         const body = await req.json();
         const { _id, ...updatedData } = body as IRouter;
 
-        const router = await Router.findByIdAndUpdate(_id, updatedData, { new: true }).populate(['location']);
+        const router = await Router.findByIdAndUpdate(_id, updatedData, { new: true }).populate(['location', 'connectedAntenna']);
         return NextResponse.json({ code: 200, message: '', router }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
