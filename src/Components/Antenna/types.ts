@@ -12,7 +12,11 @@ export interface AntennaForm {
     azimuth: string,
     connectedLink: string,
     linkType: string,
-    relatedEquipment: string,
+    coordination: string;
+    // connectedDevices: {
+    //     deviceType: string;
+    //     deviceId: string;
+    // }[],
     ip: string,
     macAddress: string,
     connectionType: string,

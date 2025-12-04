@@ -16,6 +16,7 @@ import { IRouterPopulated } from "@/src/lib/module/common/types";
 import UserContext from "@/src/Contexts/UserContext";
 import TableView, { renderFormFromSchema, SelectOption } from "@/src/Components/TableView";
 import { ILocation, locationActions } from "@/src/lib/module/location";
+import { antennaActions, IAntenna } from "@/src/lib/module/antenna";
 
 const LIMIT = MAX_ROWS;
 
@@ -41,6 +42,7 @@ export default function RouterList({
     const [isLoading, setLoading] = useState(false);
     const [isListLoading, setListLoading] = useState(true);
     const [locationOptions, setLocationOptions] = useState<SelectOption[]>([]);
+    const [antennaOptions, setAntennaOptions] = useState<SelectOption[]>([]);
 
     const [opened, {open, close}] = useDisclosure(false);
 
@@ -66,6 +68,8 @@ export default function RouterList({
             vpnType: '',
             supportResponsible: '',
             notes: '',
+            coordination: '',
+            connectedAntenna: '',
         },
     })
 
@@ -96,6 +100,21 @@ export default function RouterList({
                     console.error(error);
                 })
         }
+
+        let params = {};
+        if (userContext?.role === 'ADMIN') {
+            params = {...params, location: userContext.location._id};
+        }
+        antennaActions.getAntennas(params)
+            .then((res) => {
+                const antennas = res.data.antennas as IAntenna[];
+                const antennaOptions = antennas.map(l => ({value: l._id, label: l.name}));
+                console.log('antenna opt', antennaOptions);
+                setAntennaOptions(antennaOptions);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }, []);
 
     const modalOnCloseHandler = () => {
@@ -140,20 +159,22 @@ export default function RouterList({
     }
 
     const editRouterHandler = (id: string) => {
-            console.log(id);
-            const item = routers.find(a => a._id === id);
-            if (item) {
-                console.log(item);
-                const { lastConfigUpdate, installationDate, ...data} = item;
-                routerForm.setValues({
-                    ...data,
-                    location: data.location._id,
-                });
-                lastConfigUpdate && setLastUpdate(lastConfigUpdate);
-                installationDate && setDate(installationDate);
-                setEditMode(id);
-                open();
-            }
+        console.log(id);
+        const item = routers.find(a => a._id === id);
+        if (item) {
+            console.log(item);
+            const { lastConfigUpdate, installationDate, ...data} = item;
+            routerForm.setValues({
+                ...data,
+                coordination: data.coordination.join(','),
+                location: data.location._id,
+                connectedAntenna: data.connectedAntenna._id,
+            });
+            lastConfigUpdate && setLastUpdate(lastConfigUpdate);
+            installationDate && setDate(installationDate);
+            setEditMode(id);
+            open();
+        }
     }
 
     const calendarLastUpdateOnChangeHandler = (date: DateObject) => {
@@ -168,10 +189,12 @@ export default function RouterList({
 
     const formOnSubmit = (values: RouterForm) => {
         console.log('router submit');
+        const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {
             ...values,
             installationDate: date,
             lastConfigUpdate: lastUpdate,
+            coordination: coordinates.map(c => parseFloat(c)) as [number, number],
         } as INewRouter;
 
         console.log('form', standardValue);
@@ -285,6 +308,15 @@ export default function RouterList({
                                 data={locationOptions}
                                 key={routerForm.key('location')}
                                 {...routerForm.getInputProps('location')}
+                            />
+                    }
+                    {
+                            <Select
+                                label='آنتن متصل'
+                                placeholder="انتخاب کنید"
+                                data={antennaOptions}
+                                key={routerForm.key('connectedAntenna')}
+                                {...routerForm.getInputProps('connectedAntenna')}
                             />
                     }
                     {

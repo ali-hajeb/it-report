@@ -33,7 +33,7 @@ export default function RouterPanel({
                 <Tabs.List>
                     <Tabs.Tab value="router-list" leftSection={<IconRouter size={16} />}>فهرست روتر</Tabs.Tab>
                     <Tabs.Tab value="router-interface" leftSection={<IconArrowRightToArc size={16} />}>اینترفیس‌ها</Tabs.Tab>
-                    <Tabs.Tab value="router-backup" leftSection={<IconDatabaseImport size={16} />}>اطلاعات پشتیبان‌گیری</Tabs.Tab>
+                    <Tabs.Tab value="router-backup" leftSection={<IconDatabaseImport size={16} />}>گزارش‌های پشتیبان‌گیری</Tabs.Tab>
                 </Tabs.List>
 
                 <Box px='xs'>

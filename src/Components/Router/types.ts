@@ -1,5 +1,3 @@
-import { INewRouter } from "@/src/lib/module/router";
-
 export interface RouterForm {
     routerName: string;
     model: string;
@@ -20,6 +18,8 @@ export interface RouterForm {
     vpnType: string;
     supportResponsible: string;
     notes: string;
+    coordination: string;
+    connectedAntenna: string;
 
 }
 

@@ -14,7 +14,7 @@ export async function deleteAntenna(id: string) {
     return axiosInstance.delete(`/antenna/${id}`);
 }
 
-export async function getAntennas(params: Record<string, string | undefined>) {
+export async function getAntennas(params?: Record<string, string | undefined>) {
     return axiosInstance.get('/antenna', { params })
 }
 
@@ -34,7 +34,7 @@ export async function deleteAntennaLink(id: string) {
     return axiosInstance.delete(`/antenna/link/${id}`);
 }
 
-export async function getAntennasLink(params: Record<string, string>) {
+export async function getAntennaLinks(params?: Record<string, string | undefined>) {
     return axiosInstance.get('/antenna/link', { params })
 }
 

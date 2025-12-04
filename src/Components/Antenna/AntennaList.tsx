@@ -1,4 +1,4 @@
-import { antennaActions, IAntennaLink } from "@/src/lib/module/antenna";
+import { antennaActions, IAntennaLink, INewAntenna } from "@/src/lib/module/antenna";
 import { Button, Group, Input, InputWrapper, Select, Stack } from "@mantine/core";
 import { Form, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
@@ -8,7 +8,7 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import { IButtonState } from "@/src/common/type/button.types";
-import { MAX_ROWS } from "@/src/Constants";
+import { COORDINATE_REGEX, MAX_ROWS } from "@/src/Constants";
 import { AntennaForm } from "./types";
 import { antennaSchemaFields, filters } from "./constants";
 import { getCustomFieldValue } from "./utils";
@@ -59,7 +59,8 @@ export default function AntennaList({
             azimuth: '',
             connectedLink: '',
             linkType: '',
-            relatedEquipment: '',
+            // connectedDevices: [],
+            coordination: '',
             ip: '',
             macAddress: '',
             location: userContext?.location?._id || '',
@@ -69,6 +70,9 @@ export default function AntennaList({
             status: '',
             notes: '',
         },
+        validate: {
+            coordination: (value) => (COORDINATE_REGEX.test(value) ? null : 'مختصات مکانی باید به شکل number,number باشد'),
+        }
     })
 
     useEffect(() => {
@@ -154,25 +158,26 @@ export default function AntennaList({
     }
 
     const editAntennaHandler = (id: string) => {
-            console.log(id);
-            const item = antennas.find(a => a._id === id);
-            if (item) {
-                console.log(item);
-                const { installationDate, ...data} = item;
-                antennaForm.setValues({
-                    ...data,
-                    frequency: data.frequency.toString(),
-                    output: data.output.toString(),
-                    height: data.height.toString(),
-                    gain: data.gain.toString(),
-                    azimuth: data.azimuth.toString(),
-                    location: data.location._id,
-                    connectedLink: data.connectedLink?.toString()
-                });
-                setDate(installationDate);
-                setEditMode(id);
-                open();
-            }
+        console.log(id);
+        const item = antennas.find(a => a._id === id);
+        if (item) {
+            console.log(item);
+            const { installationDate, ...data} = item;
+            antennaForm.setValues({
+                ...data,
+                frequency: data.frequency.toString(),
+                output: data.output.toString(),
+                height: data.height.toString(),
+                gain: data.gain.toString(),
+                azimuth: data.azimuth.toString(),
+                location: data.location._id,
+                coordination: data.coordination.join(','),
+                connectedLink: data.connectedLink?.toString()
+            });
+            setDate(installationDate);
+            setEditMode(id);
+            open();
+        }
     }
 
 
@@ -183,6 +188,7 @@ export default function AntennaList({
 
     const formOnSubmit = (values: AntennaForm) => {
         console.log('antenna submit');
+        const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {
             ...values,
             frequency: parseFloat(values.frequency),
@@ -191,9 +197,10 @@ export default function AntennaList({
             gain: parseFloat(values.gain),
             azimuth: parseFloat(values.azimuth),
             connectedLink: values.connectedLink || null,
+            coordination: coordinates.map(c => parseFloat(c)) as [number, number],
             installationDate: date,
             maintenance: [],
-        }
+        } as INewAntenna;
 
         console.log('form', standardValue);
 
@@ -323,7 +330,6 @@ export default function AntennaList({
             totalPages={totalPages}
             deleteItemHandler={deleteAntennaHandler}
             editItemHandler={editAntennaHandler}
-            scrollContainer={2100}
             maxRows={MAX_ROWS} />
     </TableView>
 }

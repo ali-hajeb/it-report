@@ -32,7 +32,8 @@ export function renderFormFromSchema<T extends object, U extends object>(
         <Checkbox
           key={key}
           label={item.title}
-          {...form.getInputProps(fieldKey)}
+          {...form.getInputProps(fieldKey, { type: 'checkbox' })}
+            
         />
       );
     }
@@ -66,6 +67,7 @@ export function renderFormFromSchema<T extends object, U extends object>(
           label={item.title}
           placeholder={item.alt}
           data={item.options ?? []}
+          searchable
           {...form.getInputProps(fieldKey)}
         />
       );

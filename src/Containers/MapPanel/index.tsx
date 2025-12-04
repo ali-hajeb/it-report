@@ -103,10 +103,13 @@ export default function InfrastructureMap() {
                         dashArray={link.status === 'warning' ? '10, 10' : undefined}
                         className={link.status === 'up' ? 'animate-pulse' : ''}
                     >
-                        { link.bandwidth && 
-                            <Tooltip direction="center" permanent opacity={0.8}>
-                                <span className="bg-black/80 text-white px-2 py-1 rounded text-xs">
-                                    {link.bandwidth}
+                        { (link.bandwidth || link.desc) && 
+                            <Tooltip direction="auto" permanent={false} opacity={0.8}>
+                                <span dir='ltr' className="bg-black/80 text-white px-2 py-1 rounded text-xs">
+                                    {link.bandwidth} Mb/s
+                                </span>
+                                <span dir='ltr' className="bg-black/80 text-white px-2 py-1 rounded text-xs">
+                                    {link.desc}
                                 </span>
                             </Tooltip>
                         }

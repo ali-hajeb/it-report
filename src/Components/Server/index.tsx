@@ -17,6 +17,7 @@ import { getCustomFieldValue } from "./utils";
 import { serverSchemaFields } from "./constants";
 import { filters } from "./constants";
 import { ServerForm } from "./types";
+import { antennaActions, IAntenna } from "@/src/lib/module/antenna";
 
 const LIMIT = MAX_ROWS;
 
@@ -42,6 +43,7 @@ export default function Server({
     const [isLoading, setLoading] = useState(false);
     const [isListLoading, setListLoading] = useState(true);
     const [locationOptions, setLocationOptions] = useState<SelectOption[]>([]);
+    const [antennaOptions, setAntennaOptions] = useState<SelectOption[]>([]);
 
     const [opened, {open, close}] = useDisclosure(false);
 
@@ -77,6 +79,8 @@ export default function Server({
             remoteAccess: '', 
             openPorts: [], 
             notes: '', 
+            coordination: '',
+            connectedAntenna: '',
         },
     })
 
@@ -106,6 +110,21 @@ export default function Server({
                     console.error(error);
                 })
         }
+
+        let params = {};
+        if (userContext?.role === 'ADMIN') {
+            params = {...params, location: userContext.location._id};
+        }
+        antennaActions.getAntennas(params)
+            .then((res) => {
+                const antennas = res.data.antennas as IAntenna[];
+                const antennaOptions = antennas.map(l => ({value: l._id, label: l.name}));
+                console.log('antenna opt', antennaOptions);
+                setAntennaOptions(antennaOptions);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }, []);
 
     const modalOnCloseHandler = () => {
@@ -150,24 +169,26 @@ export default function Server({
     }
 
     const editserverHandler = (id: string) => {
-            console.log(id);
-            const item = servers.find(a => a._id === id);
-            if (item) {
-                console.log(item);
-                const { lastUpdateDate, launchDate, ...data} = item;
-                serverForm.setValues({
-                    ...data,
-                    cpuCores: data.cpuCores.toString(),
-                    ramGB: data.ramGB.toString(),
-                    hddCapacityGB: data.hddCapacityGB?.toString() || '',
-                    openPorts: data.openPorts?.map(p => p.toString()),
-                    location: data.location._id,
-                });
-                lastUpdateDate && setLastUpdate(lastUpdateDate);
-                launchDate && setLaunchDate(launchDate);
-                setEditMode(id);
-                open();
-            }
+        console.log(id);
+        const item = servers.find(a => a._id === id);
+        if (item) {
+            console.log(item);
+            const { lastUpdateDate, launchDate, ...data} = item;
+            serverForm.setValues({
+                ...data,
+                cpuCores: data.cpuCores.toString(),
+                ramGB: data.ramGB.toString(),
+                hddCapacityGB: data.hddCapacityGB?.toString() || '',
+                openPorts: data.openPorts?.map(p => p.toString()),
+                coordination: data.coordination.join(','),
+                location: data.location._id,
+                connectedAntenna: data.connectedAntenna._id,
+            });
+            lastUpdateDate && setLastUpdate(lastUpdateDate);
+            launchDate && setLaunchDate(launchDate);
+            setEditMode(id);
+            open();
+        }
     }
 
 
@@ -183,6 +204,7 @@ export default function Server({
 
     const formOnSubmit = (values: ServerForm) => {
         console.log('server submit');
+        const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {
             ...values,
             cpuCores: parseFloat(values.cpuCores),
@@ -191,6 +213,7 @@ export default function Server({
             openPorts: values.openPorts?.map(p => parseInt(p)),
             backupStatus: values.backupStatus || 'Inactive',
             currentStatus: values.currentStatus || 'Reserved',
+            coordination: coordinates.map(c => parseFloat(c)) as [number, number],
         }
 
         console.log('form', standardValue);
@@ -304,6 +327,15 @@ export default function Server({
                                 data={locationOptions}
                                 key={serverForm.key('location')}
                                 {...serverForm.getInputProps('location')}
+                            />
+                    }
+                    {
+                            <Select
+                                label='آنتن متصل'
+                                placeholder="انتخاب کنید"
+                                data={antennaOptions}
+                                key={serverForm.key('connectedAntenna')}
+                                {...serverForm.getInputProps('connectedAntenna')}
                             />
                     }
                     {

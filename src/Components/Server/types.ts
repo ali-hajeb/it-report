@@ -28,4 +28,6 @@ export interface ServerForm {
     remoteAccess?: string; // دسترسی ریموت (RDP, SSH, iLO, iDRAC, IPMI, etc.)
     openPorts?: string[]; // پورت‌های باز (مثلاً: [3389, 22, 443])
     notes?: string; // توضیحات
+    coordination: string;
+    connectedAntenna: string;
 }

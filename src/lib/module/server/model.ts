@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import { INewServer } from "./server.types";
 
 const serverSchema: Schema<INewServer> = new Schema<INewServer>({
@@ -56,6 +56,13 @@ const serverSchema: Schema<INewServer> = new Schema<INewServer>({
     openPorts: [{ type: Number }],
 
     notes: { type: String },
+    coordination: {
+        type: [Number]
+    },
+    connectedAntenna: {
+        type: Schema.Types.ObjectId,
+        ref: 'Antennas'
+    }
   },
   {
     timestamps: true, // automatically adds createdAt & updatedAt

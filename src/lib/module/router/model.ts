@@ -68,6 +68,13 @@ const routerSchema = new Schema<INewRouter>({
     notes: {
         type: String,
     },
+    coordination: {
+        type: [Number]
+    },
+    connectedAntenna: {
+        type: Schema.Types.ObjectId,
+        ref: 'Antennas'
+    }
 });
 
 const routerInterfaceSchema = new Schema<INewRouterInterface>({

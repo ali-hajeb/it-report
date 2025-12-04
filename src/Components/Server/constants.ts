@@ -41,6 +41,20 @@ export const serverSchemaFields: ITableViewField<IServerPopulated>[] = [
         viewCol: false,
     },
     {
+        key: 'connectedAntenna',
+        type: 'none',
+        title: 'آنتن متصل',
+        alt: 'آنتن متصل',
+        viewCol: true,
+    },
+    {
+        key: "coordination",
+        type: 'text',
+        title: "مختصات مکانی",
+        alt: "مختصات دقیق مکان روی نقشه",
+        viewCol: false,
+    },
+    {
         key: 'serialNumber',
         type: 'text',
         title: 'سریال نامبر',

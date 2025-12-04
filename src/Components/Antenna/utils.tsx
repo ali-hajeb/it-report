@@ -12,7 +12,6 @@ export function getCustomFieldValue(data: IAntennaPopulated, field: keyof IAnten
 
     switch (field) {
         case 'linkType': {
-            console.log(data[field]);
             switch ((data[field] as 'P2MP' | 'P2P').toLowerCase()) {
                 case 'p2mp': {
                     return 'Point-to-Multipoint (P2MP)';

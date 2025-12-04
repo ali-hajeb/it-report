@@ -13,15 +13,17 @@ export interface INewRouter {
     location: string | Schema.Types.ObjectId;
     role: string;
     vlans: string[];
-    routingProtocols: string[];
+    routingProtocols: string;
     natPat: 'Enabled' | 'Disabled' | 'PAT Only';
     dhcpEnabled: boolean;
     vpnEnabled: boolean;
-    vpnTypes: string[];
+    vpnType: string;
     installationDate: string;
     lastConfigUpdate: string;
     supportResponsible: string;
     notes: string;
+    coordination: [number, number];
+    connectedAntenna: string | Schema.Types.ObjectId;
 }
 
 export default interface IRouter extends INewRouter {
@@ -29,7 +31,7 @@ export default interface IRouter extends INewRouter {
 }
 
 export interface INewRouterInterface {
-    routerId: string | Schema.Types.ObjectId;
+    router: string | Schema.Types.ObjectId;
     routerName: string;
     interface: string;
     connectionType: string;
@@ -37,6 +39,7 @@ export interface INewRouterInterface {
     subnet: string;
     status: 'Up' | 'Down';
     desc: string;
+    location: string | Schema.Types.ObjectId;
 }
 
 export interface IRouterInterface extends INewRouterInterface {
@@ -44,13 +47,14 @@ export interface IRouterInterface extends INewRouterInterface {
 }
 
 export interface INewRouterBackup {
-    routerId: string | Schema.Types.ObjectId;
+    router: string | Schema.Types.ObjectId;
     routerName: string;
     lastBackupDate: string;
     storage: string;
     operator: string;
     type: 'Auto' | 'Manual';
     desc: string;
+    location: string | Schema.Types.ObjectId;
 }
 
 export interface IRouterBackup extends INewRouterBackup {

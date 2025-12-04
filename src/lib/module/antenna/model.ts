@@ -17,7 +17,14 @@ const antennaSchema = new Schema<INewAntenna>({
         type: Schema.Types.ObjectId,
     },
     linkType: { type: String, },
-    relatedEquipment: { type: String, },
+    connectedDevices: [{ 
+        deviceType: {
+            type: String,
+        },
+        deviceId: {
+            type: String,
+        }
+    }],
     ip: { type: String, },
     macAddress: { type: String, },
     connectionType: { type: String, },
@@ -33,7 +40,10 @@ const antennaSchema = new Schema<INewAntenna>({
     maintenance: [{
         ref: 'MaintenanceReports',
         type: Schema.Types.ObjectId,
-    }]
+    }],
+    coordination: {
+        type: [Number]
+    }
 });
 
 const Antenna = (mongoose.models && mongoose.models.Antennas) || model('Antennas', antennaSchema);
@@ -41,6 +51,9 @@ const Antenna = (mongoose.models && mongoose.models.Antennas) || model('Antennas
 export default Antenna;
 
 const antennaLinkSchema = new Schema<INewAntennaLink>({
+    name: {
+        type: String,
+    },
     source: {
         ref: 'Antennas',
         type: Schema.Types.ObjectId,
@@ -76,6 +89,10 @@ const antennaLinkSchema = new Schema<INewAntennaLink>({
     },
     notes: {
         type: String,
+    },
+    location: {
+        ref: 'Locations',
+        type: Schema.Types.ObjectId,
     }
 });
 

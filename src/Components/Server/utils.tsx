@@ -4,6 +4,7 @@ import { ILocation } from "@/src/lib/module/location";
 import IServer from "@/src/lib/module/server/server.types";
 import { toFarsiNumber } from "@/src/utils/number";
 import moment from "jalali-moment";
+import { IAntenna } from '@/src/lib/module/antenna';
 
 export function getCustomFieldValue(data: IServerPopulated, field: keyof IServer) {
     if (!data[field]) {
@@ -23,6 +24,9 @@ export function getCustomFieldValue(data: IServerPopulated, field: keyof IServer
             return (data[field] as string[]).join(', ');
         case 'openPorts': 
             return (data[field] as number[]).join(', ');
+        case 'connectedAntenna': 
+            console.log('e', (data[field] as IAntenna).name);
+            return (data[field] as IAntenna).name;
         case 'backupStatus': {
             let state = '';
             let text = '';

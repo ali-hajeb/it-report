@@ -101,7 +101,7 @@ export default function TableContainer<T extends IBaseModelObject>({
                             {
                                 (editItemHandler || deleteItemHandler || viewItemHandler) && 
                                     <Table.Td fz={'xs'}>
-                                        <Group gap={8} justify="center">
+                                        <Group gap={8} justify="center" wrap="nowrap">
                                             {
                                                 editItemHandler &&
                                                     <Button p={0} 

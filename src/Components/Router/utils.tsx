@@ -26,6 +26,9 @@ export function getCustomFieldValue(data: IRouterPopulated, field: keyof IRouter
             return <Flex align={"center"} justify={'center'}>
                 {data[field] ? <IconCheck size={16} color="green" /> : <IconX size={16} color="red" />}
             </Flex>;
+        case 'connectedAntenna': 
+            console.log('e', (data[field] as IAntenna).name);
+            return (data[field] as IAntenna).name;
         default: {
             return data[field]?.toLocaleString();
         }

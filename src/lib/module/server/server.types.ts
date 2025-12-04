@@ -32,6 +32,8 @@ export interface INewServer {
     remoteAccess?: string; // دسترسی ریموت (RDP, SSH, iLO, iDRAC, IPMI, etc.)
     openPorts?: number[]; // پورت‌های باز (مثلاً: [3389, 22, 443])
     notes?: string; // توضیحات
+    coordination: [number, number];
+    connectedAntenna: string | Schema.Types.ObjectId;
 }
 
 export default interface IServer extends INewServer {

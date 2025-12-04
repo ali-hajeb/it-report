@@ -39,6 +39,20 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
         viewCol: true,
     },
     {
+        key: 'connectedAntenna',
+        type: 'none',
+        title: 'آنتن متصل',
+        alt: 'آنتن متصل',
+        viewCol: true,
+    },
+    {
+        key: "coordination",
+        type: 'text',
+        title: "مختصات مکانی",
+        alt: "مختصات دقیق مکان روی نقشه",
+        viewCol: false,
+    },
+    {
         key: 'os',
         type: 'text',
         title: 'سیستم‌عامل (OS)',

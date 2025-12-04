@@ -1,5 +1,5 @@
 import IMenuItem from "@/src/Components/MenuList/MenuList.types"
-import { IconAntenna, IconBuilding, IconBuildingHospital, IconDoorExit, IconHome, IconRouter, IconServer, IconSettingsCog, IconSwitch, IconUsers } from "@tabler/icons-react";
+import { IconAntenna, IconBuilding, IconBuildingHospital, IconDeviceLaptop, IconDoorExit, IconHome, IconRouter, IconServer, IconSettingsCog, IconSwitch, IconUsers } from "@tabler/icons-react";
 
 export const menu: IMenuItem[] = [
     {
@@ -9,17 +9,23 @@ export const menu: IMenuItem[] = [
         icon: <IconHome size={20} />
     },
     {
-        id: '6',
-        title: 'آنتن‌ها',
-        href: '/antenna',
-        icon: <IconAntenna size={20} />
-    },
-    {
         id: '2',
         title: 'مراکز تابع',
         href: '/location',
         icon: <IconBuildingHospital size={20} />,
         role: ['MANAGER'],
+    },
+    {
+        id: '66',
+        title: 'سیستم‌ها',
+        href: '/asset',
+        icon: <IconDeviceLaptop size={20} />
+    },
+    {
+        id: '6',
+        title: 'آنتن‌ها',
+        href: '/antenna',
+        icon: <IconAntenna size={20} />
     },
     {
         id: '22',
@@ -52,12 +58,6 @@ export const menu: IMenuItem[] = [
         href: '/user',
         icon: <IconUsers size={20} />,
         role: ['MANAGER']
-    },
-    {
-        id: '8',
-        title: 'تنظیمات',
-        href: '/setting',
-        icon: <IconSettingsCog size={20} />
     },
     {
         id: '9',

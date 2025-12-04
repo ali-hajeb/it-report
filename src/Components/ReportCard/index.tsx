@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Flex, Group, MantineColorsTuple, Stack, Text } from '@mantine/core';
 import { IconBuildingHospital } from '@tabler/icons-react';
+import { toFarsiNumber } from '@/src/utils/number';
 
 export interface ReportCardProps {
     color: MantineColorsTuple;
@@ -8,6 +9,7 @@ export interface ReportCardProps {
     desc?: string;
     icon?: React.ReactElement;
     info: {
+        icon?: React.ReactElement;
         title: string | React.ReactElement;
         content: string | React.ReactElement;
         type: 'string' | 'jsx';
@@ -42,8 +44,13 @@ export default function ReportCard({
                 {
                     info && info.length && 
                         info.map((item, i) => <Group wrap='nowrap' key={i} mr={64} px={'md'}>
-                            {item.type === 'string' ? <Text c={'white'} size="md" fw={'bold'}>{item.title}</Text> : item.title}
-                            {item.type === 'string' ? <Text c={'white'} size="xs">{item.content}</Text> : item.content}
+                            {item.type === 'string' ? 
+                                <Group gap={"xs"} align="center">
+                                    {item.icon}
+                                    <Text c={'white'} size="md" fw={'bold'}>{item.title}</Text>
+                                </Group>
+                                : item.title}
+                            {item.type === 'string' ? <Text c={'white'} size="sm">{toFarsiNumber(item.content as string)}</Text> : item.content}
                         </Group>)
                 }
             </Stack>

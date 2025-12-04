@@ -1,4 +1,5 @@
 import { Schema } from "mongoose";
+import { DeviceType } from "@/src/lib/module/common/types";
 
 export interface INewAntenna {
     name: string;
@@ -13,7 +14,10 @@ export interface INewAntenna {
     azimuth: number;
     connectedLink: string | Schema.Types.ObjectId | null;
     linkType: string;
-    relatedEquipment: string;
+    connectedDevices?: {
+        deviceType: DeviceType,
+        deviceId: string | Schema.Types.ObjectId
+    }[];
     ip: string;
     macAddress: string;
     connectionType: string;
@@ -24,6 +28,7 @@ export interface INewAntenna {
     notes: string;
     location: string | Schema.Types.ObjectId;
     maintenance: string[] | Schema.Types.ObjectId[];
+    coordination: [number, number];
 };
 
 export default interface IAtenna extends INewAntenna {
@@ -31,6 +36,7 @@ export default interface IAtenna extends INewAntenna {
 };
 
 export interface INewAntennaLink {
+    name: string;
     source: string | Schema.Types.ObjectId;
     destination: string | Schema.Types.ObjectId;
     distance: number;
@@ -41,6 +47,7 @@ export interface INewAntennaLink {
     encryption: string;
     status: string;
     notes: string;
+    location: string | Schema.Types.ObjectId;
 };
 
 export interface IAntennaLink extends INewAntennaLink {

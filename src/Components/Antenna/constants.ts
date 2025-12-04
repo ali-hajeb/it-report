@@ -47,39 +47,46 @@ export const antennaSchemaFields: ITableViewField<IAntennaPopulated>[] = [
         key: "frequency",
         type: 'number',
         title: "فرکانس (GHz)",
-        alt: "فرکانس کاری آنتن (2.4، 5، 60 و...)"
+        alt: "فرکانس کاری آنتن (2.4، 5، 60 و...)",
+        viewCol: false,
     },
     {
         key: "output",
         type: 'number',
         title: "توان خروجی (dBm)",
-        alt: "قدرت خروجی برحسب dBm"
+        alt: "قدرت خروجی برحسب dBm",
+        viewCol: false,
     },
     {
+        viewCol: false,
         key: "gain",
         type: 'number',
         title: "گین (dBi)",
         alt: "بهره آنتن در واحد dBi"
     },
     {
+        viewCol: false,
         key: "installedLocation",
         type: 'text',
         title: "مکان نصب",
         alt: "محل فیزیکی نصب آنتن (بام، برج، تیر برق و...)"
     },
     {
+        viewCol: false,
         key: "height",
         type: 'number',
         title: "ارتفاع نصب (m)",
         alt: "ارتفاع از سطح زمین یا سقف"
     },
     {
+        viewCol: false,
         key: "angle",
         type: 'text',
         title: "زاویه افقی / عمودی",
         alt: "زاویه تنظیم‌شده افقی و عمودی"
     },
     {
+        viewCol: false,
         key: "azimuth",
         type: 'number',
         title: "جهت آنتن (Azimuth)",
@@ -93,6 +100,7 @@ export const antennaSchemaFields: ITableViewField<IAntennaPopulated>[] = [
     //     alt: "آنتن مقصد یا دستگاه متصل"
     // },
     {
+        viewCol: false,
         key: "linkType",
         type: 'select',
         options: [
@@ -102,11 +110,19 @@ export const antennaSchemaFields: ITableViewField<IAntennaPopulated>[] = [
         title: "نوع لینک",
         alt: "نوع ارتباط: نقطه به نقطه یا چند نقطه"
     },
+    // {
+    //     key: "connectedDevices",
+    //     type: 'checkGroup',
+    //     title: "تجهیزات مرتبط",
+    //     alt: "تجهیزات متصل مانند روتر، رادیو یا سوئیچ",
+    //     viewCol: false,
+    // },
     {
-        key: "relatedEquipment",
+        key: "coordination",
         type: 'text',
-        title: "تجهیزات مرتبط",
-        alt: "تجهیزات متصل مانند روتر، رادیو یا سوئیچ"
+        title: "مختصات مکانی",
+        alt: "مختصات دقیق مکان روی نقشه",
+        viewCol: false,
     },
     {
         key: "ip",
@@ -131,6 +147,7 @@ export const antennaSchemaFields: ITableViewField<IAntennaPopulated>[] = [
         alt: "نوع اتصال شبکه (LAN یا Wireless)"
     },
     {
+        viewCol: false,
         key: "firmware",
         type: 'text',
         title: "سیستم‌عامل / فریم‌ور",
@@ -149,6 +166,7 @@ export const antennaSchemaFields: ITableViewField<IAntennaPopulated>[] = [
         alt: "نام فرد یا تیم پشتیبان"
     },
     {
+        viewCol: false,
         key: "notes",
         type: 'text',
         title: "توضیحات",
@@ -213,9 +231,13 @@ export const antennaLinkSchemaFields: ITableViewField<IAntennaLinkPopulated>[] =
     },
     {
         key: 'status',
-        type: 'text',
+        type: 'select',
         title: 'وضعیت فعلی',
-        alt: 'Up, Down'
+        alt: 'Up, Down',
+        options: [
+            { value: 'Up', label: 'فعال' },
+            { value: 'Down', label: 'غیرفغال' },
+        ],
     },
     {
         key: 'notes',
