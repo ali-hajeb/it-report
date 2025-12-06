@@ -8,15 +8,15 @@ export const filters = {
 }
 
 export const DEVICE_STATUS: { value: DeviceStatus; label: string }[] = [
-    { value: 'A', label: 'عالی'},
-    { value: 'B', label: 'خوب'},
-    { value: 'C', label: 'متوسط'},
-    { value: 'D', label: 'غیرقابل استفاده'},
+    { value: 'A', label: 'A'},
+    { value: 'B', label: 'B'},
+    { value: 'C', label: 'C'},
+    { value: 'D', label: 'D'},
     { value: 'N/A', label: 'N/A' }
 ];
 
 export const assetSchemaFields: ITableViewField<IAssetPopulated>[] = [
-    { key: 'location',       type: 'none',    title: 'معاونت',         alt: '', viewCol: true },
+    { key: 'location',       type: 'none',    title: 'مرکز',         alt: '', viewCol: true },
     { key: 'unit',           type: 'text',    title: 'واحد',      alt: '', viewCol: true },
     { key: 'operator',       type: 'text',    title: 'مسئول',          alt: '', viewCol: true },
     { key: 'user',           type: 'text',    title: 'کاربر',          alt: '', viewCol: true },
