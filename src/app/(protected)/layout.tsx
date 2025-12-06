@@ -52,7 +52,7 @@ export default function ProtectedLayout({
                         <MenuList items={menu} />
                     </AppShell.Navbar>
                     <AppShell.Main>
-                        <Container bg={'white'} fluid>
+                        <Container bg={'white'} mr={0} maw={1500} fluid>
                             {children}
                         </Container>
                     </AppShell.Main>
