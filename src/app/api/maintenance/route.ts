@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
         const data = body as INewMaintenanceReport;
 
         const maintenanceReport = await MaintenanceReport.create({ ...data });
+        await maintenanceReport.populate(['location']);
         return NextResponse.json({ code: 200, message: '', maintenanceReport }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
@@ -45,7 +46,7 @@ export async function PATCH(req: NextRequest) {
         const { _id, ...updatedData } = body as IMaintenanceReport;
         console.log(updatedData.location);
 
-        const maintenanceReport = await MaintenanceReport.findByIdAndUpdate(_id, updatedData, { new: true });
+        const maintenanceReport = await MaintenanceReport.findByIdAndUpdate(_id, updatedData, { new: true }).populate(['location']);
         return NextResponse.json({ code: 200, message: '', maintenanceReport }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });

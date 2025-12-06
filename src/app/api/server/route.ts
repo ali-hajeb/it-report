@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
         const data = body as INewServer;
 
         const server = await Server.create(data);
-        await server.populate(['location']);
+        await server.populate(['location', 'connectedAntenna']);
         return NextResponse.json({ code: 200, message: '', server }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
         const servers = await Server.find({ $and: conditions })
             .skip(parseInt(skip) * parseInt(limit))
             .limit(parseInt(limit))
-            .populate(['location']);
+            .populate(['location', 'connectedAntenna']);
 
         return NextResponse.json({ code: 200, message: '', servers, count }, { status: 200 });
     } catch (error) {
@@ -49,7 +49,7 @@ export async function PATCH(req: NextRequest) {
         const body = await req.json();
         const { _id, ...updatedData } = body as IServer;
 
-        const server = await Server.findByIdAndUpdate(_id, updatedData, { new: true }).populate(['location']);
+        const server = await Server.findByIdAndUpdate(_id, updatedData, { new: true }).populate(['location', 'connectedAntenna']);
         return NextResponse.json({ code: 200, message: '', server }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });

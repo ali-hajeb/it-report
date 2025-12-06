@@ -6,7 +6,7 @@ export async function GET(req: NextRequest, ctx: RouteContext<'/api/maintenance/
     try {
         const { id } = await ctx.params;
 
-        const maintenance: IMaintenanceReport = await MaintenanceReport.findById(id);
+        const maintenance: IMaintenanceReport | null = await MaintenanceReport.findById(id);
         if (!maintenance) {
             return NextResponse.json({ code: 404, message: 'Record Not Found'}, { status: 404 });
         }
