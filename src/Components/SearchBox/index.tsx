@@ -2,6 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { Box, Button, Flex, Group, Select, TextInput } from '@mantine/core';
 import { IconZoom } from '@tabler/icons-react';
+import { ITableViewField } from '@/src/Components/TableView';
 
 
 export interface SearchBoxProps {
@@ -13,6 +14,7 @@ export default function SearchBox({filterFields, searchHandler}: SearchBoxProps)
     const [searchStr, setSearchStr] = useState<string>('');
     const [filter, setFilter] = useState<string | null>(null);
     const fields = useRef(Object.values(filterFields));
+
 
     const onSearchHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
