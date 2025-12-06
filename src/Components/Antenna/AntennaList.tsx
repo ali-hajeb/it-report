@@ -318,6 +318,8 @@ export default function AntennaList({
             newItem={newAntennaHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={antennaSchemaFields}
+            data={antennas}
             title="آنتن" />
         <TableView.TableContainer
             customFieldValue={getCustomFieldValue}

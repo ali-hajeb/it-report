@@ -356,6 +356,8 @@ export default function Server({
             newItem={newserverHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={serverSchemaFields}
+            data={servers}
             title="سرور" />
         <TableView.TableContainer
             customFieldValue={getCustomFieldValue}

@@ -291,6 +291,8 @@ export default function AntennaLinks({
             newItem={newAntennaLinkHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={antennaLinkSchemaFields}
+            data={links}
             title="لینک" />
         <TableView.TableContainer
             customFieldValue={getAntennaLinkCustomFieldValue}

@@ -325,6 +325,8 @@ export default function MaintenanceReports({
             newItem={newMaintenanceReportHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={maintenanceReportSchemaFields}
+            data={maintenanceReports}
             title="گزارش" />
         <TableView.TableContainer
             customFieldValue={getCustomFieldValue}

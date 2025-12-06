@@ -192,6 +192,8 @@ export default function Location() {
             reportHandler={reportHandler}
             searchHandler={searchHandler}
             newItem={newLocationHandler}
+            reportFields={locationSchemaFields}
+            data={locations}
             filters={filters}>
         </TableView.TopBar>
         <TableView.TableContainer 

@@ -1,17 +1,14 @@
-import { INewRouterInterface, IRouter, routerActions } from "@/src/lib/module/router";
-import { Button, Group, Input, InputWrapper, Select, Stack } from "@mantine/core";
+import { INewRouterInterface, routerActions } from "@/src/lib/module/router";
+import { Button, Select, Stack } from "@mantine/core";
 import { Form, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
-import { IconCalendar, IconCheck, IconExclamationCircle } from "@tabler/icons-react";
+import { IconCheck, IconExclamationCircle } from "@tabler/icons-react";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import DatePicker, { DateObject } from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian"
-import persian_fa from "react-date-object/locales/persian_fa"
 import { IButtonState } from "@/src/common/type/button.types";
 import { MAX_ROWS } from "@/src/Constants";
 import { RouterInterfaceForm } from "./types";
-import { routerSchemaFields, filters, routerInterfaceSchemaFields } from "./constants";
-import { getCustomFieldValue, getRouterInterfaceCustomFieldValue } from "./utils";
+import { filters, routerInterfaceSchemaFields } from "./constants";
+import { getRouterInterfaceCustomFieldValue } from "./utils";
 import { IRouterInterfacePopulated, IRouterPopulated } from "@/src/lib/module/common/types";
 import UserContext from "@/src/Contexts/UserContext";
 import TableView, { renderFormFromSchema, SelectOption } from "@/src/Components/TableView";
@@ -275,6 +272,8 @@ export default function RouterInterface({
             newItem={newRouterInterfaceHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={routerInterfaceSchemaFields}
+            data={routerInterfaces}
             title="اینترفیس" />
         <TableView.TableContainer
             customFieldValue={getRouterInterfaceCustomFieldValue}

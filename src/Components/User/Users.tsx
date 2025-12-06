@@ -244,6 +244,8 @@ export default function Users() {
             reportHandler={reportHandler}
             searchHandler={searchHandler}
             newItem={newUserHandler}
+            reportFields={userSchemaFields}
+            data={users}
             filters={filters}>
         </TableView.TopBar>
         <TableView.TableContainer 

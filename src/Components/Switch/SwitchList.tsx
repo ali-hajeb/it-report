@@ -329,6 +329,8 @@ export default function SwitchList({
             newItem={newSwitchHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={switchSchemaFields}
+            data={switches}
             title="سوئیچ" />
         <TableView.TableContainer
             customFieldValue={getCustomFieldValue}

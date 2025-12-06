@@ -287,6 +287,8 @@ export default function Asset({
             newItem={newassetHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={assetSchemaFields}
+            data={assets}
             title="ردیف" />
         <TableView.TableContainer
             customFieldValue={getCustomFieldValue}

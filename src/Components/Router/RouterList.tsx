@@ -337,6 +337,8 @@ export default function RouterList({
             newItem={newRouterHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={routerSchemaFields}
+            data={routers}
             title="روتر" />
         <TableView.TableContainer
             customFieldValue={getCustomFieldValue}

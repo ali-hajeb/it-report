@@ -297,6 +297,8 @@ export default function SwitchBackup({
             newItem={newswitchBackupHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={switchBackupSchemaFields}
+            data={switchBackups}
             title="گزارش پشتیبان" />
         <TableView.TableContainer
             customFieldValue={getSwitchBackupCustomFieldValue}

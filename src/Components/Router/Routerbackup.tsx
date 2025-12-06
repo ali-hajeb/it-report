@@ -7,13 +7,13 @@ import { useDisclosure } from "@mantine/hooks";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { MAX_ROWS } from "@/src/Constants";
 import { ILocation, locationActions } from "@/src/lib/module/location";
-import { INewRouterBackup, IRouterBackup, routerActions } from '@/src/lib/module/router';
+import { INewRouterBackup, routerActions } from '@/src/lib/module/router';
 import { IconCalendar, IconCheck, IconExclamationCircle } from "@tabler/icons-react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { Button, Group, Input, InputWrapper, Select, Stack } from "@mantine/core";
-import { getCustomFieldValue, getRouterBackupCustomFieldValue } from "./utils";
+import { getRouterBackupCustomFieldValue } from "./utils";
 import { routerBackupSchemaFields } from "./constants";
 import { filters } from "./constants";
 import { RouterBackupForm } from "./types";
@@ -297,6 +297,8 @@ export default function RouterBackup({
             newItem={newrouterBackupHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={routerBackupSchemaFields}
+            data={routerBackups}
             title="گزارش پشتیبان" />
         <TableView.TableContainer
             customFieldValue={getRouterBackupCustomFieldValue}

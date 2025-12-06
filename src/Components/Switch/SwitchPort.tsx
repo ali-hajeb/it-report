@@ -282,6 +282,8 @@ export default function SwitchPort({
             newItem={newSwitchPortHandler}
             reportHandler={() => {}}
             searchHandler={searchHandler}
+            reportFields={switchPortSchemaFields}
+            data={switchPorts}
             title="پورت‌ها" />
         <TableView.TableContainer
             customFieldValue={getSwitchPortCustomFieldValue}
