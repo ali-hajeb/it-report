@@ -28,13 +28,6 @@ export const menu: IMenuItem[] = [
         icon: <IconAntenna size={20} />
     },
     {
-        id: '22',
-        title: 'واحدها',
-        href: '/units',
-        icon: <IconBuilding size={20} />,
-        role: ['ADMIN'],
-    },
-    {
         id: '3',
         title: 'سرورها',
         href: '/server',
