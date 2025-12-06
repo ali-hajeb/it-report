@@ -74,9 +74,9 @@ export default function LoginPanel({}) {
                                 <Button loading={isLoading} type="submit" fullWidth>
                                     ورود
                                 </Button>
-                                <Button variant='outline' onClick={async () => {
-                                    await axiosInstance.post('/auth/register', { firstName: 'admin', lastName: 'admin', username: 'admin', password: 'admin', location: '690eeb31852c7d9936ae31f8'})
-                                }}>test</Button>
+                                {/* <Button variant='outline' onClick={async () => { */}
+                                {/*     await axiosInstance.post('/auth/register', { firstName: 'admin', lastName: 'admin', username: 'admin', password: 'admin', location: '690eeb31852c7d9936ae31f8'}) */}
+                                {/* }}>test</Button> */}
                             </Stack>
                         </Form>
                     </Box>
