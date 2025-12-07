@@ -1,5 +1,5 @@
 import SwitchPanel from '@/src/Containers/SwitchPanel';
 
 export default function SwitchPage() {
-    return <SwitchPanel />
+    return <SwitchPanel title='سوئیچ‌ها'/>
 }
