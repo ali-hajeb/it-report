@@ -2,7 +2,7 @@ import mongoose, { model, Schema } from "mongoose";
 import { INewServer } from "./server.types";
 
 const serverSchema: Schema<INewServer> = new Schema<INewServer>({
-    serverName: { type: String, required: true, trim: true },
+    name: { type: String, required: true, trim: true },
     serverType: { type: String, required: true, enum: ['Physical', 'Virtual', 'Cloud', 'Container'] },
     brand: { type: String, required: true },
     model: { type: String, required: true },

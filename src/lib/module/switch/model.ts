@@ -6,7 +6,7 @@ const switchSchema = new Schema<INewSwitch>({
         type: Schema.Types.ObjectId,
         ref: 'Locations',
     },
-    switchName: {
+    name: {
         type: String,
     },
     brandModel: {

@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
 
 export interface INewRouter {
-    routerName: string;
+    name: string;
     model: string;
     deviceType: 'Physical' | 'Virtual';
     brand: string;

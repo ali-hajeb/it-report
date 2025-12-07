@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 
 export interface INewSwitch {
     location: string | Schema.Types.ObjectId;
-    switchName: string;
+    name: string;
     brandModel: string;
     deviceType: string;
     portCount: number;

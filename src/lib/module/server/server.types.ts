@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
 
 export interface INewServer {
-    serverName: string; // نام سرور
+    name: string; // نام سرور
     serverType: string; // نوع سرور (Physical / Virtual / Cloud)
     brand: string; // برند (Dell, HP, Supermicro, etc.)
     model: string; // مدل

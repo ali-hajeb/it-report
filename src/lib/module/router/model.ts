@@ -2,7 +2,7 @@ import mongoose, { model, Schema } from "mongoose";
 import { INewRouter, INewRouterBackup, INewRouterInterface } from "./router.types";
 
 const routerSchema = new Schema<INewRouter>({
-    routerName: {
+    name: {
         type: String,
     },
     model: {

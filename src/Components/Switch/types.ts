@@ -1,6 +1,6 @@
 export interface SwitchForm {
     location: string;
-    switchName: string;
+    name: string;
     brandModel: string;
     deviceType: string;
     portCount: string;

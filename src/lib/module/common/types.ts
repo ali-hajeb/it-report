@@ -82,7 +82,7 @@ export interface IMaintenanceReportPopulated {
 
 export interface IServerPopulated {
     _id: string;
-    serverName: string;
+    name: string;
     serverType: string; 
     brand: string;
     model: string; 
@@ -119,7 +119,7 @@ export interface IServerPopulated {
 
 export interface IRouterPopulated {
     _id: string;
-    routerName: string;
+    name: string;
     model: string;
     deviceType: 'Physical' | 'Virtual';
     brand: string;
@@ -205,7 +205,7 @@ export interface IAssetPopulated {
 export interface ISwitchPopulated {
     _id: string;
     location: ILocation;
-    switchName: string;
+    name: string;
     brandModel: string;
     deviceType: string;
     portCount: number;
