@@ -54,7 +54,7 @@ export default function SwitchBackup({
             operator: '',
             type: '',
             desc: '',
-            location: '',
+            location: userContext?.location?._id || '',
         },
     })
 
@@ -92,7 +92,7 @@ export default function SwitchBackup({
         switchActions.getSwitches(params)
             .then((res) => {
                 const switches = res.data._switches as ISwitchPopulated[];
-                const switchOptions = switches.map(l => ({value: l._id, label: l.switchName}));
+                const switchOptions = switches.map(l => ({value: l._id, label: l.name}));
                 console.log('opt', switchOptions);
                 setSwitchOptions(switchOptions);
             })
