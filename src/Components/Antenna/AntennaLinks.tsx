@@ -151,10 +151,10 @@ export default function AntennaLinks({
             const {location, source, destination, ...data} = item;
             antennaLinkForm.setValues({
                 ...data,
-                distance: data.distance.toString(),
-                signalIntensity: data.signalIntensity.toString(),
-                linkQuality: data.linkQuality.toString(),
-                bandwidth: data.bandwidth.toString(),
+                distance: data.distance?.toString() || '0',
+                signalIntensity: data.signalIntensity?.toString() || '0',
+                linkQuality: data.linkQuality?.toString() || '0',
+                bandwidth: data.bandwidth?.toString() || '0',
                 source: source._id,
                 destination: destination._id,
                 location: location._id,
@@ -169,10 +169,10 @@ export default function AntennaLinks({
         console.log('antenna submit');
         const standardValue = {
             ...values,
-            distance: parseFloat(values.distance),
-            signalIntensity: parseFloat(values.signalIntensity),
-            linkQuality: parseFloat(values.linkQuality),
-            bandwidth: parseFloat(values.bandwidth),
+            distance: parseFloat(values.distance) || 0,
+            signalIntensity: parseFloat(values.signalIntensity) || 0,
+            linkQuality: parseFloat(values.linkQuality) || 0,
+            bandwidth: parseFloat(values.bandwidth) || 0,
         }
 
         console.log('form', standardValue);
@@ -305,7 +305,7 @@ export default function AntennaLinks({
             totalPages={totalPages}
             deleteItemHandler={deleteAntennaLinkHandler}
             editItemHandler={editAntennaLinkHandler}
-            scrollContainer={1500}
+            // scrollContainer={1500} 
             maxRows={MAX_ROWS} />
     </TableView>
 }
