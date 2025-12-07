@@ -1,5 +1,5 @@
 export interface RouterForm {
-    routerName: string;
+    name: string;
     model: string;
     deviceType: string;
     brand: string;
