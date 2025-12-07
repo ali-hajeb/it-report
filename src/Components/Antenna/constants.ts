@@ -197,25 +197,32 @@ export const antennaLinkSchemaFields: ITableViewField<IAntennaLinkPopulated>[] =
         key: 'distance',
         type: 'text',
         title: 'فاصله (km)',
-        alt: 'فاصله میان دو آنتن'
+        alt: 'فاصله میان دو آنتن',
+        viewCol: false,
     },
     {
         key: 'signalIntensity',
         type: 'text',
         title: 'قدرت سیگنال (dBm)',
-        alt: 'میزان قدرت سیگنال'
+        alt: 'میزان قدرت سیگنال',
+        viewCol: false,
+
     },
     {
         key: 'linkQuality',
         type: 'text',
         title: 'کیفیت لینک (%)',
-        alt: 'میزان کیفیت لینک'
+        alt: 'میزان کیفیت لینک',
+        viewCol: false,
+
     },
     {
         key: 'linkType',
         type: 'text',
         title: 'نوع لینک (GHz)',
-        alt: '2.4, 5, 60'
+        alt: '2.4, 5, 60',
+        viewCol: false,
+
     },
     {
         key: 'bandwidth',

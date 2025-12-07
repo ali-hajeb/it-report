@@ -37,8 +37,8 @@ export const maintenanceReportSchemaFields: ITableViewField<IMaintenanceReportPo
     {
         key: "date",
         type: 'none',
-        title: "فرکانس (GHz)",
-        alt: "فرکانس کاری آنتن (2.4، 5، 60 و...)"
+        title: "تاریخ",
+        alt: "تاریخ انجام"
     },
     {
         key: "operation",

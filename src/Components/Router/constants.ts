@@ -7,7 +7,7 @@ export const filters = {
 
 export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
     {
-        key: 'routerName',
+        key: 'name',
         type: 'text',
         title: 'نام روتر',
         alt: 'نام تعریف‌شده برای روتر در شبکه',
@@ -18,14 +18,14 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
         type: 'text',
         title: 'مدل / سری ساخت',
         alt: 'مدل دقیق دستگاه (مثل CCR1009 یا Cisco 2911)',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'deviceType',
         type: 'select',
         title: 'نوع دستگاه',
-        alt: 'مشخص کن فیزیکی است یا مجازی',
-        viewCol: true,
+        alt: 'فیزیکی یا مجازی',
+        viewCol: false,
         options: [
             { label: 'فیزیکی', value: 'Physical' },
             { label: 'مجازی', value: 'Virtual' },
@@ -36,7 +36,7 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
         type: 'text',
         title: 'برند',
         alt: 'برند روتر (MikroTik, Cisco, Huawei, ...)',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'connectedAntenna',
@@ -57,7 +57,7 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
         type: 'text',
         title: 'سیستم‌عامل (OS)',
         alt: 'نام سیستم‌عامل (RouterOS، IOS، VRP و غیره)',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'osVersion',
@@ -78,7 +78,7 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
         type: 'text',
         title: 'IP LAN / WAN',
         alt: 'IP شبکه داخلی و خارجی برای ارتباطات',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'subnetGateway',
@@ -99,7 +99,7 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
         type: 'text',
         title: 'نقش / عملکرد',
         alt: 'عملکرد اصلی روتر (Core Router، Edge، Branch، VPN Gateway و...)',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'vlans',
@@ -113,14 +113,14 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
         type: 'text',
         title: 'پروتکل‌های فعال',
         alt: 'پروتکل‌های Routing فعال (مانند OSPF، BGP، RIP و...)',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'natPat',
         type: 'select',
         title: 'NAT / PAT',
         alt: 'وضعیت NAT یا PAT در شبکه',
-        viewCol: true,
+        viewCol: false,
         options: [
             { label: 'فعال (NAT)', value: 'Enabled' },
             { label: 'PAT Only', value: 'PAT Only' },
@@ -153,7 +153,7 @@ export const routerSchemaFields: ITableViewField<IRouterPopulated>[]  = [
         type: 'text',
         title: 'مسئول پشتیبانی',
         alt: 'نام شخص یا تیم مسئول پشتیبانی',
-        viewCol: true,
+        viewCol: false,
     },
     {
         key: 'notes',

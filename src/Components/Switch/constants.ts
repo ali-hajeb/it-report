@@ -8,7 +8,7 @@ export const filters = {
 
 export const switchSchemaFields: ITableViewField<ISwitchPopulated>[] = [
     {
-        key: 'switchName',
+        key: 'name',
         type: 'text',
         title: 'نام سوئیچ',
         alt: 'نام شبکه‌ای یا برچسب فیزیکی روی دستگاه',
@@ -151,7 +151,7 @@ export const switchPortSchemaFields: ITableViewField<ISwitchPortPopulated>[] = [
     {
         key: 'switchName',
         alt: '',
-        type: 'text',
+        type: 'none',
         title: 'نام سوئیچ'
     },
     {
@@ -162,9 +162,9 @@ export const switchPortSchemaFields: ITableViewField<ISwitchPortPopulated>[] = [
     },
     {
         key: 'status',
-        alt: '',
+        alt: 'فعال یا غیر فعال',
         type: 'select',
-        title: 'شماره پورت',
+        title: 'وضعیت',
         options: [
             { value: 'Up', label: 'فغال' },
             { value: 'Down', label: 'غیرفغال' },

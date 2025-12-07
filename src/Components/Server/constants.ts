@@ -7,7 +7,7 @@ export const filters = {
 
 export const serverSchemaFields: ITableViewField<IServerPopulated>[] = [
     {
-        key: 'serverName',
+        key: 'name',
         type: 'text',
         title: 'نام سرور',
         alt: 'نام شبکه‌ای یا نام داخلی سرور',
