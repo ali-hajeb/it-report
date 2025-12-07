@@ -28,7 +28,7 @@ export default function RouterPanel({
 
     return (
         <>
-            {title && <Title>{title}</Title>}
+            {title && <Title mb={'md'}>{title}</Title>}
             <Tabs value={activeTab} onChange={setActiveTab}>
                 <Tabs.List>
                     <Tabs.Tab value="router-list" leftSection={<IconRouter size={16} />}>فهرست روتر</Tabs.Tab>

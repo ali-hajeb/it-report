@@ -27,7 +27,7 @@ export default function AntennaPanel({
     return (
         <>
             {title && <Title>{title}</Title>}
-            <Tabs value={activeTab} onChange={setActiveTab}>
+            <Tabs value={activeTab} onChange={setActiveTab} mt={'md'}>
                 <Tabs.List>
                     <Tabs.Tab value="antenna-list" leftSection={<IconAntenna size={16} />}>فهرست آنتن‌ها</Tabs.Tab>
                     <Tabs.Tab value="antenna-maintenance" leftSection={<IconSettingsCog size={16} />}>تاریخچه نگهداری و سرویس</Tabs.Tab>

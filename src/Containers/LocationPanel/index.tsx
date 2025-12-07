@@ -3,7 +3,7 @@ import { Title } from "@mantine/core";
 
 export default function LocationPanel() {
     return <>
-        <Title>مراکز تابع</Title>
+        <Title mb={'md'}>مراکز تابع</Title>
         <Location />
     </>
 }
