@@ -49,7 +49,7 @@ export default function RouterList({
     const routerForm = useForm<RouterForm>({
         mode: 'controlled',
         initialValues: {
-            routerName: '',
+            name: '',
             model: '',
             deviceType: '',
             brand: '',
@@ -58,7 +58,7 @@ export default function RouterList({
             managementIP: '',
             lanWanIP: '',
             subnetGateway: '',
-            location: '',
+            location: userContext?.location?._id || '',
             role: '',
             vlans: [], 
             routingProtocols: '',
@@ -351,7 +351,7 @@ export default function RouterList({
             totalPages={totalPages}
             deleteItemHandler={deleteRouterHandler}
             editItemHandler={editRouterHandler}
-            scrollContainer={2100}
+            // scrollContainer={2100}
             maxRows={MAX_ROWS} />
     </TableView>
 }

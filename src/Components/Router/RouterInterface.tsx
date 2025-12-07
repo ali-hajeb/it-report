@@ -51,7 +51,7 @@ export default function RouterInterface({
             subnet: '',
             status: '',
             desc: '',
-            location: '',
+            location: userContext?.location?._id || '',
         },
     })
 
@@ -89,7 +89,7 @@ export default function RouterInterface({
         routerActions.getRouters(params)
             .then((res) => {
                 const routers = res.data.routers as IRouterPopulated[];
-                const routerOptions = routers.map(l => ({value: l._id, label: l.routerName}));
+                const routerOptions = routers.map(l => ({value: l._id, label: l.name}));
                 console.log('opt', routerOptions);
                 setRouterOptions(routerOptions);
             })
@@ -172,7 +172,7 @@ export default function RouterInterface({
                     const updated = [...s];
                     const index = updated.findIndex(a => a._id === editMode);
                     if (index > -1) {
-                        updated[index] = {...res.data?.router};
+                        updated[index] = {...res.data?.routerInterface};
                     }
                     return updated;
                 })
@@ -192,7 +192,7 @@ export default function RouterInterface({
             routerActions.createRouterInterface(standardValue).then(res => {
                 setRouterInterfaces(s => {
                     console.log(s);
-                    return [...s, {...res.data?.router}];
+                    return [...s, {...res.data?.routerInterface}];
                 })
                 setBtnState({color: 'green', icon: <IconCheck size={16} />});
             })
@@ -213,7 +213,7 @@ export default function RouterInterface({
         setListLoading(true);
         routerActions.getRouterInterfaces({...query})
             .then((res) => {
-                setRouterInterfaces(res.data.routers);
+                setRouterInterfaces(res.data.routerInterfaces);
                 setPage(0);
                 // setTotalPages(res.data.count);
             })

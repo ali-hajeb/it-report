@@ -54,7 +54,7 @@ export default function RouterBackup({
             operator: '',
             type: '',
             desc: '',
-            location: '',
+            location: userContext?.location?._id || '',
         },
     })
 
@@ -92,7 +92,7 @@ export default function RouterBackup({
         routerActions.getRouters(params)
             .then((res) => {
                 const routers = res.data.routers as IRouterPopulated[];
-                const routerOptions = routers.map(l => ({value: l._id, label: l.routerName}));
+                const routerOptions = routers.map(l => ({value: l._id, label: l.name}));
                 console.log('opt', routerOptions);
                 setRouterOptions(routerOptions);
             })
