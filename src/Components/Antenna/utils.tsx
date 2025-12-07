@@ -6,9 +6,6 @@ import { Badge } from "@mantine/core";
 import moment from "jalali-moment";
 
 export function getCustomFieldValue(data: IAntennaPopulated, field: keyof IAntenna) {
-    if (!data[field]) {
-        return null;
-    }
 
     switch (field) {
         case 'linkType': {
@@ -67,9 +64,6 @@ export function getCustomFieldValue(data: IAntennaPopulated, field: keyof IAnten
 }
 
 export function getAntennaLinkCustomFieldValue(data: IAntennaLinkPopulated, field: keyof IAntennaLink) {
-    if (!data[field]) {
-        return null;
-    }
 
     switch (field) {
         case 'source': {
