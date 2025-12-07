@@ -7,10 +7,6 @@ import moment from "jalali-moment";
 import { IAntenna } from '@/src/lib/module/antenna';
 
 export function getCustomFieldValue(data: IServerPopulated, field: keyof IServer) {
-    if (!data[field]) {
-        return null;
-    }
-
     switch (field) {
         case 'location': 
             return (data[field] as ILocation).name;
