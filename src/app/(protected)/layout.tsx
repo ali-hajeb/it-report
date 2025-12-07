@@ -15,7 +15,7 @@ export default function ProtectedLayout({
     children
 }: ProtectedLayoutProps) {
     const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-    const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+    const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(false);
     const { isLoading, user } = useUser();
     console.log("protectedLayout", isLoading, user);
     if (!isLoading && !user) {
@@ -31,28 +31,37 @@ export default function ProtectedLayout({
                     padding={0}
                     header={
                         {
-                            height: 32,
-
+                            height: { base: 64, sm: 0},
                         }
                     }
                     navbar={
                         {
-                            width: 200,
+                            width: desktopOpened ? 300 : 64,
                             breakpoint: 'sm',
-                            collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
+                            collapsed: { mobile: !mobileOpened},
                         }
                     }> 
-                    <AppShell.Header>
+                    <AppShell.Header hiddenFrom="sm">
                         <Group h="100%" px="md">
                             <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
-                            <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
                         </Group>
                     </AppShell.Header>
-                    <AppShell.Navbar p="md">
+                    <AppShell.Navbar 
+                        p="sm" 
+                        style={{
+                            overflow: 'hidden',
+                            transition: '250ms ease-in-out'
+                        }}
+                        bg={'gray.0'} >
+                        <AppShell.Section mb={'md'} pr={6}>
+                            {/* <Flex align={'center'} w={40} justify={desktopOpened ? 'start' : 'center'}> */}
+                                <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
+                            {/* </Flex> */}
+                        </AppShell.Section>
                         <MenuList items={menu} />
                     </AppShell.Navbar>
-                    <AppShell.Main>
-                        <Container bg={'white'} mr={0} maw={1500} fluid>
+                    <AppShell.Main pt={'md'}>
+                        <Container bg={'white'}  maw={1500} fluid>
                             {children}
                         </Container>
                     </AppShell.Main>
