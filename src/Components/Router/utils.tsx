@@ -1,3 +1,4 @@
+import { IAntenna } from "@/src/lib/module/antenna";
 import { IRouterBackupPopulated, IRouterInterfacePopulated, IRouterPopulated } from "@/src/lib/module/common/types";
 import { ILocation } from "@/src/lib/module/location";
 import { IRouter } from "@/src/lib/module/router";
