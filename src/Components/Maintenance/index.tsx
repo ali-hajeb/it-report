@@ -19,12 +19,15 @@ import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import { IMaintenanceReportPopulated } from '@/src/lib/module/common/types';
 import { ILocation, locationActions } from '@/src/lib/module/location';
+import { switchActions } from '@/src/lib/module/switch';
+import { routerActions } from '@/src/lib/module/router';
+import { serverActions } from '@/src/lib/module/server';
 
 const actions: Actions = {
     antenna: antennaActions.getAntennas,
-    router: null,
-    server: null,
-    switch: null,
+    router: routerActions.getRouters,
+    server: serverActions.getServers,
+    switch: switchActions.getSwitches,
     other: null
 };
 
@@ -100,8 +103,8 @@ export default function MaintenanceReports({
             actions[type] && actions[type](params)
                 .then((res) => {
                     const {code, message, count, ...devices} = res.data;
-                    console.log(res.data, devices[`${type}s`]);
-                    const deviceOptionsList = (devices[`${type}s`] as {_id: string, name: string}[]).map(l => ({value: l._id, label: l.name}));
+                    const deviceOptionsList = (devices[`${type === 'switch' ? '_switche' : type}s`] as {_id: string, name: string}[]).map(l => ({value: l._id, label: l.name}));
+                    console.log(res.data, deviceOptionsList);
                     setDeviceOptions(deviceOptionsList);
                 })
                 .catch(error => {
@@ -180,7 +183,7 @@ export default function MaintenanceReports({
                 const { location, device, ...data} = item;
                 maintenanceReportForm.setValues({
                     ...data,
-                    location: location.toString(),
+                    location: (location as ILocation)._id.toString(),
                     device: device.toString()
                 });
                 setDate(data.date);
