@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
         <html lang="fa" dir="rtl">
             <body
-                style={{background: 'linear-gradient(60deg, rgb(121, 80, 242) 0%, rgb(112, 72, 232) 100%)'}}
+                style={{background: 'linear-gradient(60deg, rgb(190 75 219) 0%, rgb(112, 72, 232) 100%)'}}
             >
                 <MantineProvider theme={theme}>
                     {children}
