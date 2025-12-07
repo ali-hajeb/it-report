@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
             level2: [
                 ...routers.map(a => ({
                 id: a._id,
-                name: a.routerName,
+                name: a.name,
                 type: 'router',
                 position: a.coordination,
                 status: 'up',
@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
             })),
                 ...switches.map(a => ({
                 id: a._id,
-                name: a.switchName,
+                name: a.name,
                 type: 'switch',
                 position: a.coordination,
                 status: a.currentStatus.toLowerCase(),
@@ -51,10 +51,10 @@ export async function GET(req: NextRequest) {
             })),
                 ...servers.map(a => ({
                 id: a._id,
-                name: a.serverName,
+                name: a.name,
                 type: 'server',
-                position: a.currentStatus.toLowerCase(),
-                status: 'up',
+                position: a.coordination,
+                status: a.currentStatus.toLowerCase(),
                 ip: a.externalIP,
             })),,
             ],
