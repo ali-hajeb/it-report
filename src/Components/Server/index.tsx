@@ -176,9 +176,9 @@ export default function Server({
             const { lastUpdateDate, launchDate, ...data} = item;
             serverForm.setValues({
                 ...data,
-                cpuCores: data.cpuCores.toString(),
-                ramGB: data.ramGB.toString(),
-                hddCapacityGB: data.hddCapacityGB?.toString() || '',
+                cpuCores: data.cpuCores?.toString() || '0',
+                ramGB: data.ramGB?.toString() || '0',
+                hddCapacityGB: data.hddCapacityGB?.toString() || '0',
                 openPorts: data.openPorts?.map(p => p.toString()),
                 coordination: data.coordination.join(','),
                 location: data.location._id,
@@ -207,8 +207,8 @@ export default function Server({
         const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {
             ...values,
-            cpuCores: parseFloat(values.cpuCores),
-            ramGB: parseFloat(values.ramGB),
+            cpuCores: parseFloat(values.cpuCores || '0'),
+            ramGB: parseFloat(values.ramGB || '0'),
             hddCapacityGB: parseFloat(values.hddCapacityGB || '0'),
             openPorts: values.openPorts?.map(p => parseInt(p)),
             backupStatus: values.backupStatus || 'Inactive',
