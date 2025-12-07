@@ -1,17 +1,16 @@
 'use client'
-import { ILocation, locationActions } from "@/src/lib/module/location";
+import { useEffect, useState } from "react";
 import { Button, Flex, Tabs, Title } from "@mantine/core";
-import { IconAntenna, IconChevronRight, IconDeviceLaptop, IconRouter, IconServer, IconServer2 } from "@tabler/icons-react";
 import { Params } from "next/dist/server/request/params";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { IconAntenna, IconChevronRight, IconDeviceLaptop, IconRouter, IconServer, IconServer2 } from "@tabler/icons-react";
+import { ILocation, locationActions } from "@/src/lib/module/location";
 import AntennaPanel from "@/src/Containers/AntennaPanel";
+import RouterPanel from "@/src/Containers/RouterPanel";
+import ServerPanel from "@/src/Containers/ServerPanel";
+import SwitchPanel from "@/src/Containers/SwitchPanel";
+import AssetPanel from "@/src/Containers/AssetPanel";
 import classes from './panel.module.css';
-import RouterPanel from "../RouterPanel";
-import Server from "@/src/lib/module/server";
-import ServerPanel from "../ServerPanel";
-import SwitchPanel from "../SwitchPanel";
-import AssetPanel from "../AssetPanel";
 
 interface IPageParams extends Params {
     id: string;
@@ -62,7 +61,7 @@ export default function SingleLocationPanel() {
                 <Tabs.Tab value="router" leftSection={<IconRouter size={16} />}>روترها</Tabs.Tab>
                 <Tabs.Tab value="server" leftSection={<IconServer size={16} />}>سرورها</Tabs.Tab>
                 <Tabs.Tab value="switch" leftSection={<IconServer2 size={16} />}>سوئیچ‌ها</Tabs.Tab>
-                <Tabs.Tab value="device" leftSection={<IconDeviceLaptop size={16} />}>دستگاه‌ها</Tabs.Tab>
+                <Tabs.Tab value="device" leftSection={<IconDeviceLaptop size={16} />}>سیستم‌ها</Tabs.Tab>
             </Tabs.List>
 
             {!isLoading && <>
