@@ -50,7 +50,7 @@ export default function SwitchList({
         mode: 'controlled',
         initialValues: {
             location: userContext?.location?._id || '',
-            switchName: '',
+            name: '',
             brandModel: '',
             deviceType: '',
             portCount: '',

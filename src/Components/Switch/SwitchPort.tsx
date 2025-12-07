@@ -57,7 +57,7 @@ export default function SwitchPort({
             connectedDevice: '',
             connectedDeviceType: '',
             desc: '',
-            location: '',
+            location: userContext?.location?._id || '',
         },
     })
 
@@ -95,7 +95,7 @@ export default function SwitchPort({
         switchActions.getSwitches(params)
             .then((res) => {
                 const switches = res.data._switches as ISwitchPopulated[];
-                const switchOptions = switches.map(l => ({value: l._id, label: l.switchName}));
+                const switchOptions = switches.map(l => ({value: l._id, label: l.name}));
                 console.log('opt', switchOptions);
                 setSwitchOptions(switchOptions);
             })
@@ -182,7 +182,7 @@ export default function SwitchPort({
                     const updated = [...s];
                     const index = updated.findIndex(a => a._id === editMode);
                     if (index > -1) {
-                        updated[index] = {...res.data?._switch};
+                        updated[index] = {...res.data?.switchPort};
                     }
                     return updated;
                 })
@@ -202,7 +202,7 @@ export default function SwitchPort({
             switchActions.createSwitchPort(standardValue).then(res => {
                 setSwitchPorts(s => {
                     console.log(s);
-                    return [...s, {...res.data?._switch}];
+                    return [...s, {...res.data?.switchPort}];
                 })
                 setBtnState({color: 'green', icon: <IconCheck size={16} />});
             })
@@ -223,7 +223,7 @@ export default function SwitchPort({
         setListLoading(true);
         switchActions.getSwitchPorts({...query})
             .then((res) => {
-                setSwitchPorts(res.data._switches);
+                setSwitchPorts(res.data.switchPorts);
                 setPage(0);
                 // setTotalPages(res.data.count);
             })
@@ -258,7 +258,7 @@ export default function SwitchPort({
                             />
                     }
                     <Select
-                        label='روتر'
+                        label='سوئیچ'
                         placeholder="دستگاه مورد نظر را انتخاب کنید..."
                         data={switchOptions}
                         key={switchPortForm.key('switch')}
