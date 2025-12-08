@@ -1,12 +1,11 @@
 import { Badge } from '@mantine/core';
 import { IServerPopulated } from "@/src/lib/module/common/types";
 import { ILocation } from "@/src/lib/module/location";
-import IServer from "@/src/lib/module/server/server.types";
 import { toFarsiNumber } from "@/src/utils/number";
 import moment from "jalali-moment";
 import { IAntenna } from '@/src/lib/module/antenna';
 
-export function getCustomFieldValue(data: IServerPopulated, field: keyof IServer) {
+export function getCustomFieldValue(data: IServerPopulated, field: keyof IServerPopulated) {
     switch (field) {
         case 'location': 
             return (data[field] as ILocation).name;
@@ -73,7 +72,7 @@ export function getCustomFieldValue(data: IServerPopulated, field: keyof IServer
             return (<Badge variant="light" color={state}>{text}</Badge>)
         }
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }
