@@ -52,7 +52,7 @@ export default function ProtectedLayout({
                             overflow: 'hidden',
                             transition: '250ms ease-in-out'
                         }}
-                        bg={'gray.0'} >
+                        bg={'gray.1'} >
                         <AppShell.Section mb={'md'} pr={6}>
                             {/* <Flex align={'center'} w={40} justify={desktopOpened ? 'start' : 'center'}> */}
                                 <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
