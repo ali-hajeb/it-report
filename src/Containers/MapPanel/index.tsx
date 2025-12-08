@@ -85,7 +85,7 @@ export default function InfrastructureMap() {
                                 <h3 className="font-bold text-lg">{device.name}</h3>
                                 <p>Type: {device.type}</p>
                                 <p>IP: {device.ip}</p>
-                                <p>Coordinates: {device.position[0].toFixed(4)}, {device.position[1].toFixed(4)}</p>
+                                <p>Coordinates: {device.position[0]?.toFixed(4)}, {device.position[1]?.toFixed(4)}</p>
                                 {/* <button className="mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"> */}
                                 {/*     View Details */}
                                 {/* </button> */}
@@ -144,7 +144,7 @@ export default function InfrastructureMap() {
                                         <h3 className="font-bold text-lg">{device.name}</h3>
                                         <p>Type: {device.type}</p>
                                         <p>IP: {device.ip}</p>
-                                        <p>Coordinates: {device.position[0].toFixed(4)}, {device.position[1].toFixed(4)}</p>
+                                        <p>Coordinates: {device.position[0]?.toFixed(4)}, {device.position[1]?.toFixed(4)}</p>
                                         <button className="mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                                             View Details
                                         </button>
