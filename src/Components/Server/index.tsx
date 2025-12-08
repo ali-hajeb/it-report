@@ -50,7 +50,7 @@ export default function Server({
     const serverForm = useForm<ServerForm>({
         mode: 'controlled',
         initialValues: {
-            serverName: '', 
+            name: '', 
             serverType: '', 
             brand: '', 
             model: '', 
