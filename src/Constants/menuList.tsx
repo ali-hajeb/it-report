@@ -1,5 +1,5 @@
 import IMenuItem from "@/src/Components/MenuList/MenuList.types"
-import { IconAntenna, IconBuilding, IconBuildingHospital, IconDeviceLaptop, IconDoorExit, IconHome, IconRouter, IconServer, IconServer2, IconSettingsCog, IconSwitch, IconUsers } from "@tabler/icons-react";
+import { IconAntenna, IconBuildingHospital, IconDeviceLaptop, IconDoorExit, IconHome, IconRouter, IconServer, IconServer2, IconUsers } from "@tabler/icons-react";
 
 export const menu: IMenuItem[] = [
     {
