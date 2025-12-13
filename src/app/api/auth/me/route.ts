@@ -5,10 +5,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     try {
-        const res = authMiddleware(req);
-        if (res.status !== 200) {
-            return res;
-        }
+        // const res = authMiddleware(req);
+        // if (res.status !== 200) {
+        //     return res;
+        // }
 
         const user = await User.findById((req as IAuthorizedRequst).user.id).populate(['location']).select('-password');
         if (!user) {
