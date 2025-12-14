@@ -5,57 +5,57 @@ export const menu: IMenuItem[] = [
     {
         id: '1',
         title: 'صفحه اصلی',
-        href: '/it-rpt/dashboard',
+        href: '/itrpt/dashboard',
         icon: <IconHome size={20} />
     },
     {
         id: '2',
         title: 'مراکز تابع',
-        href: '/it-rpt/location',
+        href: '/itrpt/location',
         icon: <IconBuildingHospital size={20} />,
         role: ['MANAGER'],
     },
     {
         id: '66',
         title: 'سیستم‌ها',
-        href: '/it-rpt/asset',
+        href: '/itrpt/asset',
         icon: <IconDeviceLaptop size={20} />
     },
     {
         id: '6',
         title: 'آنتن‌ها',
-        href: '/it-rpt/antenna',
+        href: '/itrpt/antenna',
         icon: <IconAntenna size={20} />
     },
     {
         id: '3',
         title: 'سرورها',
-        href: '/it-rpt/server',
+        href: '/itrpt/server',
         icon: <IconServer size={20} />
     },
     {
         id: '4',
         title: 'روترها',
-        href: '/it-rpt/router',
+        href: '/itrpt/router',
         icon: <IconRouter size={20} />
     },
     {
         id: '5',
         title: 'سوییچ‌ها',
-        href: '/it-rpt/switch',
+        href: '/itrpt/switch',
         icon: <IconServer2 size={20} />
     },
     {
         id: '7',
         title: 'کاربران',
-        href: '/it-rpt/user',
+        href: '/itrpt/user',
         icon: <IconUsers size={20} />,
         role: ['MANAGER']
     },
     {
         id: '9',
         title: 'خروج',
-        href: '/it-rpt/logout',
+        href: '/itrpt/logout',
         icon: <IconDoorExit size={20} />
     },
 ];
