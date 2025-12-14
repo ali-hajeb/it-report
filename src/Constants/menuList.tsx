@@ -5,20 +5,20 @@ export const menu: IMenuItem[] = [
     {
         id: '1',
         title: 'صفحه اصلی',
-        href: '/dashboard',
+        href: '/test/dashboard',
         icon: <IconHome size={20} />
     },
     {
         id: '2',
         title: 'مراکز تابع',
-        href: '/location',
+        href: '/test/location',
         icon: <IconBuildingHospital size={20} />,
         role: ['MANAGER'],
     },
     {
         id: '66',
         title: 'سیستم‌ها',
-        href: '/asset',
+        href: '/test/asset',
         icon: <IconDeviceLaptop size={20} />
     },
     {
