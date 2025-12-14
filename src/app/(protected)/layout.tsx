@@ -20,7 +20,7 @@ export default function ProtectedLayout({
     console.log("protectedLayout", isLoading, user);
     if (!isLoading && !user) {
         console.log(user);
-        redirect('/');
+        redirect('/itrpt');
     }
     return <UserContext value={user}>
         {
