@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Box, Button, Center, Container, Paper, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { Form, useForm } from "@mantine/form";
@@ -61,7 +60,7 @@ export default function LoginPanel({}) {
             <Center>
                 <Box>
                     <Paper py={'md'} px={'lg'} bg={'white'} shadow='xl' radius={'md'}>
-                        <Image loading="eager" src={Logo.src} style={{margin: '0 auto'}} alt='logo' width={256} height={256}/>
+                        <img src={Logo.src} style={{margin: '0 auto'}} alt='logo' width={256} height={256}/>
                         <Title order={1} ta={'center'} c={'violet.7'} mb={10} fz={'h2'}>
                             سامانه گزارش و ثبت مستندات واحد IT
                         </Title>
