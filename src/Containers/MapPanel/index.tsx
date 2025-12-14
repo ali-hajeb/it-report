@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip, useMapEvents
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { getIcon } from './utils';
-import { DEVICES, DEVICES_DETAILED, getState, LINKS, LINKS_DETAILED } from './constants';
+import { getState } from './constants';
 import { useEffect, useState } from 'react';
 import axiosInstance from '@/src/config/axios';
 import { IDevice, ILink } from './types';
