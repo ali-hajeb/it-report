@@ -95,7 +95,7 @@ export default function Location() {
     }
 
     const viewItemHander = (id: string) => {
-        router.push(`location/${id}`);
+        router.replace(`location/${id}`);
     }
 
     const formOnSubmit = (values: LocationForm) => {
