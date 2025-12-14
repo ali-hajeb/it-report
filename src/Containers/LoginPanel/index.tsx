@@ -61,7 +61,7 @@ export default function LoginPanel({}) {
             <Center>
                 <Box>
                     <Paper py={'md'} px={'lg'} bg={'white'} shadow='xl' radius={'md'}>
-                        <Image loading="eager" src={Logo} style={{margin: '0 auto'}} alt='logo' width={256} height={256}/>
+                        <Image loading="eager" src={Logo.src} style={{margin: '0 auto'}} alt='logo' width={256} height={256}/>
                         <Title order={1} ta={'center'} c={'violet.7'} mb={10} fz={'h2'}>
                             سامانه گزارش و ثبت مستندات واحد IT
                         </Title>
