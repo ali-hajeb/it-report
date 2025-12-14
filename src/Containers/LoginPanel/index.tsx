@@ -46,7 +46,7 @@ export default function LoginPanel({}) {
                 console.log(res.data);
                 // redirect('/dashboard');
                 router.refresh();
-                router.push('/dashboard')
+                router.push('dashboard')
             })
             .catch(error => {
                 console.error(error);
