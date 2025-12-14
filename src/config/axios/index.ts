@@ -5,6 +5,8 @@ const axiosInstance = axios.create({
     withCredentials: true
 });
 
+console.log(process.env.BASEURL);
+
 export function addToken(token: string) {
     if (token) {
         localStorage.addItem('token', token);
