@@ -6,7 +6,7 @@ export interface MenuItemProps extends IMenuItem {
 }
 // bg={item.active ? 'gray.3' : 'transparent'}
 export default function MenuItem(item: MenuItemProps) {
-    return (<Link key={item.id} href={item.href}>
+    return (<Link key={item.id} href={item.href} replace>
         <Flex gap={'sm'} align={'center'} >
             <Flex 
                 c={item.active ? 'white' : 'gray'}
