@@ -7,7 +7,7 @@ export const createAntennaIcon = (status: 'up' | 'down' | 'warning') => {
     return new DivIcon({
         html: `
             <div class="relative">
-                <img src="/itrp/icons/antenna.svg" class="w-10 h-10 drop-shadow-lg" />
+                <img src="/icons/antenna.svg" class="w-10 h-10 drop-shadow-lg" />
                 <div class="absolute -top-1 -right-1 w-4 h-4 rounded-full border-2 border-white 
                     ${getState(status) === 'up' ? 'bg-green-500' : getState(status) === 'down' ? 'bg-red-600' : 'bg-yellow-500'}
                     animate-pulse">
@@ -25,7 +25,7 @@ export const createTowerIcon = (size: [number, number], status?: 'up' | 'active'
     return new DivIcon({
         html: `
             <div class="relative">
-                <img src="/itrp/icons/tower.svg" class="w-10 h-10 drop-shadow-lg" />
+                <img src="/icons/tower.svg" class="w-10 h-10 drop-shadow-lg" />
                 <div class="absolute -top-1 -right-1 w-4 h-4 rounded-full border-2 border-white 
                     ${getState(status) === 'up' ? 'bg-green-500' : getState(status) === 'down' ? 'bg-red-600' : 'bg-yellow-500'}
                     animate-pulse">
@@ -39,21 +39,21 @@ export const createTowerIcon = (size: [number, number], status?: 'up' | 'active'
 };
 
 export const routerIcon = new DivIcon({
-    html: `<img src="/itrp/icons/router.svg" class="w-12 h-12" />`,
+    html: `<img src="/icons/router.svg" class="w-12 h-12" />`,
     className: 'transparent-bg-icon',
     iconSize: [48, 48],
     iconAnchor: [24, 24],
 });
 
 export const serverIcon = new DivIcon({
-    html: `<img src="/itrp/icons/server.svg" class="w-12 h-12" />`,
+    html: `<img src="/icons/server.svg" class="w-12 h-12" />`,
     className: 'transparent-bg-icon',
     iconSize: [48, 48],
     iconAnchor: [24, 40],
 });
 
 export const createSwitchIcon = (color?: IDeviceColor) => new DivIcon({
-    html: `<img src="/itrp/icons/switch-solid${color ? '-' + color : ''}.svg" class="w-12 h-12" />`,
+    html: `<img src="/icons/switch-solid${color ? '-' + color : ''}.svg" class="w-12 h-12" />`,
     className: 'transparent-bg-icon',
     iconSize: [48, 48],
     iconAnchor: [24, 40],
