@@ -10,7 +10,7 @@ export default function LogoutPage() {
             .then((res) => {
                 console.log(res.data);
                 // router.refresh();
-                router.replace('/');
+                router.replace('/it-rpt');
             }).catch(error => {
                 console.error(error);
             })

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: `${process.env.BASEURL}/api`,
+  baseURL: `https://rpt.behums.ac.ir/it-rpt/api`,
     withCredentials: true
 });
 
