@@ -9,7 +9,7 @@ export default function LogoutPage() {
         userActions.logout()
             .then((res) => {
                 console.log(res.data);
-                router.refresh();
+                // router.refresh();
                 router.replace('/');
             }).catch(error => {
                 console.error(error);

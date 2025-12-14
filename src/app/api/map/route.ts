@@ -21,6 +21,7 @@ export async function GET(req: NextRequest) {
         const antennas: IAntenna[] = await Antenna.find();
         const antennaLinks: IAntennaLink[] = await AntennaLink.find();
 
+        console.log("[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]", switches);
         const devices = {
             level1: antennas.map(a => ({
                 id: a._id,
@@ -102,7 +103,7 @@ export async function GET(req: NextRequest) {
                 }),
             ]
         }
-        console.log("devices, links", devices, links);
+        // console.log("devices, links", devices, links);
         return NextResponse.json({ code: 200, message: '', devices, links }, { status: 200 });
     } catch (error) {
     }
