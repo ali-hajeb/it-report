@@ -34,7 +34,7 @@ export default function ManagerDashboard() {
         {info.map((loc, i) => { 
             return <Grid.Col key={i} span={{base: 12, md: 6, lg: 3, xl: 3}}>
                 <ReportCard
-                    color={theme.colors[colors[i]]} 
+                    color={theme.colors[colors[i % colors.length]]} 
                     info={[
                         {icon: <IconServer size={16} color="white"/>, title: 'سرور', content: loc.servers, type: 'string'},
                         {icon: <IconRouter size={16} color="white"/>, title: 'روتر', content: loc.routers, type: 'string'},
