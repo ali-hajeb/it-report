@@ -41,7 +41,7 @@ export default function SingleLocationPanel() {
     }, [])
 
     const btnBackOnClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-        router.replace('location');
+        router.replace('/');
     }
 
     return <>
