@@ -165,16 +165,6 @@ export default function Asset({
     }
 
 
-    const calendarLastUpdateOnChangeHandler = (date: DateObject) => {
-        console.log(date.toDate().toISOString());
-        setLastUpdate(date.toDate().toISOString());
-    };
-
-    const calendarLaunchDateOnChangeHandler = (date: DateObject) => {
-        console.log(date.toDate().toISOString());
-        setLaunchDate(date.toDate().toISOString());
-    };
-
     const formOnSubmit = (values: AssetForm) => {
         console.log('asset submit');
         const standardValue = {

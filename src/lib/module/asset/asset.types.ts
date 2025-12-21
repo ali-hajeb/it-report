@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export type DeviceStatus = 'A' | 'B' | 'C' | 'D' | 'N/A';
+export type DeviceStatus = 'عالی' | 'خوب' | 'متوسط' | 'ضعیف' | 'N/A';
 
 export interface INewAsset {
     location: string | Schema.Types.ObjectId;

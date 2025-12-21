@@ -8,10 +8,10 @@ export const filters = {
 }
 
 export const DEVICE_STATUS: { value: DeviceStatus; label: string }[] = [
-    { value: 'A', label: 'A'},
-    { value: 'B', label: 'B'},
-    { value: 'C', label: 'C'},
-    { value: 'D', label: 'D'},
+    { value: 'عالی', label: 'عالی'},
+    { value: 'خوب', label: 'خوب'},
+    { value: 'متوسط', label: 'متوسط'},
+    { value: 'ضعیف', label: 'ضعیف'},
     { value: 'N/A', label: 'N/A' }
 ];
 

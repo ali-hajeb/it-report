@@ -20,7 +20,7 @@ const assetSchema = new Schema<INewAsset>({
     },
     caseStatus: {
         type: String,
-        enum: ['A', 'B', 'C', 'D', 'N/A'],
+        enum: ['عالی', 'خوب', 'متوسط', 'ضعیف', 'N/A'],
         default: 'N/A'
     },
     caseType: {
@@ -32,7 +32,7 @@ const assetSchema = new Schema<INewAsset>({
     },
     monitorStatus: {
         type: String,
-        enum: ['A', 'B', 'C', 'D', 'N/A'],
+        enum: ['عالی', 'خوب', 'متوسط', 'ضعیف', 'N/A'],
         default: 'N/A'
     },
     cmDifference: {
@@ -46,7 +46,7 @@ const assetSchema = new Schema<INewAsset>({
     },
     laptopStatus: {
         type: String,
-        enum: ['A', 'B', 'C', 'D', 'N/A'],
+        enum: ['عالی', 'خوب', 'متوسط', 'ضعیف', 'N/A'],
         default: 'N/A'
     },
     tablet: {
@@ -57,7 +57,7 @@ const assetSchema = new Schema<INewAsset>({
     },
     tabletStatus: {
         type: String,
-        enum: ['A', 'B', 'C', 'D', 'N/A'],
+        enum: ['عالی', 'خوب', 'متوسط', 'ضعیف', 'N/A'],
         default: 'N/A'
     },
     mobile: {
@@ -65,7 +65,7 @@ const assetSchema = new Schema<INewAsset>({
     },
     mobileStatus: {
         type: String,
-        enum: ['A', 'B', 'C', 'D', 'N/A'],
+        enum: ['عالی', 'خوب', 'متوسط', 'ضعیف', 'N/A'],
         default: 'N/A'
     },
     printer: {
