@@ -12,17 +12,17 @@ export function getCustomFieldValue(data: IAssetPopulated, field: keyof IAssetPo
                 let text = '';
                 switch (data[field] as DeviceStatus) {
                     case "عالی": {
-                        state = 'yellow';
+                        state = 'blue';
                         text = data[field];
                         break;
                     }
                     case "خوب": {
-                        state = 'gray';
+                        state = 'green';
                         text = data[field];
                         break;
                     }
                     case "متوسط": {
-                        state = 'orange';
+                        state = 'gray';
                         text = data[field];
                         break;
                     }
@@ -32,7 +32,7 @@ export function getCustomFieldValue(data: IAssetPopulated, field: keyof IAssetPo
                         break;
                     }
                     default: {
-                        state = 'rgba(0, 0, 0, 1)';
+                        state = 'orange';
                         text = 'نامشخص';
                     }
                 }
