@@ -81,17 +81,20 @@ export default function Asset({
     })
 
     useEffect(() => {
-        assetActions.getAssets({ location, skip: page.toString() })
-            .then((res) => {
-                setAssets(res.data.assets);
-                setTotalPages(Math.ceil(res.data.count / LIMIT));
-            })
-            .catch(error => {
-                console.error(error);
-            })
-            .finally(() => {
-                setListLoading(false)
-            });
+        if (userContext) {
+            const filter = userContext.role === 'MANAGER' ? location : userContext.location._id;
+            assetActions.getAssets({ location: filter, skip: page.toString() })
+                .then((res) => {
+                    setAssets(res.data.assets);
+                    setTotalPages(Math.ceil(res.data.count / LIMIT));
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setListLoading(false)
+                });
+        }
     }, [page]);
 
     useEffect(() => {
