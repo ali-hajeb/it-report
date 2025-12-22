@@ -24,7 +24,7 @@ export async function PUT(req: NextRequest) {
 
         await user.populate(['location']);
 
-        const token = signToken(user._id.toString(), user.role);
+        const token = signToken(user._id.toString(), user.role, user.location.toString());
         const response = NextResponse.json({ code: 200, message: 'Authentication Successful', user }, { status: 200 });
         setResponseAuthCookie(response, token);
         return response;
