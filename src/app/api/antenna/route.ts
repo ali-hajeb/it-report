@@ -26,7 +26,11 @@ export async function GET(req: NextRequest) {
 
         const searchParams = req.nextUrl.searchParams;
         const { limit = '25', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
-        const searchQuery: Record<string, string> = { location: (req as IAuthorizedRequst).user.location, ...query };
+
+        const searchQuery: Record<string, string> = {...query};
+        if ((req as IAuthorizedRequst).user.role === 'ADMIN' && !searchQuery.location) {
+            searchQuery.location = (req as IAuthorizedRequst).user.location;
+        }
 
         console.log('quey', query, searchParams.entries());
         const conditions = Object.keys(searchQuery).map((queryKey: string) => {

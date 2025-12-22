@@ -2,6 +2,7 @@ import type { INewAsset, IAsset } from "@/src/lib/module/asset";
 import Asset from "@/src/lib/module/asset";
 import { NextRequest, NextResponse } from "next/server";
 import { escapeRegex } from '@/src/utils/regex';
+import authMiddleware, { IAuthorizedRequst } from "@/src/middleware/auth";
 
 export async function POST(req: NextRequest) {
     try {
@@ -18,8 +19,18 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
     try {
+        const res = authMiddleware(req);
+        if (res.status !== 200) {
+            return res;
+        }
+
         const searchParams = req.nextUrl.searchParams;
         const { limit = '25', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
+
+        const searchQuery: Record<string, string> = {...query};
+        if ((req as IAuthorizedRequst).user.role === 'ADMIN' && !searchQuery.location) {
+            searchQuery.location = (req as IAuthorizedRequst).user.location;
+        }
 
         console.log('quey', query, searchParams.entries());
         const conditions = Object.keys(query).map(queryKey => {
