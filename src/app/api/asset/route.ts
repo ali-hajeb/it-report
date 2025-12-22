@@ -33,11 +33,11 @@ export async function GET(req: NextRequest) {
         }
 
         console.log('quey', query, searchParams.entries());
-        const conditions = Object.keys(query).map(queryKey => {
+        const conditions = Object.keys(searchQuery).map(queryKey => {
             if (queryKey === 'location') {
-                return { [queryKey]: query[queryKey] }
+                return { [queryKey]: searchQuery[queryKey] }
             }
-            const regex = new RegExp(escapeRegex(query[queryKey]), 'i');
+            const regex = new RegExp(escapeRegex(searchQuery[queryKey]), 'i');
             return { [queryKey]: regex };
         });
         console.log('condition', conditions);

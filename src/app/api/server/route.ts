@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
         const { limit = '25', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
 
         const searchQuery: Record<string, string> = {...query};
-        if ((req as IAuthorizedRequst).user.role === 'ADMIN' && !searchQuery.location) {
+        if ((req as IAuthorizedRequst).user.role === 'ADMIN') {
             searchQuery.location = (req as IAuthorizedRequst).user.location;
         }
 
