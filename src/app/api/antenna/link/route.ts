@@ -1,5 +1,6 @@
 import type { IAntennaLink, INewAntennaLink } from "@/src/lib/module/antenna";
 import { AntennaLink } from "@/src/lib/module/antenna";
+import authMiddleware, { IAuthorizedRequst } from "@/src/middleware/auth";
 import { escapeRegex } from "@/src/utils/regex";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -18,15 +19,21 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
     try {
+        const res = authMiddleware(req);
+        if (res.status !== 200) {
+            return res;
+        }
+
         const searchParams = req.nextUrl.searchParams;
         const { limit = '25', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
+        const searchQuery: Record<string, string> = { location: (req as IAuthorizedRequst).user.location, ...query };
 
         console.log('quey', query, searchParams.entries());
-        const conditions = Object.keys(query).map(queryKey => {
+        const conditions = Object.keys(searchQuery).map(queryKey => {
             if (queryKey === 'location') {
-                return { [queryKey]: query[queryKey] }
+                return { [queryKey]: searchQuery[queryKey] }
             }
-            const regex = new RegExp(escapeRegex(query[queryKey]), 'i');
+            const regex = new RegExp(escapeRegex(searchQuery[queryKey]), 'i');
             return { [queryKey]: regex };
         });
         console.log('condition', conditions);

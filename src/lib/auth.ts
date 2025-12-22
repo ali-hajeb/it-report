@@ -13,8 +13,8 @@ export async function verifyPassword(pw: string, hash: string) {
     return bcrypt.compare(pw, hash);
 }
 
-export function signToken(id: string, role: string) {
-    return jwt.sign({ id, role }, JWT_SEC, { expiresIn: "7d" });
+export function signToken(id: string, role: string, location: string) {
+    return jwt.sign({ id, role, location }, JWT_SEC, { expiresIn: "7d" });
 }
 
 export async function setAuthCookie(token: string) {

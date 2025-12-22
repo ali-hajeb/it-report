@@ -9,6 +9,7 @@ export interface IAuthorizedRequst extends NextRequest {
     user: {
         id: string;
         role: UserRole;
+        location: string;
     }
 }
 
@@ -24,7 +25,7 @@ export default function authMiddleware(
 
         const tokenPayload = jwt.verify(token, JWT_SEC) as IJwtPayload;
 
-        (req as IAuthorizedRequst).user = { id: tokenPayload.id, role: tokenPayload.role };
+        (req as IAuthorizedRequst).user = { id: tokenPayload.id, role: tokenPayload.role, location: tokenPayload.location };
 
         if (requiredRole && requiredRole !== tokenPayload.role) {
             return NextResponse.json({code: 403, message: 'Access Denied'}, { status: 403 })
