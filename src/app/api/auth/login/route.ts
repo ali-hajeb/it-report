@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ code: 401, message: 'Authentication Failed' }, { status: 401 });
         }
 
-        const token = signToken(user._id.toString(), user.role);
+        const token = signToken(user._id.toString(), user.role, user.location.toString());
         console.log(token)
         const response = NextResponse.json({ code: 200, message: 'Authentication Successful', user }, { status: 200, headers: { "Cache-Control": "no-store"}});
         setResponseAuthCookie(response, token);
