@@ -5,6 +5,7 @@ import { escapeRegex } from '@/src/utils/regex';
 import "@/src/lib/module/antenna";
 import "@/src/lib/module/location";
 import "@/src/lib/module/switch";
+import authMiddleware, { IAuthorizedRequst } from "@/src/middleware/auth";
 
 export async function POST(req: NextRequest) {
     try {
@@ -21,8 +22,18 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
     try {
+        const res = authMiddleware(req);
+        if (res.status !== 200) {
+            return res;
+        }
+
         const searchParams = req.nextUrl.searchParams;
         const { limit = '25', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
+
+        const searchQuery: Record<string, string> = {...query};
+        if ((req as IAuthorizedRequst).user.role === 'ADMIN') {
+            searchQuery.location = (req as IAuthorizedRequst).user.location;
+        }
 
         console.log('quey', query, searchParams.entries());
         const conditions = Object.keys(query).map(queryKey => {
