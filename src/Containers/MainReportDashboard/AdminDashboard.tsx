@@ -47,7 +47,7 @@ export default function AdminDashboard() {
                 color={theme.colors[colors[1]]} 
                 icon={<IconRouter size={48} color={theme.colors[colors[1]][6]} />}
                 info={[
-                    {title: `${info?.servers} عدد`, content: '', type: 'string'},
+                    {title: `${info?.routers} عدد`, content: '', type: 'string'},
                 ]}
                 name={'روتر'} 
             />
@@ -57,7 +57,7 @@ export default function AdminDashboard() {
                 color={theme.colors[colors[2]]} 
                 icon={<IconServer2 size={48} color={theme.colors[colors[2]][6]} />}
                 info={[
-                    {title: `${info?.servers} عدد`, content: '', type: 'string'},
+                    {title: `${info?.switches} عدد`, content: '', type: 'string'},
                 ]}
                 name={'سوئیچ'} 
             />
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
                 color={theme.colors[colors[3]]} 
                 icon={<IconAntenna size={48} color={theme.colors[colors[3]][6]} />}
                 info={[
-                    {title: `${info?.servers} عدد`, content: '', type: 'string'},
+                    {title: `${info?.antennas} عدد`, content: '', type: 'string'},
                 ]}
                 name={'آنتن'} 
             />
