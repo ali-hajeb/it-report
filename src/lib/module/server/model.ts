@@ -2,37 +2,37 @@ import mongoose, { model, Schema } from "mongoose";
 import { INewServer, INewServerCheckList } from "./server.types";
 
 const serverSchema: Schema<INewServer> = new Schema<INewServer>({
-    name: { type: String, required: true, trim: true },
-    serverType: { type: String, required: true, enum: ['Physical', 'Virtual', 'Cloud', 'Container'] },
-    brand: { type: String, required: true },
-    model: { type: String, required: true },
-    serialNumber: { type: String, required: true, unique: true, uppercase: true, trim: true },
+    name: { type: String, trim: true, default: '' },
+    serverType: { type: String, default: 'Virtual', required: true, enum: ['Physical', 'Virtual', 'Cloud', 'Container'] },
+    brand: { type: String, required: true, default: '' },
+    model: { type: String, default: '', },
+    serialNumber: { type: String, unique: true, uppercase: true, trim: true, default: '' },
 
-    internalIP: { type: String, trim: true },
-    externalIP: { type: String, trim: true },
+    internalIP: { type: String, trim: true , default: ''},
+    externalIP: { type: String, trim: true , default: ''},
 
-    os: { type: String, required: true },
-    osVersion: { type: String },
+    os: { type: String, default: '', },
+    osVersion: { type: String , default: ''},
 
-    role: { type: String, required: true },
+    role: { type: String, default: '', },
     activeServices: [{ type: String }],
 
-    cpuCores: { type: Number, required: true, min: 1, default: 1 },
-    ramGB: { type: Number, required: true, min: 1, default: 1 },
+    cpuCores: { type: Number, min: 1, default: 1 },
+    ramGB: { type: Number, min: 1, default: 1 },
     hddCapacityGB: { type: Number, default: 0},
-    raid: { type: String },
-    gpu: { type: String },
+    raid: { type: String , default: ''},
+    gpu: { type: String , default: ''},
 
-    networkInterfaces: { type: String },
+    networkInterfaces: { type: String, default: '' },
 
     location: {
         type: Schema.Types.ObjectId,
         ref: 'Locations'
     },
-    perciseLocation: { type: String, required: true },
-    rackName: { type: String },
-    hostname: { type: String, required: true, unique: true, lowercase: true, trim: true },
-    domainOrWorkgroup: { type: String },
+    perciseLocation: { type: String, default: '', },
+    rackName: { type: String , default: ''},
+    hostname: { type: String, unique: true, lowercase: true, trim: true , default: ''},
+    domainOrWorkgroup: { type: String , default: ''},
 
     backupStatus: {
       type: String,
@@ -51,11 +51,11 @@ const serverSchema: Schema<INewServer> = new Schema<INewServer>({
       default: 'Active',
     },
 
-    supportResponsible: { type: String },
-    remoteAccess: { type: String },
+    supportResponsible: { type: String , default: ''},
+    remoteAccess: { type: String , default: ''},
     openPorts: [{ type: Number, default: 0 }],
 
-    notes: { type: String },
+    notes: { type: String , default: ''},
     coordination: {
         type: [Number],
         default: [0, 0],
