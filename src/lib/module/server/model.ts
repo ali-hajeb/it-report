@@ -17,9 +17,9 @@ const serverSchema: Schema<INewServer> = new Schema<INewServer>({
     role: { type: String, required: true },
     activeServices: [{ type: String }],
 
-    cpuCores: { type: Number, required: true, min: 1 },
-    ramGB: { type: Number, required: true, min: 1 },
-    hddCapacityGB: { type: Number },
+    cpuCores: { type: Number, required: true, min: 1, default: 1 },
+    ramGB: { type: Number, required: true, min: 1, default: 1 },
+    hddCapacityGB: { type: Number, default: 0},
     raid: { type: String },
     gpu: { type: String },
 
@@ -53,11 +53,12 @@ const serverSchema: Schema<INewServer> = new Schema<INewServer>({
 
     supportResponsible: { type: String },
     remoteAccess: { type: String },
-    openPorts: [{ type: Number }],
+    openPorts: [{ type: Number, default: 0 }],
 
     notes: { type: String },
     coordination: {
-        type: [Number]
+        type: [Number],
+        default: [0, 0],
     },
     connectedAntenna: {
         type: Schema.Types.ObjectId,

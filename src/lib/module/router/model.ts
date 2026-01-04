@@ -69,7 +69,8 @@ const routerSchema = new Schema<INewRouter>({
         type: String,
     },
     coordination: {
-        type: [Number]
+        type: [Number],
+        default: [0, 0],
     },
     connectedAntenna: {
         type: Schema.Types.ObjectId,

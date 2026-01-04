@@ -42,7 +42,8 @@ const antennaSchema = new Schema<INewAntenna>({
         type: Schema.Types.ObjectId,
     }],
     coordination: {
-        type: [Number]
+        type: [Number],
+        default: [0, 0],
     }
 });
 

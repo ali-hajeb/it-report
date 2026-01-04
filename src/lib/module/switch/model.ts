@@ -17,6 +17,7 @@ const switchSchema = new Schema<INewSwitch>({
     },
     portCount: {
         type: Number,
+        default: 0,
     },
     poe: {
         type: Boolean,
@@ -40,7 +41,8 @@ const switchSchema = new Schema<INewSwitch>({
         type: String,
     },
     coordination: {
-        type: [Number]
+        type: [Number],
+        default: [0, 0],
     },
     connectedAntenna: {
         type: Schema.Types.ObjectId,
