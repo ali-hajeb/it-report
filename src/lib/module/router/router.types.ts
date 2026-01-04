@@ -23,7 +23,7 @@ export interface INewRouter {
     supportResponsible: string;
     notes: string;
     coordination: [number, number];
-    connectedAntenna: string | Schema.Types.ObjectId;
+    connectedAntenna: string | Schema.Types.ObjectId | null;
 }
 
 export default interface IRouter extends INewRouter {

@@ -33,7 +33,7 @@ export interface INewServer {
     openPorts?: number[];
     notes?: string;
     coordination: [number, number];
-    connectedAntenna: string | Schema.Types.ObjectId;
+    connectedAntenna: string | Schema.Types.ObjectId | null;
 }
 
 export default interface IServer extends INewServer {

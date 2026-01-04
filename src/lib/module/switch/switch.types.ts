@@ -14,7 +14,7 @@ export interface INewSwitch {
     currentStatus: 'Active' | 'Offline';
     notes: string;
     coordination: [number, number];
-    connectedAntenna: string | Schema.Types.ObjectId;
+    connectedAntenna: string | Schema.Types.ObjectId | null;
 }
 
 export default interface ISwitch extends INewSwitch {
