@@ -207,8 +207,9 @@ export default function Server({
         const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {
             ...values,
-            cpuCores: parseFloat(values.cpuCores || '0'),
-            ramGB: parseFloat(values.ramGB || '0'),
+            cpuCores: parseFloat(values.cpuCores || '1'),
+            serverType: values.serverType || 'Virtual',
+            ramGB: parseFloat(values.ramGB || '1'),
             hddCapacityGB: parseFloat(values.hddCapacityGB || '0'),
             openPorts: values.openPorts?.map(p => parseInt(p)),
             backupStatus: values.backupStatus || 'Inactive',

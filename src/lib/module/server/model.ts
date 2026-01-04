@@ -3,8 +3,8 @@ import { INewServer, INewServerCheckList } from "./server.types";
 
 const serverSchema: Schema<INewServer> = new Schema<INewServer>({
     name: { type: String, trim: true, default: '' },
-    serverType: { type: String, default: 'Virtual', required: true, enum: ['Physical', 'Virtual', 'Cloud', 'Container'] },
-    brand: { type: String, required: true, default: '' },
+    serverType: { type: String, default: 'Virtual', enum: ['Physical', 'Virtual', 'Cloud', 'Container'] },
+    brand: { type: String, default: '' },
     model: { type: String, default: '', },
     serialNumber: { type: String, unique: true, uppercase: true, trim: true, default: '' },
 
