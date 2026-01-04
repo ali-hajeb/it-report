@@ -29,7 +29,7 @@ export interface ServerForm {
     openPorts?: string[]; // پورت‌های باز (مثلاً: [3389, 22, 443])
     notes?: string; // توضیحات
     coordination: string;
-    connectedAntenna: string;
+    connectedAntenna: string | null;
 }
 
 export interface ServerCheckListForm {

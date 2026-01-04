@@ -62,7 +62,7 @@ export default function SwitchList({
             currentStatus: '',
             notes: '',
             coordination: '',
-            connectedAntenna: '',
+            connectedAntenna: null,
         },
     })
 

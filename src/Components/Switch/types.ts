@@ -12,7 +12,7 @@ export interface SwitchForm {
     currentStatus: string;
     notes: string;
     coordination: string;
-    connectedAntenna: string;
+    connectedAntenna: string | null;
 }
 
 export interface SwitchBackupForm {

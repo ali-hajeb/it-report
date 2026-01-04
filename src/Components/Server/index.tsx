@@ -80,7 +80,7 @@ export default function Server({
             openPorts: [], 
             notes: '', 
             coordination: '',
-            connectedAntenna: '',
+            connectedAntenna: null,
         },
     })
 

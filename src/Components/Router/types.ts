@@ -19,8 +19,7 @@ export interface RouterForm {
     supportResponsible: string;
     notes: string;
     coordination: string;
-    connectedAntenna: string;
-
+    connectedAntenna: string | null;
 }
 
 export interface RouterInterfaceForm {

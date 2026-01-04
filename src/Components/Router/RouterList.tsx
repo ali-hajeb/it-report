@@ -69,7 +69,7 @@ export default function RouterList({
             supportResponsible: '',
             notes: '',
             coordination: '',
-            connectedAntenna: '',
+            connectedAntenna: null,
         },
     })
 
