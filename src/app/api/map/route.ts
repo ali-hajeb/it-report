@@ -72,7 +72,7 @@ export async function GET(req: NextRequest) {
             }),
             level2: [
                 ...servers.map(s => {
-                    const source = antennas.find(a => a._id.toString() === s.connectedAntenna.toString());
+                    const source = antennas.find(a => a._id.toString() === s.connectedAntenna?.toString());
                     return source && {
                         from: source.coordination,
                         to: s.coordination,
@@ -81,7 +81,7 @@ export async function GET(req: NextRequest) {
                     };
                 }),
                 ...switches.map(s => {
-                    const source = antennas.find(a => a._id.toString() === s.connectedAntenna.toString());
+                    const source = antennas.find(a => a._id.toString() === s.connectedAntenna?.toString());
                     return source && {
                         from: source.coordination,
                         to: s.coordination,
@@ -90,7 +90,7 @@ export async function GET(req: NextRequest) {
                     };
                 }),
                 ...routers.map(s => {
-                    const source = antennas.find(a => a._id.toString() === s.connectedAntenna.toString());
+                    const source = antennas.find(a => a._id.toString() === s.connectedAntenna?.toString());
                     return source && {
                         from: source.coordination,
                         to: s.coordination,
