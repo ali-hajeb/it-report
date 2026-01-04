@@ -46,6 +46,7 @@ const switchSchema = new Schema<INewSwitch>({
     },
     connectedAntenna: {
         type: Schema.Types.ObjectId,
+        default: null,
         ref: 'Antennas'
     }
 },

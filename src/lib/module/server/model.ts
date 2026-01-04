@@ -62,6 +62,7 @@ const serverSchema: Schema<INewServer> = new Schema<INewServer>({
     },
     connectedAntenna: {
         type: Schema.Types.ObjectId,
+        default: null,
         ref: 'Antennas'
     }
   },

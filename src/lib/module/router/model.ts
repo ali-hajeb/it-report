@@ -58,6 +58,7 @@ const routerSchema = new Schema<INewRouter>({
     },
     installationDate: {
         type: String,
+        default: new Date().toISOString()
     },
     lastConfigUpdate: {
         type: String,
@@ -74,6 +75,7 @@ const routerSchema = new Schema<INewRouter>({
     },
     connectedAntenna: {
         type: Schema.Types.ObjectId,
+        default: null,
         ref: 'Antennas'
     }
 });
