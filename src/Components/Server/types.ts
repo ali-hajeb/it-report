@@ -31,3 +31,10 @@ export interface ServerForm {
     coordination: string;
     connectedAntenna: string;
 }
+
+export interface ServerCheckListForm {
+    date: string;
+    // server: string;
+    // serverName: string;
+    location: string;
+}

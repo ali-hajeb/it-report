@@ -5,7 +5,7 @@ import { Badge } from "@mantine/core";
 export function getCustomFieldValue(data: IAssetPopulated, field: keyof IAssetPopulated) {
     switch (field) {
         case 'location': 
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         default: {
             if (field.toLowerCase().includes('status')) {
                 let state = '';
@@ -42,7 +42,7 @@ export function getCustomFieldValue(data: IAssetPopulated, field: keyof IAssetPo
                     {text}
                 </Badge>
             }
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }

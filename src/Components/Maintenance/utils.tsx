@@ -5,10 +5,6 @@ import { Badge } from "@mantine/core";
 import moment from "jalali-moment";
 
 export function getCustomFieldValue(data: IMaintenanceReportPopulated, field: keyof IMaintenanceReportPopulated) {
-    if (!data[field]) {
-        return null;
-    }
-
     switch (field) {
         case 'date': {
             return toFarsiNumber(moment(data[field]).format('jYYYY/jMM/jDD'));
@@ -23,7 +19,7 @@ export function getCustomFieldValue(data: IMaintenanceReportPopulated, field: ke
             }
         }
         case 'location': {
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         }
         case 'operation': {
             let state = '';
@@ -61,7 +57,7 @@ export function getCustomFieldValue(data: IMaintenanceReportPopulated, field: ke
             </Badge>
         }
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }

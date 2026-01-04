@@ -8,7 +8,7 @@ import { IAntenna } from '@/src/lib/module/antenna';
 export function getCustomFieldValue(data: IServerPopulated, field: keyof IServerPopulated) {
     switch (field) {
         case 'location': 
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         case 'lastUpdateDate':
             return toFarsiNumber(moment(data[field]).format('jyyyy/jmm/jdd'));
         case 'launchDate':
@@ -20,8 +20,7 @@ export function getCustomFieldValue(data: IServerPopulated, field: keyof IServer
         case 'openPorts': 
             return (data[field] as number[]).join(', ');
         case 'connectedAntenna': 
-            console.log('e', (data[field] as IAntenna).name);
-            return (data[field] as IAntenna).name;
+            return (data[field] as IAntenna)?.name || 'نامشخص';
         case 'backupStatus': {
             let state = '';
             let text = '';

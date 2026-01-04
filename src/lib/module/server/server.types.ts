@@ -1,41 +1,60 @@
 import { Schema } from "mongoose";
 
 export interface INewServer {
-    name: string; // نام سرور
-    serverType: string; // نوع سرور (Physical / Virtual / Cloud)
-    brand: string; // برند (Dell, HP, Supermicro, etc.)
-    model: string; // مدل
-    serialNumber: string; // سریال نامبر (SN)
-    internalIP?: string; // IP داخلی
-    externalIP?: string; // IP خارجی
-    os: string; // سیستم‌عامل (Windows Server, Ubuntu, CentOS, etc.)
-    osVersion?: string; // نسخه سیستم‌عامل / Build
-    role: string; // نقش سرور (Database, Web, Application, File Server, etc.)
-    activeServices?: string[]; // سرویس‌های فعال (مثلاً: IIS, Apache, SQL Server, Docker)
-    cpuCores: number; // تعداد هسته CPU
-    ramGB: number; // حجم RAM (GB)
-    hddCapacityGB?: number; // ظرفیت HDD/SSD مجموع (GB)
-    raid?: string; // RAID (RAID0, RAID1, RAID5, RAID10, etc.)
-    gpu?: string; // GPU (اختیاری)
-    networkInterfaces?: string; // NIC ها / سرعت شبکه (مثلاً: 2x 10GbE + 4x 1GbE)
+    name: string;
+    serverType: string;
+    brand: string;
+    model: string; 
+    serialNumber: string;
+    internalIP?: string;
+    externalIP?: string;
+    os: string; 
+    osVersion?: string;
+    role: string;
+    activeServices?: string[];
+    cpuCores: number;
+    ramGB: number;
+    hddCapacityGB?: number;
+    raid?: string;
+    gpu?: string;
+    networkInterfaces?: string;
     location: string | Schema.Types.ObjectId;
-    perciseLocation: string; // محل استقرار (دیتاسنتر تهران، دفتر مرکزی، etc.)
-    rackName?: string; // نام رک (Rack-01, A12, etc.)
-    hostname: string; // Hostname
-    domainOrWorkgroup?: string; // دامین / Workgroup
-    backupStatus: 'Active' | 'Inactive'; // وضعیت بکاپ
-    importantSoftware?: string[]; // نرم‌افزارهای مهم
-    launchDate?: string; // تاریخ راه‌اندازی
-    lastUpdateDate?: string; // تاریخ آخرین به‌روزرسانی
-    currentStatus: 'Active' | 'Down' | 'Reserved'; // وضعیت فعلی
-    supportResponsible?: string; // مسئول پشتیبانی (نام یا ایمیل)
-    remoteAccess?: string; // دسترسی ریموت (RDP, SSH, iLO, iDRAC, IPMI, etc.)
-    openPorts?: number[]; // پورت‌های باز (مثلاً: [3389, 22, 443])
-    notes?: string; // توضیحات
+    perciseLocation: string;
+    rackName?: string;
+    hostname: string;
+    domainOrWorkgroup?: string;
+    backupStatus: 'Active' | 'Inactive';
+    importantSoftware?: string[];
+    launchDate?: string; 
+    lastUpdateDate?: string;
+    currentStatus: 'Active' | 'Down' | 'Reserved';
+    supportResponsible?: string;
+    remoteAccess?: string;
+    openPorts?: number[];
+    notes?: string;
     coordination: [number, number];
     connectedAntenna: string | Schema.Types.ObjectId;
 }
 
 export default interface IServer extends INewServer {
+    _id: string;
+}
+
+export interface ICheckListItem {
+    id: string;
+    title: string;
+    status: -1 | 0 | 1;
+    desc: string;
+}
+
+export interface INewServerCheckList {
+    date: string;
+    server: string | Schema.Types.ObjectId;
+    serverName: string;
+    location: string | Schema.Types.ObjectId;
+    checkList: ICheckListItem[];
+}
+
+export interface IServerCheckList extends INewServerCheckList {
     _id: string;
 }

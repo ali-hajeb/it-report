@@ -1,4 +1,5 @@
 'use client'
+import { BASE_PATH } from "@/src/Constants";
 import { userActions } from "@/src/lib/module/user";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -10,7 +11,7 @@ export default function LogoutPage() {
             .then((res) => {
                 console.log(res.data);
                 // router.refresh();
-                router.replace('/itrpt');
+                router.replace(`${BASE_PATH}/`);
             }).catch(error => {
                 console.error(error);
             })

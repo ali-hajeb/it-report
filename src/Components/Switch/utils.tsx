@@ -9,9 +9,9 @@ import moment from "jalali-moment";
 export function getCustomFieldValue(data: ISwitchPopulated, field: keyof ISwitchPopulated) {
     switch (field) {
         case 'location': 
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         case 'connectedAntenna': 
-            return (data[field] as IAntenna).name;
+            return (data[field] as IAntenna)?.name || 'نامشخص';
         case 'currentStatus': {
             let state = '';
             let text = '';
@@ -38,7 +38,7 @@ export function getCustomFieldValue(data: ISwitchPopulated, field: keyof ISwitch
                 {data[field] ? <IconCheck size={16} color="green" /> : <IconX size={16} color="red" />}
             </Flex>;
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }
@@ -46,7 +46,7 @@ export function getCustomFieldValue(data: ISwitchPopulated, field: keyof ISwitch
 export function getSwitchPortCustomFieldValue(data: ISwitchPortPopulated, field: keyof ISwitchPortPopulated) {
     switch (field) {
         case 'location': 
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         case 'status':
             let state = '';
             let text = '';
@@ -68,7 +68,7 @@ export function getSwitchPortCustomFieldValue(data: ISwitchPortPopulated, field:
             }
             return (<Badge variant="light" color={state}>{text}</Badge>)
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }
@@ -76,11 +76,11 @@ export function getSwitchPortCustomFieldValue(data: ISwitchPortPopulated, field:
 export function getSwitchBackupCustomFieldValue(data: ISwitchBackupPopulated, field: keyof ISwitchBackupPopulated) {
     switch (field) {
         case 'location': 
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         case 'lastBackupDate':
             return toFarsiNumber(moment(data[field]).format('jYYYY/jMM/jDD'));
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }

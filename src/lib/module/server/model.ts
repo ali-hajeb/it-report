@@ -1,5 +1,5 @@
 import mongoose, { model, Schema } from "mongoose";
-import { INewServer } from "./server.types";
+import { INewServer, INewServerCheckList } from "./server.types";
 
 const serverSchema: Schema<INewServer> = new Schema<INewServer>({
     name: { type: String, required: true, trim: true },
@@ -69,6 +69,33 @@ const serverSchema: Schema<INewServer> = new Schema<INewServer>({
   }
 );
 
-const Server = (mongoose.models && mongoose.models.Servers) || model("Servers", serverSchema);
+const serverCheckList = new Schema<INewServerCheckList>({
+    date: {
+        type: String,
+        default: new Date().toISOString()
+    },
+    server: {
+        type: Schema.Types.ObjectId,
+        ref: 'Servers',
+    },
+    serverName: {
+        type: String,
+    },
+    location: {
+        type: Schema.Types.ObjectId,
+        ref: 'Locations',
+    }, 
+    checkList: [{
+        id: String,
+        title: String,
+        status: Number,
+    }],
+}, {timestamps: true});
 
+const Server = (mongoose.models && mongoose.models.Servers) || model("Servers", serverSchema);
+const ServerCheckList = (mongoose.models && mongoose.models.ServerCheckLists) || model("ServerCheckLists", serverCheckList);
+
+export {
+    ServerCheckList
+};
 export default Server;

@@ -5,6 +5,8 @@ import type { IAntenna, IAntennaLink } from '@/src/lib/module/antenna';
 import type { IRouter } from '@/src/lib/module/router';
 import type { DeviceStatus } from '@/src/lib/module/asset/asset.types';
 import ISwitch from '@/src/lib/module/switch/switch.types';
+import { IServer } from '../server';
+import { ICheckListItem } from '../server/server.types';
 
 export interface IUserPopulated {
     _id: string;
@@ -246,6 +248,15 @@ export interface ISwitchPortPopulated {
     connectedDevice: string;
     connectedDeviceType: string;
     desc: string;
+}
+
+export interface IServerCheckListPopulated {
+    _id: string;
+    date: string;
+    server: IServer;
+    serverName: string;
+    location: ILocation;
+    checkList: ICheckListItem[];
 }
 
 export {

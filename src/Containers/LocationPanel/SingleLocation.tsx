@@ -11,6 +11,7 @@ import ServerPanel from "@/src/Containers/ServerPanel";
 import SwitchPanel from "@/src/Containers/SwitchPanel";
 import AssetPanel from "@/src/Containers/AssetPanel";
 import classes from './panel.module.css';
+import { BASE_PATH } from "@/src/Constants";
 
 interface IPageParams extends Params {
     id: string;
@@ -41,7 +42,7 @@ export default function SingleLocationPanel() {
     }, [])
 
     const btnBackOnClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-        router.replace('/itrpt/location');
+        router.replace(`${BASE_PATH}/location`);
     }
 
     return <>

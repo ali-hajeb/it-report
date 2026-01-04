@@ -25,7 +25,7 @@ export function getCustomFieldValue(data: IAntennaPopulated, field: keyof IAnten
             return toFarsiNumber(moment(data[field]).format('jYYYY/jMM/jDD'));
         }
         case 'location': {
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         }
         case 'status': {
             let state = '';
@@ -58,7 +58,7 @@ export function getCustomFieldValue(data: IAntennaPopulated, field: keyof IAnten
             </Badge>
         }
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }
@@ -101,7 +101,7 @@ export function getAntennaLinkCustomFieldValue(data: IAntennaLinkPopulated, fiel
             </Badge>
         }
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }

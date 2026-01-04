@@ -7,6 +7,7 @@ import { AppShell, Burger, Container, Flex, Group, Loader } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";
 import MenuList from "@/src/Components/MenuList";
 import { menu } from '@/src/Constants/menuList';
+import { BASE_PATH } from "@/src/Constants";
 
 
 export interface ProtectedLayoutProps extends React.PropsWithChildren {};
@@ -20,7 +21,7 @@ export default function ProtectedLayout({
     console.log("protectedLayout", isLoading, user);
     if (!isLoading && !user) {
         console.log(user);
-        redirect('/itrpt');
+        redirect(`${BASE_PATH}/`);
     }
     return <UserContext value={user}>
         {

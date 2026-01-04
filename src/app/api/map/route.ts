@@ -1,11 +1,9 @@
 
 import Antenna, { AntennaLink, IAntenna, IAntennaLink } from "@/src/lib/module/antenna";
-import Location, { ILocation } from "@/src/lib/module/location";
 import Router, { IRouter } from "@/src/lib/module/router";
 import Server, { IServer } from "@/src/lib/module/server";
 import Switch, { ISwitch } from "@/src/lib/module/switch";
-import User, { IUserPopulated } from "@/src/lib/module/user";
-import authMiddleware, { IAuthorizedRequst } from "@/src/middleware/auth";
+import authMiddleware from "@/src/middleware/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -21,7 +19,6 @@ export async function GET(req: NextRequest) {
         const antennas: IAntenna[] = await Antenna.find();
         const antennaLinks: IAntennaLink[] = await AntennaLink.find();
 
-        console.log("[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]", switches);
         const devices = {
             level1: antennas.map(a => ({
                 id: a._id,

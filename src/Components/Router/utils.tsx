@@ -10,7 +10,7 @@ import moment from "jalali-moment";
 export function getCustomFieldValue(data: IRouterPopulated, field: keyof IRouter) {
     switch (field) {
         case 'location': 
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         case 'lastConfigUpdate':
             return toFarsiNumber(moment(data[field]).format('jYYYY/jMM/jDD'));
         case 'installationDate':
@@ -28,40 +28,31 @@ export function getCustomFieldValue(data: IRouterPopulated, field: keyof IRouter
                 {data[field] ? <IconCheck size={16} color="green" /> : <IconX size={16} color="red" />}
             </Flex>;
         case 'connectedAntenna': 
-            console.log('e', (data[field] as IAntenna).name);
-            return (data[field] as IAntenna).name;
+            return (data[field] as IAntenna)?.name || 'نامشخص';
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }
 
 export function getRouterInterfaceCustomFieldValue(data: IRouterInterfacePopulated, field: keyof IRouterInterfacePopulated) {
-    if (!data[field]) {
-        return null;
-    }
-
     switch (field) {
         case 'location': 
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }
 
 export function getRouterBackupCustomFieldValue(data: IRouterBackupPopulated, field: keyof IRouterBackupPopulated) {
-    if (!data[field]) {
-        return null;
-    }
-
     switch (field) {
         case 'location': 
-            return (data[field] as ILocation).name;
+            return (data[field] as ILocation)?.name || 'نامشخص';
         case 'lastBackupDate':
             return toFarsiNumber(moment(data[field]).format('jYYYY/jMM/jDD'));
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }

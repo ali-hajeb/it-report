@@ -2,10 +2,6 @@ import { IUserPopulated } from "@/src/lib/module/user";
 import { Badge } from "@mantine/core";
 
 export function getCustomFieldValue(data: IUserPopulated, field: keyof IUserPopulated) {
-    if (!data[field]) {
-        return null;
-    }
-
     switch (field) {
         case 'role': 
             let color = '';
@@ -16,9 +12,9 @@ export function getCustomFieldValue(data: IUserPopulated, field: keyof IUserPopu
             }
             return <Badge variant="light" color={color}>{data[field].toLocaleString()}</Badge>
         case 'location':
-            return data[field].name;
+            return data[field]?.name || 'نامشخص';
         default: {
-            return data[field]?.toLocaleString();
+            return data[field]?.toLocaleString() || '';
         }
     }
 }

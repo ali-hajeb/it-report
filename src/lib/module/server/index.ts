@@ -1,11 +1,15 @@
 import * as serverActions from './actions';
-import Server from './model';
-import type { INewServer } from './server.types';
+import Server, { ServerCheckList } from './model';
+import type { INewServer, ICheckListItem, INewServerCheckList, IServerCheckList } from './server.types';
 import type IServer from './server.types';
 
 export default Server;
 export {
     serverActions,
+    ServerCheckList,
     IServer,
-    INewServer
+    IServerCheckList,
+    INewServerCheckList,
+    INewServer,
+    ICheckListItem
 };

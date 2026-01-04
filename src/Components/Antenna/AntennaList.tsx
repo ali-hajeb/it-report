@@ -165,11 +165,11 @@ export default function AntennaList({
             const { installationDate, ...data} = item;
             antennaForm.setValues({
                 ...data,
-                frequency: data.frequency.toString(),
-                output: data.output.toString(),
-                height: data.height.toString(),
-                gain: data.gain.toString(),
-                azimuth: data.azimuth.toString(),
+                frequency: data.frequency?.toString(),
+                output: data.output?.toString(),
+                height: data.height?.toString(),
+                gain: data.gain?.toString(),
+                azimuth: data.azimuth?.toString(),
                 location: data.location._id,
                 coordination: data.coordination.join(','),
                 connectedLink: data.connectedLink?.toString()
@@ -191,11 +191,11 @@ export default function AntennaList({
         const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {
             ...values,
-            frequency: parseFloat(values.frequency),
-            output: parseFloat(values.output),
-            height: parseFloat(values.height),
-            gain: parseFloat(values.gain),
-            azimuth: parseFloat(values.azimuth),
+            frequency: parseFloat(values.frequency || '0'),
+            output: parseFloat(values.output || '0'),
+            height: parseFloat(values.height || '0'),
+            gain: parseFloat(values.gain || '0'),
+            azimuth: parseFloat(values.azimuth || '0'),
             connectedLink: values.connectedLink || null,
             coordination: coordinates.map(c => parseFloat(c)) as [number, number],
             installationDate: date,
