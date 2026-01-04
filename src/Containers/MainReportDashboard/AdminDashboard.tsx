@@ -2,7 +2,6 @@
 import ReportCard from "@/src/Components/ReportCard";
 import axiosInstance from "@/src/config/axios";
 import { COLORS } from "@/src/Constants/colors";
-import { ILocation, locationActions } from "@/src/lib/module/location";
 import { Grid, useMantineTheme } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { IManagerInfo } from "./types";
