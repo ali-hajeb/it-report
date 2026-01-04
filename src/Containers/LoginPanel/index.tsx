@@ -12,10 +12,6 @@ export type LoginForm = {
     password: string;
 }
 
-// export interface LoginPanelProps {
-//     loginHandler: (data: LoginForm) => Promise<AxiosResponse<any, any, {}>>;
-// }
-
 export default function LoginPanel({}) {
     const [isLoading, setLoading] = useState(false);
     const [copyright, setCopyright] = useState<string[]>([]);
@@ -43,8 +39,6 @@ export default function LoginPanel({}) {
         userActions.login({ username, password })
             .then(res => {
                 console.log(res.data);
-                // redirect('/dashboard');
-                // router.refresh();
                 router.push('dashboard')
             })
             .catch(error => {
@@ -56,7 +50,7 @@ export default function LoginPanel({}) {
     }
 
     return (
-        <Container w={550}>
+        <Container>
             <Center>
                 <Box>
                     <Paper py={'md'} px={'lg'} bg={'white'} shadow='xl' radius={'md'}>
@@ -84,9 +78,6 @@ export default function LoginPanel({}) {
                                     <Button loading={isLoading} type="submit" fullWidth>
                                         ورود
                                     </Button>
-                                    {/* <Button variant='outline' onClick={async () => { */}
-                                    {/*     await axiosInstance.post('/auth/register', { firstName: 'admin', lastName: 'admin', username: 'admin', password: 'admin', location: '690eeb31852c7d9936ae31f8'}) */}
-                                    {/* }}>test</Button> */}
                                 </Stack>
                             </Form>
                         </Box>
