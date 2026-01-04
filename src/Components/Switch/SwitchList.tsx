@@ -8,7 +8,7 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 import { IButtonState } from "@/src/common/type/button.types";
-import { MAX_ROWS } from "@/src/Constants";
+import { COORDINATE_REGEX, MAX_ROWS } from "@/src/Constants";
 import { SwitchForm } from "./types";
 import { switchSchemaFields, filters } from "./constants";
 import { getCustomFieldValue } from "./utils";
@@ -64,6 +64,9 @@ export default function SwitchList({
             coordination: '',
             connectedAntenna: null,
         },
+        validate: {
+            coordination: (value) => (value && COORDINATE_REGEX.test(value) === false ? 'مختصات مکانی باید به شکل number,number باشد' : null),
+        }
     })
 
     useEffect(() => {

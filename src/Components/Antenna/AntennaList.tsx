@@ -70,9 +70,9 @@ export default function AntennaList({
             status: '',
             notes: '',
         },
-        // validate: {
-        //     coordination: (value) => (COORDINATE_REGEX.test(value) ? null : 'مختصات مکانی باید به شکل number,number باشد'),
-        // }
+        validate: {
+            coordination: (value) => (value && COORDINATE_REGEX.test(value) === false ? 'مختصات مکانی باید به شکل number,number باشد' : null),
+        }
     })
 
     useEffect(() => {

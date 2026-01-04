@@ -5,7 +5,7 @@ import { IServerPopulated } from "@/src/lib/module/common/types";
 import { Form, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import { MAX_ROWS } from "@/src/Constants";
+import { COORDINATE_REGEX, MAX_ROWS } from "@/src/Constants";
 import { ILocation, locationActions } from "@/src/lib/module/location";
 import { serverActions } from '@/src/lib/module/server';
 import { IconCalendar, IconCheck, IconExclamationCircle } from "@tabler/icons-react";
@@ -82,6 +82,9 @@ export default function Server({
             coordination: '',
             connectedAntenna: null,
         },
+        validate: {
+            coordination: (value) => (value && COORDINATE_REGEX.test(value) === false ? 'مختصات مکانی باید به شکل number,number باشد' : null),
+        }
     })
 
     useEffect(() => {
