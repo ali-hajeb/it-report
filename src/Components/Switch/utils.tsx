@@ -78,7 +78,11 @@ export function getSwitchBackupCustomFieldValue(data: ISwitchBackupPopulated, fi
         case 'location': 
             return (data[field] as ILocation)?.name || 'نامشخص';
         case 'lastBackupDate':
-            return toFarsiNumber(moment(data[field]).format('jYYYY/jMM/jDD'));
+            if (data[field]) {
+                const date = new Date(data[field]);
+                const m = moment(date)
+                return m.isValid() ? toFarsiNumber(m.format('jYYYY/jMM/jDD')) : '-';
+            }
         default: {
             return data[field]?.toLocaleString() || '';
         }

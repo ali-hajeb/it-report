@@ -22,7 +22,9 @@ export function getCustomFieldValue(data: IAntennaPopulated, field: keyof IAnten
             }
         }
         case 'installationDate': {
-            return toFarsiNumber(moment(data[field]).format('jYYYY/jMM/jDD'));
+            const date = new Date(data[field]);
+            const m = moment(date)
+            return m.isValid() ? toFarsiNumber(m.format('jYYYY/jMM/jDD')) : '-';
         }
         case 'location': {
             return (data[field] as ILocation)?.name || 'نامشخص';

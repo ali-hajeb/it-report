@@ -7,7 +7,9 @@ import moment from "jalali-moment";
 export function getCustomFieldValue(data: IMaintenanceReportPopulated, field: keyof IMaintenanceReportPopulated) {
     switch (field) {
         case 'date': {
-            return toFarsiNumber(moment(data[field]).format('jYYYY/jMM/jDD'));
+            const date = new Date(data[field]);
+            const m = moment(date)
+            return m.isValid() ? toFarsiNumber(m.format('jYYYY/jMM/jDD')) : '-';
         }
         case 'deviceType': {
             switch (data[field] as DeviceType) {

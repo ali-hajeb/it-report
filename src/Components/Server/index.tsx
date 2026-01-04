@@ -111,11 +111,7 @@ export default function Server({
                 })
         }
 
-        let params = {};
-        if (userContext?.role === 'ADMIN') {
-            params = {...params, location: userContext.location._id};
-        }
-        antennaActions.getAntennas(params)
+        antennaActions.getAntennas()
             .then((res) => {
                 const antennas = res.data.antennas as IAntenna[];
                 const antennaOptions = antennas.map(l => ({value: l._id, label: l.name}));

@@ -29,7 +29,7 @@ const antennaSchema = new Schema<INewAntenna>({
     macAddress: { type: String, },
     connectionType: { type: String, },
     firmware: { type: String, },
-    installationDate: { type: String, },
+    installationDate: { type: String, default: new Date().toISOString() },
     support: { type: String, },
     status: { type: String, }, 
     notes: { type: String, },

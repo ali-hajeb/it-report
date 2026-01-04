@@ -10,9 +10,17 @@ export function getCustomFieldValue(data: IServerPopulated, field: keyof IServer
         case 'location': 
             return (data[field] as ILocation)?.name || 'نامشخص';
         case 'lastUpdateDate':
-            return toFarsiNumber(moment(data[field]).format('jyyyy/jmm/jdd'));
+            if (data[field]) {
+                const date = new Date(data[field]);
+                const m = moment(date)
+                return m.isValid() ? toFarsiNumber(m.format('jYYYY/jMM/jDD')) : '-';
+            }
         case 'launchDate':
-            return toFarsiNumber(moment(data[field]).format('jyyyy/jmm/jdd'));
+            if (data[field]) {
+                const date = new Date(data[field]);
+                const m = moment(date)
+                return m.isValid() ? toFarsiNumber(m.format('jYYYY/jMM/jDD')) : '-';
+            }
         case 'activeServices': 
             return (data[field] as string[]).join(', ');
         case 'importantSoftware': 
