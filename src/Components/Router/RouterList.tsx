@@ -191,6 +191,8 @@ export default function RouterList({
         const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {
             ...values,
+            deviceType: values.deviceType ? values.deviceType : null,
+            natPat: values.natPat ? values.deviceType : null,
             installationDate: date,
             lastConfigUpdate: lastUpdate,
             coordination: coordinates.map(c => parseFloat(c)) as [number, number],
