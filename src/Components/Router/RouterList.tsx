@@ -167,7 +167,7 @@ export default function RouterList({
                 ...data,
                 coordination: data.coordination.join(','),
                 location: data.location._id,
-                connectedAntenna: data.connectedAntenna._id,
+                connectedAntenna: data.connectedAntenna?._id,
             });
             lastConfigUpdate && setLastUpdate(lastConfigUpdate);
             installationDate && setDate(installationDate);

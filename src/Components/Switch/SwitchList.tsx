@@ -161,7 +161,7 @@ export default function SwitchList({
                 portCount: portCount.toString(),
                 coordination: data.coordination.join(','),
                 location: data.location._id,
-                connectedAntenna: data.connectedAntenna._id,
+                connectedAntenna: data.connectedAntenna?._id,
                 poe: data.poe
             });
             setEditMode(id);
