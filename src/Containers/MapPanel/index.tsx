@@ -59,7 +59,7 @@ export default function InfrastructureMap() {
                     attribution='&copy; OpenStreetMap'
                 />
                 {/* Devices */}
-                {devices.level1?.map((device) => device && (
+                {devices.level1?.map((device) => device && device.position && (
                     <Marker
                         key={device.id}
                         position={device.position as [number, number]}
@@ -93,7 +93,7 @@ export default function InfrastructureMap() {
                         </Popup>
                     </Marker>
                 ))}
-                {links.level1?.map((link, i) => link && (
+                {links.level1?.map((link, i) => link && link.from && link.to && (
                     <Polyline
                         key={i}
                         positions={[link.from as [number, number], link.to as [number, number]]}
@@ -118,7 +118,7 @@ export default function InfrastructureMap() {
 
                 {
                     zoom >= 13 && <> 
-                        { devices.level2?.map((device, i) => device &&
+                        { devices.level2?.map((device, i) => device && device.position &&
                             <Marker
                                 key={device.id}
                                 position={device.position as [number, number]}
@@ -152,7 +152,7 @@ export default function InfrastructureMap() {
                                 </Popup>
                             </Marker>
                         ) }
-                        { links.level2?.map((link, i) => link && (
+                        { links.level2?.map((link, i) => link && link.from && link.to && (
                             <Polyline
                                 key={i}
                                 positions={[link.from as [number, number], link.to as [number, number]]}

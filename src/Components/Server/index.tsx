@@ -181,7 +181,7 @@ export default function Server({
                 openPorts: data.openPorts?.map(p => p.toString()),
                 coordination: data.coordination.join(','),
                 location: data.location._id,
-                connectedAntenna: data.connectedAntenna._id,
+                connectedAntenna: data.connectedAntenna?._id,
             });
             lastUpdateDate && setLastUpdate(lastUpdateDate);
             launchDate && setLaunchDate(launchDate);

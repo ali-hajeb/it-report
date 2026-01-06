@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
                 id: a._id,
                 name: a.name,
                 type: 'tower',
-                position: a.coordination,
+                position: a.coordination.length === 2 ? a.coordination : null,
                 status: a.status.toLowerCase(),
                 ip: a.ip,
                 snr: a.gain,
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
                 id: a._id,
                 name: a.name,
                 type: 'router',
-                position: a.coordination,
+                position: a.coordination.length === 2 ? a.coordination : null,
                 status: 'up',
                 ip: a.managementIP,
             })),
@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
                 id: a._id,
                 name: a.name,
                 type: 'switch',
-                position: a.coordination,
+                position: a.coordination.length === 2 ? a.coordination : null,
                 status: a.currentStatus.toLowerCase(),
                 color: 'yellow',
                 ip: a.managementIP,
@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
                 id: a._id,
                 name: a.name,
                 type: 'server',
-                position: a.coordination,
+                position: a.coordination.length === 2 ? a.coordination : null,
                 status: a.currentStatus.toLowerCase(),
                 ip: a.externalIP,
             })),,
@@ -63,8 +63,8 @@ export async function GET(req: NextRequest) {
                 const destination = antennas.find(a => a._id.toString() === link.destination.toString());
                 // console.log(source, destination);
                 return source && destination && {
-                from: source.coordination,
-                to: destination.coordination,
+                from: source.coordination.length === 2 ? source.coordination : null,
+                to: destination.coordination.length === 2 ? destination.coordination : null,
                 status: link.status.toLowerCase(),
                 bandwidth: link.bandwidth,
                 desc: link.notes,
@@ -74,8 +74,8 @@ export async function GET(req: NextRequest) {
                 ...servers.map(s => {
                     const source = antennas.find(a => a._id.toString() === s.connectedAntenna?.toString());
                     return source && {
-                        from: source.coordination,
-                        to: s.coordination,
+                        from: source.coordination.length === 2 ? source.coordination : null,
+                        to: s.coordination.length === 2 ? s.coordination : null,
                         status: s.currentStatus.toLowerCase(),
                         desc: s.notes,
                     };
@@ -83,8 +83,8 @@ export async function GET(req: NextRequest) {
                 ...switches.map(s => {
                     const source = antennas.find(a => a._id.toString() === s.connectedAntenna?.toString());
                     return source && {
-                        from: source.coordination,
-                        to: s.coordination,
+                        from: source.coordination.length === 2 ? source.coordination : null,
+                        to: s.coordination.length === 2 ? s.coordination : null,
                         status: s.currentStatus.toLowerCase(),
                         desc: s.notes,
                     };
@@ -92,8 +92,8 @@ export async function GET(req: NextRequest) {
                 ...routers.map(s => {
                     const source = antennas.find(a => a._id.toString() === s.connectedAntenna?.toString());
                     return source && {
-                        from: source.coordination,
-                        to: s.coordination,
+                        from: source.coordination.length === 2 ? source.coordination : null,
+                        to: s.coordination.length === 2 ? s.coordination : null,
                         status: "up",
                         desc: s.notes,
                     };
