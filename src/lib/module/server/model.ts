@@ -6,7 +6,7 @@ const serverSchema: Schema<INewServer> = new Schema<INewServer>({
     serverType: { type: String, default: 'Virtual', enum: ['Physical', 'Virtual', 'Cloud', 'Container'] },
     brand: { type: String, default: '' },
     model: { type: String, default: '', },
-    serialNumber: { type: String, unique: true, uppercase: true, trim: true, default: '' },
+    serialNumber: { type: String, uppercase: true, trim: true, default: '' },
 
     internalIP: { type: String, trim: true , default: ''},
     externalIP: { type: String, trim: true , default: ''},
@@ -31,7 +31,7 @@ const serverSchema: Schema<INewServer> = new Schema<INewServer>({
     },
     perciseLocation: { type: String, default: '', },
     rackName: { type: String , default: ''},
-    hostname: { type: String, unique: true, lowercase: true, trim: true , default: ''},
+    hostname: { type: String, lowercase: true, trim: true , default: ''},
     domainOrWorkgroup: { type: String , default: ''},
 
     backupStatus: {
