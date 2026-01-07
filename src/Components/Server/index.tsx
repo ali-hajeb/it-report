@@ -210,7 +210,7 @@ export default function Server({
             serverType: values.serverType || 'Virtual',
             ramGB: parseFloat(values.ramGB || '1'),
             hddCapacityGB: parseFloat(values.hddCapacityGB || '0'),
-            openPorts: values.openPorts?.map(p => parseInt(p)),
+            openPorts: values.openPorts?.map(p => p && parseInt(p)),
             backupStatus: values.backupStatus || 'Inactive',
             currentStatus: values.currentStatus || 'Reserved',
             coordination: coordinates.map(c => parseFloat(c)) as [number, number],
