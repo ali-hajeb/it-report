@@ -178,7 +178,7 @@ export default function Server({
                 cpuCores: data.cpuCores?.toString() || '0',
                 ramGB: data.ramGB?.toString() || '0',
                 hddCapacityGB: data.hddCapacityGB?.toString() || '0',
-                openPorts: data.openPorts?.map(p => p.toString()),
+                openPorts: data.openPorts?.map(p => p?.toString()),
                 coordination: data.coordination.join(','),
                 location: data.location._id,
                 connectedAntenna: data.connectedAntenna?._id,
