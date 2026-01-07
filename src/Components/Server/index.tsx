@@ -210,7 +210,11 @@ export default function Server({
             serverType: values.serverType || 'Virtual',
             ramGB: parseFloat(values.ramGB || '1'),
             hddCapacityGB: parseFloat(values.hddCapacityGB || '0'),
-            openPorts: values.openPorts?.map(p => p && parseInt(p)),
+            openPorts: values.openPorts?.map(p => {
+                if (p) {
+                    return parseInt(p);
+                }
+            }).filter(p => p !== undefined),
             backupStatus: values.backupStatus || 'Inactive',
             currentStatus: values.currentStatus || 'Reserved',
             coordination: coordinates.map(c => parseFloat(c)) as [number, number],
@@ -220,7 +224,7 @@ export default function Server({
 
         setLoading(true);
         if (editMode) {
-            serverActions.updateServer({_id: editMode, ...standardValue}).then(res => {
+            serverActions.updateServer({_id: editMode, ...standardValue, openPorts: standardValue.openPorts || []}).then(res => {
                 setServers(s => {
                     const updated = [...s];
                     const index = updated.findIndex(a => a._id === editMode);
