@@ -1,5 +1,4 @@
-import { toFarsiNumber } from '@/src/utils/number';
-import { Modal, Table } from '@mantine/core'
+import { Box, Button, ButtonGroup, Group, Modal, Table, Text } from '@mantine/core'
 import { PropsWithChildren } from 'react';
 import { IBaseModelObject, ITableViewField } from './types';
 
@@ -9,16 +8,20 @@ export interface TableViewModalProps<T extends IBaseModelObject> extends PropsWi
     opened: boolean;
     close: () => void;
     closeHandler: () => void;
+    deleteItemHandler?: (id: string) => void;
     editMode: string | null;
+    deleteMode: string | null;
     title: string;
     viewMode?: T | null;
 }
 export default function TableViewModal<T extends IBaseModelObject>({
     opened,
-    close,
+    // close,
     closeHandler,
+    deleteMode,
     editMode,
     title,
+    deleteItemHandler,
     viewMode,
     fields,
     customFieldValue,
@@ -28,11 +31,20 @@ export default function TableViewModal<T extends IBaseModelObject>({
         closeHandler();
         // close();
     }
+
+    const btnDeleteOnClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (deleteMode && deleteItemHandler) {
+            deleteItemHandler(deleteMode);
+            closeHandler();
+        }
+    }
+
     return <Modal
         opened={opened} 
         onClose={modalOnCloseHandler}
-        title={viewMode ? 'نمایش' : editMode ? `ویرایش ${title}` : `افزودن ${title}`}>
-        { viewMode && fields && customFieldValue ? <Table variant='vertical'>
+        title={viewMode ? 'نمایش' : editMode ? `ویرایش ${title}` : deleteMode ? `حذف ${title}` : `افزودن ${title}`}>
+        { (viewMode && fields && customFieldValue) ? <Table variant='vertical'>
             <Table.Tbody>
                 {
                     fields.map(field =>  <Table.Tr key={field.key.toString()} >
@@ -53,6 +65,12 @@ export default function TableViewModal<T extends IBaseModelObject>({
                     </Table.Tr>)
                 }
             </Table.Tbody>
-        </Table> : children}
+        </Table> : deleteMode ? <Box>
+                <Text>آیا از حذف ردیف مطمئن هستید؟</Text>
+                <Group justify='end'>
+                    <Button onClick={btnDeleteOnClickHandler}>بله</Button>
+                    <Button variant='transparent' onClick={modalOnCloseHandler}>خیر</Button>
+                </Group>
+            </Box>: children}
     </Modal>
 }
