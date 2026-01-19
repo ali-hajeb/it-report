@@ -7,6 +7,7 @@ import type { DeviceStatus } from '@/src/lib/module/asset/asset.types';
 import ISwitch from '@/src/lib/module/switch/switch.types';
 import { IServer } from '../server';
 import { ICheckListItem } from '../server/server.types';
+import { RequirementStatus } from '../requirement/requirement.types';
 
 export interface IUserPopulated {
     _id: string;
@@ -177,6 +178,7 @@ export interface IAssetPopulated {
     unit: string;
     operator: string;
     user: string;
+    computerName: string;
     case: string;
     caseStatus: DeviceStatus;
     caseType: string;
@@ -257,6 +259,18 @@ export interface IServerCheckListPopulated {
     serverName: string;
     location: ILocation;
     checkList: ICheckListItem[];
+}
+
+export interface IRequirementPopulated {
+    _id: string;
+    location: ILocation;
+    unit: string;
+    user: string;
+    requirement: string;
+    desc: string;
+    count: number;
+    note: string;
+    status: RequirementStatus;
 }
 
 export {
