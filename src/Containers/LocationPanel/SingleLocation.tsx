@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Flex, Tabs, Title } from "@mantine/core";
 import { Params } from "next/dist/server/request/params";
 import { useParams, useRouter } from "next/navigation";
-import { IconAntenna, IconChevronRight, IconDeviceLaptop, IconRouter, IconServer, IconServer2 } from "@tabler/icons-react";
+import { IconAntenna, IconChevronRight, IconDeviceLaptop, IconHelpSquareRounded, IconRouter, IconServer, IconServer2 } from "@tabler/icons-react";
 import { ILocation, locationActions } from "@/src/lib/module/location";
 import AntennaPanel from "@/src/Containers/AntennaPanel";
 import RouterPanel from "@/src/Containers/RouterPanel";
@@ -12,6 +12,7 @@ import SwitchPanel from "@/src/Containers/SwitchPanel";
 import AssetPanel from "@/src/Containers/AssetPanel";
 import classes from './panel.module.css';
 import { BASE_PATH } from "@/src/Constants";
+import RequirementPanel from "../RequirementPanel";
 
 interface IPageParams extends Params {
     id: string;
@@ -63,6 +64,7 @@ export default function SingleLocationPanel() {
                 <Tabs.Tab value="server" leftSection={<IconServer size={16} />}>سرورها</Tabs.Tab>
                 <Tabs.Tab value="switch" leftSection={<IconServer2 size={16} />}>سوئیچ‌ها</Tabs.Tab>
                 <Tabs.Tab value="device" leftSection={<IconDeviceLaptop size={16} />}>سیستم‌ها</Tabs.Tab>
+                <Tabs.Tab value="requirement" leftSection={<IconHelpSquareRounded size={16} />}>نیازسنجی</Tabs.Tab>
             </Tabs.List>
 
             {!isLoading && <>
@@ -80,6 +82,9 @@ export default function SingleLocationPanel() {
                 </Tabs.Panel>
                 <Tabs.Panel value="device" className={classes.tabPane}>
                     <AssetPanel location={location?._id} />
+                </Tabs.Panel>
+                <Tabs.Panel value="requirement" className={classes.tabPane}>
+                    <RequirementPanel location={location?._id} />
                 </Tabs.Panel>
             </>}
         </Tabs>
