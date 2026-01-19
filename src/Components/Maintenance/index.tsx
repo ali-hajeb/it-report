@@ -1,8 +1,7 @@
 import { IButtonState } from '@/src/common/type/button.types';
 import UserContext from '@/src/Contexts/UserContext';
-import { IMaintenanceReport, maintenanceReportActions } from '@/src/lib/module/maintenanceReport';
-import type { DeviceType, INewMaintenanceReport } from '@/src/lib/module/maintenanceReport/maintenanceReport.types';
-import { all, AxiosResponse } from 'axios';
+import { maintenanceReportActions } from '@/src/lib/module/maintenanceReport';
+import type { DeviceType } from '@/src/lib/module/maintenanceReport/maintenanceReport.types';
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import TableView, { renderFormFromSchema, SelectOption } from '@/src/Components/TableView';
 import { useDisclosure } from '@mantine/hooks';
@@ -49,6 +48,7 @@ export default function MaintenanceReports({
     const [date, setDate] = useState<string>(new Date().toISOString());
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<IMaintenanceReportPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
@@ -138,11 +138,19 @@ export default function MaintenanceReports({
         maintenanceReportForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newMaintenanceReportHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+    
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -269,6 +277,8 @@ export default function MaintenanceReports({
             customFieldValue={getCustomFieldValue}
             fields={maintenanceReportSchemaFields}
             viewMode={viewMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleteMaintenanceReportHandler}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
@@ -340,7 +350,7 @@ export default function MaintenanceReports({
             setPage={setPage}
             totalPages={totalPages}
             viewItemHandler={viewMaintenanceReportHandler}
-            deleteItemHandler={deleteMaintenanceReportHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editMaintenanceReportHandler}
             scrollContainer={1200}
             maxRows={MAX_ROWS} />

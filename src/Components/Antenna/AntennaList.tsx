@@ -35,6 +35,7 @@ export default function AntennaList({
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<IAntennaPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
@@ -120,11 +121,19 @@ export default function AntennaList({
         antennaForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newAntennaHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+    
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -268,6 +277,8 @@ export default function AntennaList({
             customFieldValue={getCustomFieldValue}
             fields={antennaSchemaFields}
             viewMode={viewMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleteAntennaHandler}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
@@ -330,7 +341,7 @@ export default function AntennaList({
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleteAntennaHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editAntennaHandler}
             maxRows={MAX_ROWS} />
     </TableView>

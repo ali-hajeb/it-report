@@ -8,11 +8,8 @@ import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react
 import { MAX_ROWS } from "@/src/Constants";
 import { ILocation, locationActions } from "@/src/lib/module/location";
 import { assetActions, INewAsset } from '@/src/lib/module/asset';
-import { IconCalendar, IconCheck, IconExclamationCircle } from "@tabler/icons-react";
-import DatePicker, { DateObject } from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import { Button, Group, Input, InputWrapper, Select, Stack } from "@mantine/core";
+import { IconCheck, IconExclamationCircle } from "@tabler/icons-react";
+import { Button, Select, Stack } from "@mantine/core";
 import { getCustomFieldValue } from "./utils";
 import { assetSchemaFields } from "./constants";
 import { filters } from "./constants";
@@ -32,11 +29,10 @@ export default function Asset({
     setAssets
 }: AssetProps) {
     const userContext = useContext(UserContext);
-    const [lastUpdate, setLastUpdate] = useState<string>(new Date().toISOString());
-    const [assetLaunchDate, setLaunchDate] = useState<string>(new Date().toISOString());
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<IAssetPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
@@ -52,6 +48,7 @@ export default function Asset({
             unit: '',
             operator: '',
             user: '',
+            computerName: '',
             case: '',
             caseStatus: '',
             caseType: '',
@@ -83,7 +80,7 @@ export default function Asset({
     useEffect(() => {
         if (userContext) {
             const filter = userContext.role === 'MANAGER' ? location : userContext.location._id;
-            assetActions.getAssets({ location: filter, skip: page.toString() })
+            assetActions.getAssets({ location: filter, skip: page.toString(), sort: '{ "unit": -1}' })
                 .then((res) => {
                     setAssets(res.data.assets);
                     setTotalPages(Math.ceil(res.data.count / LIMIT));
@@ -115,11 +112,19 @@ export default function Asset({
         assetForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newassetHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -160,7 +165,7 @@ export default function Asset({
                 const { ...data} = item;
                 assetForm.setValues({
                     ...data,
-                    location: data.location._id,
+                    location: data.location?._id || '',
                 });
                 setEditMode(id);
                 open();
@@ -245,6 +250,8 @@ export default function Asset({
             customFieldValue={getCustomFieldValue}
             fields={assetSchemaFields}
             viewMode={viewMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleteassetHandler}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
@@ -292,9 +299,9 @@ export default function Asset({
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleteassetHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editassetHandler}
-            scrollContainer={2000}
+            // scrollContainer={2000}
             maxRows={MAX_ROWS} />
     </TableView>
 }

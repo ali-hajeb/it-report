@@ -38,6 +38,7 @@ export default function Server({
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<IServerPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
@@ -130,11 +131,19 @@ export default function Server({
         serverForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newserverHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+    
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -286,9 +295,11 @@ export default function Server({
             customFieldValue={getCustomFieldValue}
             fields={serverSchemaFields}
             viewMode={viewMode}
+            deleteMode={deleteMode}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
+            deleteItemHandler={deleteserverHandler}
             title="سرور"
             editMode={editMode}>
             <Form form={serverForm} onSubmit={formOnSubmit}>
@@ -372,7 +383,7 @@ export default function Server({
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleteserverHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editserverHandler}
             maxRows={MAX_ROWS} />
     </TableView>

@@ -31,6 +31,7 @@ export default function AntennaLinks({
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<IAntennaLinkPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
@@ -106,11 +107,19 @@ export default function AntennaLinks({
         antennaLinkForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newAntennaLinkHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -241,6 +250,8 @@ export default function AntennaLinks({
             customFieldValue={getAntennaLinkCustomFieldValue}
             fields={antennaLinkSchemaFields}
             viewMode={viewMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleteAntennaLinkHandler}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
@@ -303,7 +314,7 @@ export default function AntennaLinks({
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleteAntennaLinkHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editAntennaLinkHandler}
             // scrollContainer={1500} 
             maxRows={MAX_ROWS} />

@@ -37,6 +37,7 @@ export default function RouterList({
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<IRouterPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
@@ -120,11 +121,19 @@ export default function RouterList({
         routerForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newRouterHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -264,6 +273,8 @@ export default function RouterList({
             customFieldValue={getCustomFieldValue}
             fields={routerSchemaFields}
             viewMode={viewMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleteRouterHandler}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
@@ -350,7 +361,7 @@ export default function RouterList({
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleteRouterHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editRouterHandler}
             // scrollContainer={2100}
             maxRows={MAX_ROWS} />

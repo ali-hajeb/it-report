@@ -21,6 +21,7 @@ export default function Location() {
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [isLoading, setLoading] = useState(false);
     const [locations, setLocations] = useState<ILocation[]>([]);
@@ -54,11 +55,19 @@ export default function Location() {
     const modalOnCloseHandler = () => {
         locationForm.reset();
         setEditMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newLocationHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -168,6 +177,8 @@ export default function Location() {
         <TableView.Modal 
             close={close}
             editMode={editMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleteLocationHandler}
             opened={opened}
             title='مرکز'
             closeHandler={modalOnCloseHandler}
@@ -205,7 +216,7 @@ export default function Location() {
             totalPages={totalPages}
             fields={locationSchemaFields}
             viewItemHandler={viewItemHander}
-            deleteItemHandler={deleteLocationHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editLocationHandler}
             customFieldValue={getCustomFieldValue}>
         </TableView.TableContainer>

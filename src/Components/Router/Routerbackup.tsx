@@ -36,6 +36,7 @@ export default function RouterBackup({
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<IRouterBackupPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
@@ -105,11 +106,19 @@ export default function RouterBackup({
         routerBackupForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newrouterBackupHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -240,6 +249,8 @@ export default function RouterBackup({
             customFieldValue={getRouterBackupCustomFieldValue}
             fields={routerBackupSchemaFields}
             viewMode={viewMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleterouterBackupHandler}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
@@ -309,7 +320,7 @@ export default function RouterBackup({
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleterouterBackupHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editrouterBackupHandler}
             maxRows={MAX_ROWS} />
     </TableView>

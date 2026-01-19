@@ -31,6 +31,7 @@ export default function RouterInterface({
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<IRouterInterfacePopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
@@ -102,11 +103,19 @@ export default function RouterInterface({
         routerInterfaceForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newRouterInterfaceHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -230,6 +239,8 @@ export default function RouterInterface({
             customFieldValue={getRouterInterfaceCustomFieldValue}
             fields={routerInterfaceSchemaFields}
             viewMode={viewMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleteRouterInterfaceHandler}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
@@ -284,7 +295,7 @@ export default function RouterInterface({
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleteRouterInterfaceHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editRouterInterfaceHandler}
             maxRows={MAX_ROWS} />
     </TableView>

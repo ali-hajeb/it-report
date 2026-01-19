@@ -5,7 +5,6 @@ import { userActions, UserRole } from "@/src/lib/module/user";
 import { IUserPopulated } from "@/src/lib/module/user";
 import { Form, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
-import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { UserForm } from "./types";
 import { IconCheck, IconExclamationCircle } from "@tabler/icons-react";
@@ -21,10 +20,10 @@ const LIMIT = MAX_ROWS;
 
 export default function Users() {
     const userContext = useContext(UserContext);
-    const router = useRouter();
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<IUserPopulated | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [isLoading, setLoading] = useState(false);
@@ -79,11 +78,19 @@ export default function Users() {
         userForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newUserHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -204,6 +211,8 @@ export default function Users() {
         <TableView.Modal
             close={close}
             editMode={editMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleteUserHandler}
             viewMode={viewMode}
             fields={userSchemaFields}
             customFieldValue={getCustomFieldValue}
@@ -257,7 +266,7 @@ export default function Users() {
             totalPages={totalPages}
             fields={userSchemaFields}
             viewItemHandler={viewItemHander}
-            deleteItemHandler={deleteUserHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editUserHandler}
             customFieldValue={getCustomFieldValue}>
         </TableView.TableContainer>

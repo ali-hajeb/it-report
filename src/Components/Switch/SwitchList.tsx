@@ -37,6 +37,7 @@ export default function SwitchList({
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<ISwitchPopulated | null>(null);
     const [isLoading, setLoading] = useState(false);
@@ -114,11 +115,19 @@ export default function SwitchList({
         switchForm.reset();
         setEditMode(null);
         setViewMode(null);
+        setDeleteMode(null);
         close();
     }
 
     const newSwitchHandler = () => {
         setEditMode(null);
+        setDeleteMode(null);
+        open();
+    }
+
+    const deleteHandler = (id: string) => {
+        setEditMode(null);
+        setDeleteMode(id);
         open();
     }
 
@@ -254,6 +263,8 @@ export default function SwitchList({
             customFieldValue={getCustomFieldValue}
             fields={switchSchemaFields}
             viewMode={viewMode}
+            deleteMode={deleteMode}
+            deleteItemHandler={deleteSwitchHandler}
             close={close}
             closeHandler={modalOnCloseHandler}
             opened={opened}
@@ -340,7 +351,7 @@ export default function SwitchList({
             page={page}
             setPage={setPage}
             totalPages={totalPages}
-            deleteItemHandler={deleteSwitchHandler}
+            deleteItemHandler={deleteHandler}
             editItemHandler={editSwitchHandler}
             maxRows={MAX_ROWS} />
     </TableView>
