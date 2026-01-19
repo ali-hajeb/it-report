@@ -15,6 +15,10 @@ const assetSchema = new Schema<INewAsset>({
     user: {
         type: String,
     },
+    computerName: {
+        type: String,
+        default: '',
+    },
     case: {
         type: String,
     },

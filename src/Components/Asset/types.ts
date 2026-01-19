@@ -3,6 +3,7 @@ export interface AssetForm {
     unit: string;
     operator: string;
     user: string;
+    computerName: string;
     case: string;
     caseStatus: string;
     caseType: string;

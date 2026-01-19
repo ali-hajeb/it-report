@@ -7,6 +7,7 @@ export interface INewAsset {
     unit: string;
     operator: string;
     user: string;
+    computerName: string;
     case: string;
     caseStatus: DeviceStatus;
     caseType: string;
