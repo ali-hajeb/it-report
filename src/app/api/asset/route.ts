@@ -25,7 +25,9 @@ export async function GET(req: NextRequest) {
         }
 
         const searchParams = req.nextUrl.searchParams;
-        const { limit = '25', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
+        const { limit = '25', skip = '0', sort = '{ "createdAt": -1 }', ...query } = Object.fromEntries(searchParams.entries());
+        console.log('t1', sort);
+        console.log('ttttt', JSON.parse(sort));
 
         const searchQuery: Record<string, string> = {...query};
         if ((req as IAuthorizedRequst).user.role === 'ADMIN') {
@@ -45,6 +47,7 @@ export async function GET(req: NextRequest) {
 
         const count = await Asset.countDocuments({ $and: conditions });
         const assets = await Asset.find({ $and: conditions })
+            .sort({...(JSON.parse(sort))})
             .skip(parseInt(skip) * parseInt(limit))
             .limit(parseInt(limit))
             .populate(['location']);
