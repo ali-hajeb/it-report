@@ -24,10 +24,11 @@ export async function PUT(req: NextRequest) {
 
         await user.populate(['location']);
 
-        const token = signToken(user._id.toString(), user.role, user.location.toString());
-        const response = NextResponse.json({ code: 200, message: 'Authentication Successful', user }, { status: 200 });
-        setResponseAuthCookie(response, token);
-        return response;
+        // const token = signToken(user._id.toString(), user.role, user.location.toString());
+        // const response = NextResponse.json({ code: 200, message: 'Authentication Successful', user }, { status: 200 });
+        // setResponseAuthCookie(response, token);
+        // return response;
+        return NextResponse.json({ code: 200, message: 'Authentication Successful', user }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 0, message: '', data: error }, { status: 400 });
     }
