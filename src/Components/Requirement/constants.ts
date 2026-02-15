@@ -1,4 +1,4 @@
-import { IRequirement, RequirementStatus } from "@/src/lib/module/requirement";
+import { RequirementStatus } from "@/src/lib/module/requirement";
 import { ITableViewField } from "../TableView";
 import { IRequirementPopulated } from "@/src/lib/module/common/types";
 

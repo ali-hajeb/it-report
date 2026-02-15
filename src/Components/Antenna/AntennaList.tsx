@@ -88,7 +88,7 @@ export default function AntennaList({
             .finally(() => {
                 setListLoading(false)
             });
-    }, [page]);
+    }, []);
 
     useEffect(() => {
         if (userContext?.role === 'MANAGER') {

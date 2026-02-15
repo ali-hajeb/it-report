@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
         }
 
         const searchParams = req.nextUrl.searchParams;
-        const { limit = '25', skip = '0', sort = '{ "createdAt": -1 }', ...query } = Object.fromEntries(searchParams.entries());
+        const { limit = '0', skip = '0', sort = '{ "createdAt": -1 }', ...query } = Object.fromEntries(searchParams.entries());
         console.log('t1', sort);
         console.log('ttttt', JSON.parse(sort));
 

@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
     try {
         const searchParams = req.nextUrl.searchParams;
-        const { limit = '25', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
+        const { limit = '0', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
 
         console.log('quey', query, searchParams.entries());
         const conditions = Object.keys(query).map(queryKey => {

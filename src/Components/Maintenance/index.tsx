@@ -92,7 +92,7 @@ export default function MaintenanceReports({
                 .finally(() => {
                     setListLoading(false);
                 });
-    }, [page]);
+    }, []);
 
     useEffect(() => {
         let params = {};
@@ -261,7 +261,7 @@ export default function MaintenanceReports({
             .then((res) => {
                 setMaintenanceReports(res.data.maintenanceReports);
                 setPage(0);
-                // setTotalPages(res.data.count);
+                setTotalPages(Math.ceil(res.data.count / MAX_ROWS));
             })
             .catch((error) => {
                 console.error(error);

@@ -77,7 +77,7 @@ export default function TopBar({
                     console.log(row[key]);
                     row[key] = ((connectedAntenna) as IAntenna)?.name;
                 } else {
-                    row[key] = (rest[key] as string).toLocaleString() ?? '-';  // rest already has only the dynamic fields
+                    row[key] = (rest[key] as string)?.toLocaleString() ?? '-';  // rest already has only the dynamic fields
                 }
             });
             

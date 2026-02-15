@@ -41,7 +41,7 @@ export default function Location() {
             .finally(() => {
                 setListLoading(false)
             });
-    }, [page]);
+    }, []);
 
     const locationForm = useForm<LocationForm>({
         mode: 'controlled',
@@ -161,7 +161,7 @@ export default function Location() {
             .then((res) => {
                     setLocations(res.data.locations);
                     setPage(0);
-                    // setTotalPages(res.data.count);
+                    setTotalPages(Math.ceil(res.data.count / LIMIT));
             })
             .catch((error) => {
                 console.error(error);

@@ -1,10 +1,10 @@
-import { Box, Button, ButtonGroup, Group, Modal, Table, Text } from '@mantine/core'
+import { Box, Button, Group, Modal, Table, Text } from '@mantine/core'
 import { PropsWithChildren } from 'react';
 import { IBaseModelObject, ITableViewField } from './types';
 
 export interface TableViewModalProps<T extends IBaseModelObject> extends PropsWithChildren {
     fields?: ITableViewField<T>[];
-    customFieldValue?: (data: T, field: keyof T) => string | React.ReactElement | null
+    customFieldValue?: (data: T, field: keyof T) => string | React.ReactElement | null;
     opened: boolean;
     close: () => void;
     closeHandler: () => void;

@@ -7,7 +7,7 @@ export async function GET(req: NextRequest, ctx: RouteContext<'/api/maintenance/
     try {
         const { id } = await ctx.params;
         const searchParams = req.nextUrl.searchParams;
-        const { limit = '25', skip = '0', location, ...query } = Object.fromEntries(searchParams.entries());
+        const { limit = '0', skip = '0', location, ...query } = Object.fromEntries(searchParams.entries());
 
         console.log('quey', query, searchParams.entries());
         const conditions = Object.keys(query).map(queryKey => {

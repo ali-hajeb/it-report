@@ -100,7 +100,7 @@ export default function Server({
             .finally(() => {
                 setListLoading(false)
             });
-    }, [page]);
+    }, []);
 
     useEffect(() => {
         if (userContext?.role === 'MANAGER') {
@@ -280,7 +280,7 @@ export default function Server({
             .then((res) => {
                 setServers(res.data.servers);
                 setPage(0);
-                // setTotalPages(res.data.count);
+                setTotalPages(Math.ceil(res.data.count / LIMIT));
             })
             .catch((error) => {
                 console.error(error);

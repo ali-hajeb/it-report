@@ -67,7 +67,7 @@ export default function RequirementList({
             .finally(() => {
                 setListLoading(false)
             });
-    }, [page]);
+    }, []);
 
     useEffect(() => {
         if (userContext?.role === 'MANAGER') {
@@ -207,7 +207,7 @@ export default function RequirementList({
             .then((res) => {
                 setRequirements(res.data.requirements);
                 setPage(0);
-                // setTotalPages(res.data.count);
+                setTotalPages(Math.ceil(res.data.count / LIMIT));
             })
             .catch((error) => {
                 console.error(error);

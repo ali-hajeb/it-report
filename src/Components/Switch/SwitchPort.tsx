@@ -74,7 +74,7 @@ export default function SwitchPort({
             .finally(() => {
                 setListLoading(false)
             });
-    }, [page]);
+    }, []);
 
     useEffect(() => {
         if (userContext?.role === 'MANAGER') {
@@ -234,7 +234,7 @@ export default function SwitchPort({
             .then((res) => {
                 setSwitchPorts(res.data.switchPorts);
                 setPage(0);
-                // setTotalPages(res.data.count);
+                setTotalPages(Math.ceil(res.data.count / LIMIT));
             })
             .catch((error) => {
                 console.error(error);

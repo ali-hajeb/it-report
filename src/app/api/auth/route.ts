@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
     try {
         const searchParams = req.nextUrl.searchParams;
-        const { limit = '25', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
+        const { limit = '0', skip = '0', ...query } = Object.fromEntries(searchParams.entries());
 
         console.log('quey', query, searchParams.entries());
         const conditions = Object.keys(query).map(queryKey => {
