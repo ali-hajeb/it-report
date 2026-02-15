@@ -6,7 +6,7 @@ import { ILocation, locationActions } from "@/src/lib/module/location";
 import { Grid, useMantineTheme } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { IManagerInfo } from "./types";
-import { IconAntenna, IconRouter, IconServer, IconServer2 } from "@tabler/icons-react";
+import { IconAntenna, IconDeviceLaptop, IconRouter, IconServer, IconServer2 } from "@tabler/icons-react";
 import { arrayShuffle } from "@/src/utils/arrayShuffle";
 
 const colors = arrayShuffle(COLORS);
@@ -37,6 +37,7 @@ export default function ManagerDashboard() {
                     color={theme.colors[colors[i % colors.length]]} 
                     info={[
                         {icon: <IconServer size={16} color="white"/>, title: 'سرور', content: loc.servers, type: 'string'},
+                        {icon: <IconDeviceLaptop size={16} color="white"/>, title: 'سیستم', content: loc.assets || '0', type: 'string'},
                         {icon: <IconRouter size={16} color="white"/>, title: 'روتر', content: loc.routers, type: 'string'},
                         {icon: <IconServer2 size={16} color="white"/>, title: 'سوئیچ', content: loc.switches, type: 'string'},
                         {icon: <IconAntenna size={16} color="white"/>, title: 'آنتن', content: loc.antennas, type: 'string'},
