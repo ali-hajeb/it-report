@@ -1,6 +1,6 @@
 import { toFarsiNumber } from "@/src/utils/number";
 import { Box, Button, Group, Table, TableScrollContainer, Text } from "@mantine/core";
-import { IconChevronLeft, IconChevronRight, IconEye, IconPencil, IconTrash } from "@tabler/icons-react";
+import { IconCheckupList, IconChevronLeft, IconChevronRight, IconEye, IconPencil, IconTrash } from "@tabler/icons-react";
 import { Dispatch, SetStateAction } from "react";
 import { ITableViewField, IBaseModelObject } from "./types";
 
@@ -11,6 +11,7 @@ export interface TableContainerProps<T extends IBaseModelObject> {
     editItemHandler?: (id: string) => void;
     deleteItemHandler?: (id: string) => void;
     viewItemHandler?: (id: string) => void;
+    viewServerChecklistHandler?: (id: string) => void;
     maxRows?: number;
     page: number;
     setPage: Dispatch<SetStateAction<number>>;
@@ -26,6 +27,7 @@ export default function TableContainer<T extends IBaseModelObject>({
     editItemHandler,
     deleteItemHandler,
     viewItemHandler,
+    viewServerChecklistHandler,
     maxRows,
     page, 
     setPage,
@@ -69,6 +71,14 @@ export default function TableContainer<T extends IBaseModelObject>({
         }
     };
 
+    const btnViewChecklistOnClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const id = e.currentTarget.id;
+        if (viewServerChecklistHandler && id) {
+            console.log('table', id);
+            viewServerChecklistHandler(id);
+        }
+    };
     return <Box>
         <TableScrollContainer minWidth={scrollContainer || 0}>
             <Table highlightOnHover withTableBorder>
@@ -76,7 +86,7 @@ export default function TableContainer<T extends IBaseModelObject>({
                     <Table.Tr>
                         <Table.Th fz={'xs'} ta={'center'}>ردیف</Table.Th>
                         {
-                            (editItemHandler || deleteItemHandler || viewItemHandler) &&
+                            (editItemHandler || deleteItemHandler || viewItemHandler || viewServerChecklistHandler) &&
                                 <Table.Th fz={'xs'} ta={'center'}>عملیات</Table.Th>
                         }
                         {
@@ -99,7 +109,7 @@ export default function TableContainer<T extends IBaseModelObject>({
                                 {toFarsiNumber((maxRows || 25) * page + i + 1)}
                             </Table.Td>
                             {
-                                (editItemHandler || deleteItemHandler || viewItemHandler) && 
+                                (editItemHandler || deleteItemHandler || viewItemHandler || viewServerChecklistHandler) && 
                                     <Table.Td fz={'xs'}>
                                         <Group gap={8} justify="center" wrap="nowrap">
                                             {
@@ -135,6 +145,17 @@ export default function TableContainer<T extends IBaseModelObject>({
                                                         loading={isLoading}
                                                         onClick={btnViewOnClickHandler}>
                                                         <IconEye size={16} />
+                                                    </Button>
+                                            }
+                                            {
+                                                viewServerChecklistHandler &&
+                                                    <Button p={1}
+                                                        variant="transparent"
+                                                        id={item._id}
+                                                        c={'gray'}
+                                                        title="چک لیست"
+                                                        onClick={btnViewChecklistOnClickHandler}>
+                                                        <IconCheckupList size={16} />
                                                     </Button>
                                             }
                                         </Group>

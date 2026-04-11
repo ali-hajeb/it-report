@@ -59,6 +59,7 @@ export default function TableViewModal<T extends IBaseModelObject>({
                         <Table.Td 
                             fz={'xs'}
                             ta={'center'}
+                            style={{whiteSpace: 'pre-wrap'}}
                             title={field.alt}>
                             {customFieldValue(viewMode, field.key)}
                         </Table.Td>

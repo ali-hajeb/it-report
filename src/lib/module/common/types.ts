@@ -1,4 +1,4 @@
-import type { UserRole } from '@/src/lib/module/user';
+import type { IUser, UserRole } from '@/src/lib/module/user';
 import type { DeviceType, IMaintenanceReport } from '@/src/lib/module/maintenanceReport';
 import type { ILocation } from '@/src/lib/module/location';
 import type { IAntenna, IAntennaLink } from '@/src/lib/module/antenna';
@@ -8,6 +8,7 @@ import ISwitch from '@/src/lib/module/switch/switch.types';
 import { IServer } from '../server';
 import { ICheckListItem } from '../server/server.types';
 import { RequirementStatus } from '../requirement/requirement.types';
+import { IBlogFile } from '../blog/blog.types';
 
 export interface IUserPopulated {
     _id: string;
@@ -259,6 +260,7 @@ export interface IServerCheckListPopulated {
     serverName: string;
     location: ILocation;
     checkList: ICheckListItem[];
+    desc: string;
 }
 
 export interface IRequirementPopulated {
@@ -271,6 +273,17 @@ export interface IRequirementPopulated {
     count: number;
     note: string;
     status: RequirementStatus;
+}
+
+export interface IBlogPopulated {
+    _id: string;
+    title: string;
+    author: IUser;
+    authorName: string;
+    location: ILocation;
+    desc: string;
+    file?: IBlogFile;
+    createdAt: Date;
 }
 
 export {

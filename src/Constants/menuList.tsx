@@ -1,5 +1,5 @@
 import IMenuItem from "@/src/Components/MenuList/MenuList.types"
-import { IconAntenna, IconBuildingHospital, IconDeviceLaptop, IconDoorExit, IconHelp, IconHome, IconRouter, IconServer, IconServer2, IconUsers } from "@tabler/icons-react";
+import { IconAntenna, IconBuildingHospital, IconDeviceLaptop, IconDoorExit, IconHelp, IconHome, IconPencilPlus, IconRouter, IconServer, IconServer2, IconUsers } from "@tabler/icons-react";
 import { BASE_PATH } from "./index";
 
 export const menu: IMenuItem[] = [
@@ -51,6 +51,12 @@ export const menu: IMenuItem[] = [
         title: 'نیازسنجی',
         href: `${BASE_PATH}/requirement`,
         icon: <IconHelp size={20} />
+    },
+    {
+        id: '9',
+        title: 'گزارش فرآیند',
+        href: `${BASE_PATH}/blog`,
+        icon: <IconPencilPlus size={20} />
     },
     {
         id: '98',

@@ -27,11 +27,11 @@ export async function GET(req: NextRequest) {
                 return {
                     _id: location._id,
                     name: location.name,
-                    servers: servers.filter(server => server.location.toString() === location._id.toString()).length,
+                    servers: servers.filter(server => server.location?.toString() === location._id.toString()).length,
                     assets: assets.filter(assets => assets.location?.toString() === location._id.toString()).length,
-                    routers: routers.filter(router => router.location.toString() === location._id.toString()).length,
-                    antennas: antennas.filter(antenna => antenna.location.toString() === location._id.toString()).length,
-                    switches: switches.filter(s => s.location.toString() === location._id.toString()).length
+                    routers: routers.filter(router => router.location?.toString() === location._id.toString()).length,
+                    antennas: antennas.filter(antenna => antenna.location?.toString() === location._id.toString()).length,
+                    switches: switches.filter(s => s.location?.toString() === location._id.toString()).length
                 }
             });
 
@@ -57,5 +57,6 @@ export async function GET(req: NextRequest) {
         }
 
     } catch (error) {
+        console.error(error);
     }
 }

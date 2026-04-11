@@ -14,7 +14,7 @@ export interface ITableViewField<T extends object> {
   /** Key from the MongoDB model schema */
   key: keyof T;
 
-  type: 'text' | 'number' | 'select' | 'check' | 'none' | 'tags' | 'password' | 'checkGroup';
+  type: 'text' | 'number' | 'select' | 'check' | 'none' | 'tags' | 'password' | 'checkGroup' | 'textarea' | 'file';
 
   /** Label for the field */
   title: string;
