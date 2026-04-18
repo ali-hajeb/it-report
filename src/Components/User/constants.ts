@@ -34,6 +34,7 @@ export const userSchemaFields: ITableViewField<IUserPopulated>[] = [
         options: [
             {value: 'ADMIN', label: 'کارشناس'},
             {value: 'MANAGER', label: 'مدیر'},
+            {value: 'MANAGER_VIEW_ONLY', label: 'ناظر (کل)'},
         ]
     },
 ];
