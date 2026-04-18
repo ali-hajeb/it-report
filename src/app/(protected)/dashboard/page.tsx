@@ -23,7 +23,7 @@ export default function DashboardPage() {
         <Text size="xs" c={'gray'}>{userContext?.location?.name}</Text>
         <Grid mt={'lg'}>
             {
-                userContext?.role === 'MANAGER' ?
+                userContext?.role === 'MANAGER' || userContext?.role === 'MANAGER_VIEW_ONLY' ?
                     <ManagerDashboard />
                 :
                     <AdminDashboard />
