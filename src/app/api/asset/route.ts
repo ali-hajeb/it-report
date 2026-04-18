@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
             searchQuery.location = (req as IAuthorizedRequst).user.location;
         }
 
-        console.log('quey', query, req.user.role, searchParams.entries());
+        console.log('quey', query, (req as IAuthorizedRequst).user.role, searchParams.entries());
         const conditions = Object.keys(searchQuery).map(queryKey => {
             if (queryKey === 'location') {
                 return { [queryKey]: searchQuery[queryKey] }
