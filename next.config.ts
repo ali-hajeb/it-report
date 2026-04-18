@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       allowedOrigins: ['rpt.behums.ac.ir'],
+      bodySizeLimit: '10mb'
     },
   },
   assetPrefix: '/itrpt',
