@@ -58,7 +58,7 @@ export default function Blog({
 
     useEffect(() => {
         if (userContext) {
-            const filter = userContext.role === 'MANAGER' ? location : userContext.location._id;
+            const filter = userContext.role === 'MANAGER' || userContext.role === 'MANAGER_VIEW_ONLY' ? location : userContext.location._id;
             blogActions.getPosts({ location: filter, skip: page.toString() })
                 .then((res) => {
                     setBlogs(res.data.blogs);
@@ -74,7 +74,7 @@ export default function Blog({
     }, []);
 
     useEffect(() => {
-        if (userContext?.role === 'MANAGER') {
+        if (userContext?.role === 'MANAGER' || userContext?.role === 'MANAGER_VIEW_ONLY') {
             locationActions.getLocations()
                 .then((res) => {
                     const locations = res.data.locations as ILocation[];

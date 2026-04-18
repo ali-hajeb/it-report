@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
             return res;
         }
 
-        if ((req as IAuthorizedRequst).user.role === 'MANAGER') {
+        if ((req as IAuthorizedRequst).user.role === 'MANAGER' || (req as IAuthorizedRequst).user.role === 'MANAGER_VIEW_ONLY') {
             const locations: ILocation[] = await Location.find();
             const assets: IAsset[] = await Asset.find();
             const servers: IServer[] = await Server.find();

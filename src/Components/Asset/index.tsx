@@ -44,7 +44,7 @@ export default function Asset({
     const assetForm = useForm<AssetForm>({
         mode: 'controlled',
         initialValues: {
-            location: userContext?.location._id || '',
+            location: userContext?.role === 'ADMIN' ? userContext.location._id : '',
             unit: '',
             operator: '',
             user: '',
@@ -79,7 +79,7 @@ export default function Asset({
 
     useEffect(() => {
         if (userContext) {
-            const filter = userContext.role === 'MANAGER' ? location : userContext.location._id;
+            const filter = userContext.role === 'MANAGER' || userContext.role === 'MANAGER_VIEW_ONLY' ? location : userContext.location._id;
             assetActions.getAssets({ location: filter, skip: page.toString(), sort: '{ "unit": -1}' })
                 .then((res) => {
                     setAssets(res.data.assets);
@@ -95,7 +95,7 @@ export default function Asset({
     }, []);
 
     useEffect(() => {
-        if (userContext?.role === 'MANAGER') {
+        if (userContext?.role === 'MANAGER' || userContext?.role === 'MANAGER_VIEW_ONLY') {
             locationActions.getLocations()
                 .then((res) => {
                     const locations = res.data.locations as ILocation[];
@@ -117,7 +117,11 @@ export default function Asset({
     }
 
     const newassetHandler = () => {
-        if (userContext?.role.includes('VIEW_ONLY')) return;
+
+        console.log('Locked', userContext?.role);
+        if (userContext?.role.includes('VIEW_ONLY')) {
+            return;
+        }
         setEditMode(null);
         setDeleteMode(null);
         open();

@@ -145,7 +145,7 @@ export default function Users() {
 
     const formOnSubmit = (values: UserForm) => {
         if (userContext?.role.includes('VIEW_ONLY')) return;
-        console.log('user submit');
+        console.log('user submit', values.role);
         const standardValue = {
             ...values,
             role: values.role as UserRole

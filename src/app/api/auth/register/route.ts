@@ -7,7 +7,7 @@ export async function PUT(req: NextRequest) {
     try {
         await connectDB();
         const body = await req.json();
-        const { firstName, lastName, username, password, location } = body;
+        const { firstName, lastName, username, password, location, role = 'ADMIN' } = body;
 
         const exists = await User.findOne({ username });
         if (exists) {
@@ -18,6 +18,7 @@ export async function PUT(req: NextRequest) {
             firstName,
             lastName,
             username,
+            role,
             password: await hashPassword(password),
             location
         });

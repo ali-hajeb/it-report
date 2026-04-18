@@ -64,7 +64,7 @@ export default function AntennaList({
             coordination: '',
             ip: '',
             macAddress: '',
-            location: userContext?.location?._id || '',
+            location: userContext?.role === 'ADMIN' ? userContext.location._id : '',
             connectionType: '',
             firmware: '',
             support: '',
@@ -91,7 +91,7 @@ export default function AntennaList({
     }, []);
 
     useEffect(() => {
-        if (userContext?.role === 'MANAGER') {
+        if (userContext?.role === 'MANAGER' || userContext?.role === 'MANAGER_VIEW_ONLY') {
             locationActions.getLocations()
                 .then((res) => {
                     const locations = res.data.locations as ILocation[];

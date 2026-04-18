@@ -106,7 +106,7 @@ export default function Server({
     }, []);
 
     useEffect(() => {
-        if (userContext?.role === 'MANAGER') {
+        if (userContext?.role === 'MANAGER' || userContext?.role === 'MANAGER_VIEW_ONLY') {
             locationActions.getLocations()
                 .then((res) => {
                     const locations = res.data.locations as ILocation[];
@@ -139,18 +139,21 @@ export default function Server({
     }
 
     const newserverHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteserverHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         serverActions.deleteServer(id)
             .then(_ => {
@@ -180,6 +183,7 @@ export default function Server({
     }
 
     const editserverHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log(id);
         const item = servers.find(a => a._id === id);
         if (item) {
@@ -223,6 +227,7 @@ export default function Server({
     };
 
     const formOnSubmit = (values: ServerForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('server submit');
         const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {

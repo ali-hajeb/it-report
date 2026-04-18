@@ -86,7 +86,7 @@ export default function SwitchList({
     }, []);
 
     useEffect(() => {
-        if (userContext?.role === 'MANAGER') {
+        if (userContext?.role === 'MANAGER' || userContext?.role === 'MANAGER_VIEW_ONLY') {
             locationActions.getLocations()
                 .then((res) => {
                     const locations = res.data.locations as ILocation[];
