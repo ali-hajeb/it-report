@@ -83,18 +83,21 @@ export default function Users() {
     }
 
     const newUserHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const editUserHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         const item = users.find(a => a._id === id);
         if (item) {
             console.log(locationOptions);
@@ -109,6 +112,7 @@ export default function Users() {
     }
 
     const deleteUserHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         userActions.deleteUser(id)
             .then(res => {
@@ -140,6 +144,7 @@ export default function Users() {
     }
 
     const formOnSubmit = (values: UserForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('user submit');
         const standardValue = {
             ...values,

@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-export type UserRole = 'ADMIN' | 'MANAGER';
+export type UserRole = 'ADMIN' | 'MANAGER' | 'MANAGER_VIEW_ONLY';
 
 export interface IUserSchema {
     firstName: string;

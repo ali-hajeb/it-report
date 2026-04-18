@@ -112,18 +112,21 @@ export default function AntennaLinks({
     }
 
     const newAntennaLinkHandler = () => {
+        if (userContext?.role === 'MANAGER_VIEW_ONLY') return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role === 'MANAGER_VIEW_ONLY') return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteAntennaLinkHandler = (id: string) => {
+        if (userContext?.role === 'MANAGER_VIEW_ONLY') return;
         setLoading(true);
         antennaActions.deleteAntennaLink(id)
             .then(_ => {
@@ -153,6 +156,7 @@ export default function AntennaLinks({
     }
 
     const editAntennaLinkHandler = (id: string) => {
+        if (userContext?.role === 'MANAGER_VIEW_ONLY') return;
         console.log(id);
         const item = links.find(a => a._id === id);
         if (item) {
@@ -175,6 +179,7 @@ export default function AntennaLinks({
 
 
     const formOnSubmit = (values: AntennaLinkForm) => {
+        if (userContext?.role === 'MANAGER_VIEW_ONLY') return;
         console.log('antenna submit');
         const standardValue = {
             ...values,

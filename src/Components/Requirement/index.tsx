@@ -93,18 +93,21 @@ export default function RequirementList({
     }
 
     const newRequirementHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteRequirementHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         requirementActions.deleteRequirement(id)
             .then(_ => {
@@ -134,6 +137,7 @@ export default function RequirementList({
     }
 
     const editRequirementHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         const item = requirements.find(a => a._id === id);
         console.log('edit', item);
         if (item) {
@@ -149,6 +153,7 @@ export default function RequirementList({
     }
 
     const formOnSubmit = (values: RequirementForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('requirement submit');
         const standardValue = {
             ...values,

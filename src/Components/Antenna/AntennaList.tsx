@@ -126,18 +126,21 @@ export default function AntennaList({
     }
 
     const newAntennaHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
     
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteAntennaHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         antennaActions.deleteAntenna(id)
             .then(_ => {
@@ -167,6 +170,7 @@ export default function AntennaList({
     }
 
     const editAntennaHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log(id);
         const item = antennas.find(a => a._id === id);
         if (item) {
@@ -196,6 +200,7 @@ export default function AntennaList({
     };
 
     const formOnSubmit = (values: AntennaForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('antenna submit');
         const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {

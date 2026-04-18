@@ -96,18 +96,21 @@ export default function Blog({
     }
 
     const newblogHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteblogHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         blogActions.deletePost(id)
             .then(_ => {
@@ -137,6 +140,7 @@ export default function Blog({
     }
 
     const editblogHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
             console.log(id);
             const item = blogs.find(a => a._id === id);
             if (item) {
@@ -154,6 +158,7 @@ export default function Blog({
 
 
     const formOnSubmit = async (values: BlogForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('blog submit');
         const standardValue = {
             ...values,

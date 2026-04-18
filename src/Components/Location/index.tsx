@@ -2,7 +2,7 @@
 import TableView from '@/src/Components/TableView';
 import { ILocation, locationActions } from '@/src/lib/module/location';
 import { filters, locationSchemaFields } from './constants';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IButtonState } from '@/src/common/type/button.types';
 import { useDisclosure } from '@mantine/hooks';
 import { Form, useForm } from '@mantine/form';
@@ -13,10 +13,12 @@ import { renderFormFromSchema } from '@/src/Components/TableView';
 import { useRouter } from 'next/navigation';
 import { MAX_ROWS } from '@/src/Constants';
 import { getCustomFieldValue } from './utils';
+import UserContext from '@/src/Contexts/UserContext';
 
 const LIMIT = MAX_ROWS;
 
 export default function Location() {
+    const userContext = useContext(UserContext);
     const router = useRouter();
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
@@ -60,18 +62,21 @@ export default function Location() {
     }
 
     const newLocationHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const editLocationHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         const item = locations.find(a => a._id === id);
         if (item) {
             locationForm.setValues({
@@ -83,6 +88,7 @@ export default function Location() {
     }
 
     const deleteLocationHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         locationActions.deleteLocation(id)
             .then(res => {
@@ -108,6 +114,7 @@ export default function Location() {
     }
 
     const formOnSubmit = (values: LocationForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('location submit');
         const standardValue = {
             ...values,

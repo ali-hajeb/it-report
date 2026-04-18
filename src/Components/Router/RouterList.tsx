@@ -126,18 +126,21 @@ export default function RouterList({
     }
 
     const newRouterHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteRouterHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         routerActions.deleteRouter(id)
             .then(_ => {
@@ -167,6 +170,7 @@ export default function RouterList({
     }
 
     const editRouterHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log(id);
         const item = routers.find(a => a._id === id);
         if (item) {
@@ -196,6 +200,7 @@ export default function RouterList({
     };
 
     const formOnSubmit = (values: RouterForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('router submit');
         const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {

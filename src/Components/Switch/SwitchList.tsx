@@ -120,18 +120,21 @@ export default function SwitchList({
     }
 
     const newSwitchHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteSwitchHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         switchActions.deleteSwitch(id)
             .then(_ => {
@@ -161,6 +164,7 @@ export default function SwitchList({
     }
 
     const editSwitchHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         const item = switches.find(a => a._id === id);
         console.log('edit', item);
         if (item) {
@@ -189,6 +193,7 @@ export default function SwitchList({
     };
 
     const formOnSubmit = (values: SwitchForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('switch submit');
         const coordinates = values.coordination.replaceAll(' ', '').split(','); 
         const standardValue = {

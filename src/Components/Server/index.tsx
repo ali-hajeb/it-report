@@ -5,14 +5,14 @@ import { IServerPopulated } from "@/src/lib/module/common/types";
 import { Form, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import { COORDINATE_REGEX, MAX_ROWS } from "@/src/Constants";
+import { COORDINATE_REGEX, JALALI_WEEK_DAYS, MAX_ROWS } from "@/src/Constants";
 import { ILocation, locationActions } from "@/src/lib/module/location";
 import { serverActions } from '@/src/lib/module/server';
 import { IconCalendar, IconCheck, IconExclamationCircle } from "@tabler/icons-react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import { Button, Group, Input, InputWrapper, Select, Stack } from "@mantine/core";
+import { Button, Flex, Group, Input, InputWrapper, Modal, Select, Stack, Table, TextInput } from "@mantine/core";
 import { getCustomFieldValue } from "./utils";
 import { serverSchemaFields } from "./constants";
 import { filters } from "./constants";
@@ -33,11 +33,13 @@ export default function Server({
     setServers
 }: ServerProps) {
     const userContext = useContext(UserContext);
+    const [date, setDate] = useState<string>(new Date().toISOString());
     const [lastUpdate, setLastUpdate] = useState<string>(new Date().toISOString());
     const [serverLaunchDate, setLaunchDate] = useState<string>(new Date().toISOString());
     const [page, setPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [editMode, setEditMode] = useState<string | null>(null);
+    const [checklistMode, setChecklistMode] = useState<string | null>(null);
     const [deleteMode, setDeleteMode] = useState<string | null>(null);
     const [btnState, setBtnState] = useState<IButtonState>({color: undefined, icon: undefined})
     const [viewMode, setViewMode] = useState<IServerPopulated | null>(null);
@@ -47,6 +49,7 @@ export default function Server({
     const [antennaOptions, setAntennaOptions] = useState<SelectOption[]>([]);
 
     const [opened, {open, close}] = useDisclosure(false);
+    const [checklistOpened, {open: checklistOpen, close: checklistClose}] = useDisclosure(false);
 
     const serverForm = useForm<ServerForm>({
         mode: 'controlled',
@@ -140,7 +143,7 @@ export default function Server({
         setDeleteMode(null);
         open();
     }
-    
+
     const deleteHandler = (id: string) => {
         setEditMode(null);
         setDeleteMode(id);
@@ -199,6 +202,15 @@ export default function Server({
         }
     }
 
+    const viewChecklistHandler = (id: string) => {
+        checklistOpen()
+    }
+
+
+    const calendarServerCheckListOnChangeHandler = (date: DateObject) => {
+        console.log(date.toDate().toISOString());
+        setDate(date.toDate().toISOString());
+    };
 
     const calendarLastUpdateOnChangeHandler = (date: DateObject) => {
         console.log(date.toDate().toISOString());
@@ -345,13 +357,13 @@ export default function Server({
                             />
                     }
                     {
-                            <Select
-                                label='آنتن متصل'
-                                placeholder="انتخاب کنید"
-                                data={antennaOptions}
-                                key={serverForm.key('connectedAntenna')}
-                                {...serverForm.getInputProps('connectedAntenna')}
-                            />
+                        <Select
+                            label='آنتن متصل'
+                            placeholder="انتخاب کنید"
+                            data={antennaOptions}
+                            key={serverForm.key('connectedAntenna')}
+                            {...serverForm.getInputProps('connectedAntenna')}
+                        />
                     }
                     {
                         renderFormFromSchema(serverSchemaFields, serverForm)
@@ -366,6 +378,46 @@ export default function Server({
                 </Stack>
             </Form>
         </TableView.Modal>
+            <Modal opened={checklistOpened} onClose={checklistClose}>
+            {
+                checklistMode ? 
+                    <>
+                        <Flex gap={'md'} mt={'xs'}>
+                            <Button onClick={open}>افزودن</Button>
+                            <div>
+                                <InputWrapper>
+                                    <DatePicker
+                                        containerStyle={{width: '100%'}}
+                                        render={(value, openCalendar) => 
+                                            <Group>
+                                                <Button p={4} maw={64} mah={64} onClick={openCalendar}><IconCalendar size={24} /></Button>
+                                                <Input style={{flexGrow: 2}} value={value} readOnly/>
+                                            </Group>
+                                        } 
+                                        calendar={persian}
+                                        locale={persian_fa} 
+                                        value={date}
+                                        onChange={calendarServerCheckListOnChangeHandler}
+                                        calendarPosition="center" />
+                                </InputWrapper>
+                            </div>
+                        </Flex>
+                        <Table>
+                            <Table.Thead>
+                                <Table.Tr>
+                                    <Table.Th>{'عنوان'}</Table.Th>
+                                    {JALALI_WEEK_DAYS.map(item => <Table.Th key={item}>{item}</Table.Th>)}
+                                </Table.Tr>
+                            </Table.Thead>
+                            <Table.Tbody>
+                            </Table.Tbody>
+                        </Table>
+                    </>
+                    :
+                    <>
+                    </>
+            }
+        </Modal>
         <TableView.TopBar
             filters={filters}
             newItem={newserverHandler}
@@ -377,6 +429,7 @@ export default function Server({
         <TableView.TableContainer
             customFieldValue={getCustomFieldValue}
             viewItemHandler={viewMaintenanceReportHandler}
+            viewServerChecklistHandler={viewChecklistHandler}
             data={servers}
             fields={serverSchemaFields}
             isLoading={isListLoading}

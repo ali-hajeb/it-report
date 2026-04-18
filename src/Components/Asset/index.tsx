@@ -117,18 +117,21 @@ export default function Asset({
     }
 
     const newassetHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteassetHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         assetActions.deleteAsset(id)
             .then(_ => {
@@ -158,6 +161,7 @@ export default function Asset({
     }
 
     const editassetHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
             console.log(id);
             const item = assets.find(a => a._id === id);
             if (item) {
@@ -174,6 +178,7 @@ export default function Asset({
 
 
     const formOnSubmit = (values: AssetForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('asset submit');
         const standardValue = {
             ...values,

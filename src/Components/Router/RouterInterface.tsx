@@ -108,18 +108,21 @@ export default function RouterInterface({
     }
 
     const newRouterInterfaceHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteRouterInterfaceHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         routerActions.deleteRouterInterface(id)
             .then(_ => {
@@ -149,6 +152,7 @@ export default function RouterInterface({
     }
 
     const editRouterInterfaceHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log(id);
         const item = routerInterfaces.find(a => a._id === id);
         if (item) {
@@ -165,6 +169,7 @@ export default function RouterInterface({
     }
 
     const formOnSubmit = (values: RouterInterfaceForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('router submit');
         const selectedDevice = routerOptions.find(d => d.value === values.router);
         const standardValue = {

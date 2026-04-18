@@ -114,18 +114,21 @@ export default function SwitchPort({
     }
 
     const newSwitchPortHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteSwitchPortHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         switchActions.deleteSwitchPort(id)
             .then(_ => {
@@ -155,6 +158,7 @@ export default function SwitchPort({
     }
 
     const editSwitchPortHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log(id);
         const item = switchPorts.find(a => a._id === id);
         if (item) {
@@ -173,6 +177,7 @@ export default function SwitchPort({
     }
 
     const formOnSubmit = (values: SwitchPortForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('switch submit');
         const selectedDevice = switchOptions.find(d => d.value === values.switch);
         const standardValue = {

@@ -111,18 +111,21 @@ export default function RouterBackup({
     }
 
     const newrouterBackupHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleterouterBackupHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         routerActions.deleteRouterBackup(id)
             .then(_ => {
@@ -152,6 +155,7 @@ export default function RouterBackup({
     }
 
     const editrouterBackupHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log(id);
         const item = routerBackups.find(a => a._id === id);
         if (item) {
@@ -175,6 +179,7 @@ export default function RouterBackup({
     };
 
     const formOnSubmit = (values: RouterBackupForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('routerBackup submit');
         const selectedDevice = routerOptions.find(d => d.value === values.router);
         const standardValue = {

@@ -143,12 +143,14 @@ export default function MaintenanceReports({
     }
 
     const newMaintenanceReportHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
     
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
@@ -163,6 +165,7 @@ export default function MaintenanceReports({
     }
 
     const deleteMaintenanceReportHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         maintenanceReportActions.deleteMaintenanceReport(id)
             .then(_ => {
@@ -184,6 +187,7 @@ export default function MaintenanceReports({
     }
 
     const editMaintenanceReportHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
             console.log(id);
             const item = maintenanceReports.find(a => a._id === id);
             if (item) {
@@ -201,6 +205,7 @@ export default function MaintenanceReports({
     }
 
     const formOnSubmit = (values: MaintenanceReportForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('maintenanceReport submit');
         const selectedDevice = deviceOptions.find(d => d.value === values.device);
         const standardValue = {

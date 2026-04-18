@@ -111,18 +111,21 @@ export default function SwitchBackup({
     }
 
     const newswitchBackupHandler = () => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(null);
         open();
     }
 
     const deleteHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setEditMode(null);
         setDeleteMode(id);
         open();
     }
 
     const deleteswitchBackupHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         setLoading(true);
         switchActions.deleteSwitchBackup(id)
             .then(_ => {
@@ -152,6 +155,7 @@ export default function SwitchBackup({
     }
 
     const editswitchBackupHandler = (id: string) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log(id);
         const item = switchBackups.find(a => a._id === id);
         if (item) {
@@ -175,6 +179,7 @@ export default function SwitchBackup({
     };
 
     const formOnSubmit = (values: SwitchBackupForm) => {
+        if (userContext?.role.includes('VIEW_ONLY')) return;
         console.log('switchBackup submit');
         const selectedDevice = switchOptions.find(d => d.value === values.switch);
         const standardValue = {
