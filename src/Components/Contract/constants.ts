@@ -6,7 +6,7 @@ export const filters = {
     softwareName: 'براساس نام نرم‌افزار',
     softwareCategory: 'براساس نوع سامانه',
     unit: 'براساس نام واحد',
-    type: 'براساس وضعیت',
+    type: 'براساس نوع قرارداد',
 }
 
 export const contractSchemaFields: ITableViewField<IContract>[] = [
