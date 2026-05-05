@@ -1,5 +1,5 @@
 import IMenuItem from "@/src/Components/MenuList/MenuList.types"
-import { IconAntenna, IconBuildingHospital, IconDeviceLaptop, IconDoorExit, IconHelp, IconHome, IconPencilPlus, IconRouter, IconServer, IconServer2, IconUsers } from "@tabler/icons-react";
+import { IconAntenna, IconBuildingHospital, IconContract, IconDeviceLaptop, IconDoorExit, IconHelp, IconHome, IconPencilPlus, IconRouter, IconServer, IconServer2, IconUsers } from "@tabler/icons-react";
 import { BASE_PATH } from "./index";
 
 export const menu: IMenuItem[] = [
@@ -57,6 +57,13 @@ export const menu: IMenuItem[] = [
         title: 'گزارش فرآیند',
         href: `${BASE_PATH}/blog`,
         icon: <IconPencilPlus size={20} />
+    },
+    {
+        id: '10',
+        title: 'قراردادها',
+        href: `${BASE_PATH}/contract`,
+        icon: <IconContract size={20} />,
+        role: ['MANAGER', 'MANAGER_VIEW_ONLY']
     },
     {
         id: '98',
