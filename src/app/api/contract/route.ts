@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
         const data = body as INewContract;
 
         const contract = await Contract.create(data);
-        await contract.populate(['location']);
         return NextResponse.json({ code: 200, message: '', contract }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
@@ -30,9 +29,6 @@ export async function GET(req: NextRequest) {
         console.log('ttttt', JSON.parse(sort));
 
         const searchQuery: Record<string, string> = {...query};
-        if ((req as IAuthorizedRequst).user.role === 'ADMIN') {
-            searchQuery.location = (req as IAuthorizedRequst).user.location;
-        }
 
         console.log('quey', query, (req as IAuthorizedRequst).user.role, searchParams.entries());
         const conditions = Object.keys(searchQuery).map(queryKey => {
@@ -50,7 +46,6 @@ export async function GET(req: NextRequest) {
             .sort({...(JSON.parse(sort))})
             .skip(parseInt(skip) * parseInt(limit))
             .limit(parseInt(limit))
-            .populate(['location']);
 
         return NextResponse.json({ code: 200, message: '', contracts, count }, { status: 200 });
     } catch (error) {
@@ -63,7 +58,7 @@ export async function PATCH(req: NextRequest) {
         const body = await req.json();
         const { _id, ...updatedData } = body as IContract;
 
-        const contract = await Contract.findByIdAndUpdate(_id, updatedData, { new: true }).populate(['location']);
+        const contract = await Contract.findByIdAndUpdate(_id, updatedData, { new: true });
         return NextResponse.json({ code: 200, message: '', contract }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ code: 400, message: '', data: error}, { status: 400 });
